@@ -1,15 +1,18 @@
-import { CITIES, DEFAULT_CITY } from '../../const';
+import { NavLink } from 'react-router-dom';
+import { AppRoute, CITIES } from '../../const';
 
 interface LocationProps {
   city: string;
-  isSelected: boolean;
 }
 
-const Location = ({ city, isSelected }: LocationProps): JSX.Element => (
+const Location = ({ city }: LocationProps): JSX.Element => (
   <li key={city} className="locations__item">
-    <a className={`locations__item-link tabs__item ${isSelected ? 'tabs__item--active' : ''}`} href="#">
+    <NavLink
+      to={`${AppRoute.Root}${city}`}
+      className={({ isActive }) => `locations__item-link tabs__item${isActive ? ' tabs__item--active' : ''}`}
+    >
       <span>{city}</span>
-    </a>
+    </NavLink>
   </li>
 );
 
@@ -17,7 +20,7 @@ const LocationList = (): JSX.Element => (
   <section className="locations container">
     <ul className="locations__list tabs__list">
       {CITIES.map((city) => (
-        <Location key={city} city={city} isSelected={city === DEFAULT_CITY} />
+        <Location key={city} city={city} />
       ))}
     </ul>
   </section>

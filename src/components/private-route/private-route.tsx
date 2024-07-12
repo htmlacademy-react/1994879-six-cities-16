@@ -10,5 +10,5 @@ type Props = {
 export const PrivateRoute = ({ authenticationStatus, children }: Props) => (
   authenticationStatus === AuthenticationStatus.Auth
     ? children
-    : <Navigate to={`${AppRoute.Root}${AppRoute.Login}`} />
+    : <Navigate to={AppRoute.Login} />
 );
