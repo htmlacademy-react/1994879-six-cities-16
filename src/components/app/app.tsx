@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthenticationStatus, CITIES } from '../../const';
+import { AppRoute, AuthenticationStatus } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import Main from '../../pages/main';
 import Favorites from '../../pages/favorites';
@@ -18,7 +18,6 @@ const App = () : JSX.Element => {
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />} >
             <Route index element={<Main />} />
-            {CITIES.map((city) => <Route key={city} path={city} element={<Main />} />)}
             <Route path={AppRoute.Login} element={<Login />} />
             <Route
               path={AppRoute.Favorites}
