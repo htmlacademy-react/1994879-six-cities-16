@@ -1,5 +1,5 @@
 export const DEFAULT_CITY = 'Paris';
-export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export const MockedHeaderSettings = {
   email: 'Oliver.conner@gmail.com',
@@ -18,4 +18,10 @@ export enum AppRoute {
   Favorites = 'favorites',
   Offer = 'offer/:id',
   All = '*'
+}
+
+export enum AuthenticationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }
