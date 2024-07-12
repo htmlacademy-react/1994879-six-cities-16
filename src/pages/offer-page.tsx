@@ -1,24 +1,24 @@
-import Header from '../components/header/header';
 import OfferGallery from '../components/offer-gallery/offer-gallery';
 import OfferHost from '../components/offer-host/offer-host';
 import OfferReview from '../components/offer-review/offer-review';
 import PlaceCard from '../components/place-card/place-card';
+import {useParams} from 'react-router-dom';
 import { MockComments } from '../mock/comment';
 import { MockFavorites } from '../mock/favorites';
+import { MockOfferFull } from '../mock/offers';
 import { Offer, OfferFull } from '../types/offer';
 
-type OfferProps = {
-  offer: OfferFull;
-}
+const tempFindOfferById = (id: string | undefined): OfferFull => MockOfferFull.id === id ? MockOfferFull : MockOfferFull;
 
-const OfferPage = ({offer}: OfferProps) => {
+const OfferPage = () => {
+  const { id } = useParams();
+  const offer: OfferFull = tempFindOfferById(id);
+
   const nearOffers: Offer[] = MockFavorites;
   const comments = MockComments;
 
   return (
     <div className="page">
-      <Header isActiveClass={false} isLogged />
-
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -65,7 +65,7 @@ const OfferPage = ({offer}: OfferProps) => {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {offer.goods.map((good) => <li key='good' className="offer__inside-item">{good}</li>)}
+                  {offer.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
                 </ul>
               </div>
               <OfferHost host={offer.host} description={offer.description} title={offer.title} />

@@ -3,16 +3,15 @@ import { MockOffers } from '../mock/offers';
 import LocationList from '../components/location-list/location-list';
 import NoPlaces from '../components/no-places/no-places';
 import Places from '../components/places/places';
-import Header from '../components/header/header';
 import { isEmpty } from '../utils';
 
 const Main = (): JSX.Element => {
+
   const city = DEFAULT_CITY;
   const cityOffers = MockOffers.filter((offer) => offer.city.name === city);
 
   return (
     <div className="page page--gray page--main">
-      <Header isActiveClass isLogged/>
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
