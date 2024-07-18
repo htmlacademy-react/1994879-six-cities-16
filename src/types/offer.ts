@@ -9,6 +9,11 @@ export type City = {
   location: Location;
 }
 
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
 
 type OfferAbstract = {
   id: string;
@@ -24,12 +29,6 @@ type OfferAbstract = {
 
 export type Offer = OfferAbstract & {
   previewImage: string;
-}
-
-export type Host = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
 }
 
 export type OfferFull = OfferAbstract & {

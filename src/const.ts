@@ -13,11 +13,11 @@ export const DateOptions: Intl.DateTimeFormatOptions = {
 };
 
 export enum AppRoute {
-  Root = '/',
+  Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
-  All = '*'
+  All = '*',
 }
 
 export enum AuthenticationStatus {

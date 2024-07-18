@@ -1,8 +1,10 @@
-import { MockedHeaderSettings } from '../../const';
+import { useLocation } from 'react-router-dom';
+import { AppRoute, AuthenticationStatus, MockedHeaderSettings } from '../../const';
+import { Logo } from '../logo/logo';
 
 export type HeaderProps = {
-  isActiveClass: boolean;
-  isLogged: boolean;
+  isActiveClass?: boolean;
+  isLogged?: boolean;
 }
 
 const HeaderNav = (): JSX.Element => {
@@ -28,19 +30,23 @@ const HeaderNav = (): JSX.Element => {
   );
 };
 
-const Header = ({ isActiveClass = false, isLogged = false}: HeaderProps): JSX.Element => (
-  <header className="header">
-    <div className="container">
-      <div className="header__wrapper">
-        <div className="header__left">
-          <a className={`header__logo-link ${isActiveClass ? 'header__logo-link--active' : ''}`}>
-            <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-          </a>
+const Header = (): JSX.Element => {
+  const { pathname } = useLocation();
+  const isActive = pathname === AppRoute.Main as string;
+  const { isLogged } = MockedHeaderSettings;
+
+  return (
+    <header className="header">
+      <div className="container">
+        <div className="header__wrapper">
+          <div className="header__left">
+            <Logo logoType='header' isActive={isActive}/>
+          </div>
+          { isLogged ? <HeaderNav /> : null }
         </div>
-        { isLogged ? <HeaderNav /> : null }
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 export default Header;

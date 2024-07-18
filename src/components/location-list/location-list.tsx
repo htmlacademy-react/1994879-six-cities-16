@@ -8,8 +8,8 @@ interface LocationProps {
 const Location = ({ city }: LocationProps): JSX.Element => (
   <li key={city} className="locations__item">
     <NavLink
-      to={`${AppRoute.Root}${city}`}
-      className={({ isActive }) => `locations__item-link tabs__item${isActive ? ' tabs__item--active' : ''}`}
+      to={`${AppRoute.Main}${city}`}
+      className={({ isActive }) => `locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`}
     >
       <span>{city}</span>
     </NavLink>

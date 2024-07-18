@@ -1,13 +1,18 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../header/header';
+import { getPageClass } from '../../utils';
 
-const Layout = () => (
-  <>
-    <Header isActiveClass isLogged />
-    <main>
+const Layout = (): JSX.Element => {
+  const { pathname } = useLocation();
+  const pageClass = getPageClass(pathname);
+  const childClass = '';
+
+  return (
+    <div className={`page ${pageClass} ${childClass}`}>
+      <Header />
       <Outlet />
-    </main>
-  </>
-);
+    </div>
+  );
+};
 
 export default Layout;
