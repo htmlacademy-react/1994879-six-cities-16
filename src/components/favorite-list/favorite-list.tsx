@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
+import { AppRoute } from '../../const';
 
 type FavoriteCityProps = {
   city: string;
@@ -14,14 +16,14 @@ const FavoriteCity = ({city, offers}: FavoriteCityProps) => (
   <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
-        <a className="locations__item-link" href="#">
+        <Link to={AppRoute.Main} className="locations__item-link">
           <span>{city}</span>
-        </a>
+        </Link>
       </div>
     </div>
     <div className="favorites__places">
       {offers.map((offer) =>
-        <PlaceCard key={offer.id} className='favorites__card' {...offer} />)}
+        <PlaceCard key={offer.id} typeCard='favorites' offer={offer} />)}
     </div>
   </li>
 );

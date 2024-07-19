@@ -1,8 +1,10 @@
+import { FC } from 'react';
+
 type PremiumProps = {
   className: string;
 }
 
-const Premium = ({className}: PremiumProps) => (
+const Premium: FC<PremiumProps> = ({ className }) => (
   <div className={className}>
     <span>Premium</span>
   </div>

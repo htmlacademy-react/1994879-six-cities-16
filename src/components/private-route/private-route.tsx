@@ -1,6 +1,7 @@
 
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthenticationStatus } from '../../const';
+import { FC } from 'react';
 
 type Props = {
   authenticationStatus: AuthenticationStatus;
@@ -8,7 +9,7 @@ type Props = {
   children: JSX.Element;
 }
 
-export const PrivateRoute = ({ authenticationStatus, isLoginLocation, children }: Props) => {
+export const PrivateRoute: FC<Props> = ({ authenticationStatus, isLoginLocation, children }) => {
   const redirectRoute = isLoginLocation ? AppRoute.Main : AppRoute.Login;
 
   return authenticationStatus === (isLoginLocation ? AuthenticationStatus.NoAuth : AuthenticationStatus.Auth)

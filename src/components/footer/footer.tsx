@@ -1,6 +1,7 @@
-import { Logo } from '../logo/logo';
+import { FC } from 'react';
+import { Logo } from '../logo';
 
-const Footer = () => (
+const Footer: FC = () => (
   <footer className="footer">
     <Logo logoType='footer' />
   </footer>

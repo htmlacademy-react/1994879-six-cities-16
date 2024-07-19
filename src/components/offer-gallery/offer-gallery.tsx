@@ -1,8 +1,10 @@
+import { FC } from 'react';
+
 type OfferGalleryProps = {
   images: string[];
 }
 
-const OfferGallery = ({images}: OfferGalleryProps) => (
+const OfferGallery: FC<OfferGalleryProps> = ({ images }) => (
   <div className="offer__gallery">
     {images.map((image) => (
       <div key={image} className="offer__image-wrapper">

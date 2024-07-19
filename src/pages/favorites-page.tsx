@@ -20,9 +20,11 @@ const Favorites = () => {
     }
   ];
 
+  const favoriteComponent = isEmptyFavorites ? <FavoriteEmpty /> : <FavoriteList items={items}/>;
+
   return (
     <div className={`page ${isEmptyFavorites ? 'page--favorites-empty' : ''}`}>
-      {isEmptyFavorites ? <FavoriteEmpty /> : <FavoriteList items={items}/>}
+      {favoriteComponent}
       <Footer />
     </div>);
 };

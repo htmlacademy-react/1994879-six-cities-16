@@ -12,7 +12,7 @@ const MainPage = (): JSX.Element => {
   const isEmptyOffers = isEmpty(cityOffers);
 
   return (
-    <main className={`page__main page__main--index ${isEmptyOffers ? 'page__main--index-empty' : ''}`}>
+    <main className={`page__main page__main--index ${isEmptyOffers && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <LocationList />

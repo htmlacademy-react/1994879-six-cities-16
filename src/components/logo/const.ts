@@ -1,9 +1,8 @@
+import { ComponentSize } from '../../types/common';
+
 export type LogoType = 'header' | 'footer';
 
-type LogoSize = {
-  width: number;
-  height: number;
-}
+type LogoSize = ComponentSize;
 
 export const LogoSettings: Record<LogoType, LogoSize> = {
   'header': {

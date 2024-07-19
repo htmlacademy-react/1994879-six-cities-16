@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -7,12 +9,6 @@ export type Location = {
 export type City = {
   name: string;
   location: Location;
-}
-
-export type Host = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
 }
 
 type OfferAbstract = {
@@ -35,7 +31,7 @@ export type OfferFull = OfferAbstract & {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: User;
   images: string[];
   maxAdults: number;
 }

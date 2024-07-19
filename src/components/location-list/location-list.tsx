@@ -1,14 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { AppRoute, CITIES } from '../../const';
+import { FC } from 'react';
 
 interface LocationProps {
   city: string;
 }
 
-const Location = ({ city }: LocationProps): JSX.Element => (
+const Location: FC<LocationProps> = ({ city }) => (
   <li key={city} className="locations__item">
     <NavLink
-      to={`${AppRoute.Main}${city}`}
+      to={AppRoute.Main}
       className={({ isActive }) => `locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`}
     >
       <span>{city}</span>
@@ -16,12 +17,10 @@ const Location = ({ city }: LocationProps): JSX.Element => (
   </li>
 );
 
-const LocationList = (): JSX.Element => (
+const LocationList: FC = () => (
   <section className="locations container">
     <ul className="locations__list tabs__list">
-      {CITIES.map((city) => (
-        <Location key={city} city={city} />
-      ))}
+      {CITIES.map((city) => <Location key={city} city={city} />)}
     </ul>
   </section>
 );

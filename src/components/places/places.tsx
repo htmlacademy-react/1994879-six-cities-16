@@ -1,5 +1,6 @@
+import { FC } from 'react';
 import { Offer } from '../../types/offer';
-import PlaceCard from '../place-card/place-card';
+import { PlaceCard } from '../place-card';
 import { PlacesSorting } from './places-sorting';
 
 interface PlacesProps {
@@ -7,7 +8,7 @@ interface PlacesProps {
   offers: Offer[];
 }
 
-const Places = ({ city, offers }: PlacesProps): JSX.Element => (
+const Places: FC<PlacesProps> = ({ city, offers }) => (
   <div className="cities__places-container container">
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -15,7 +16,7 @@ const Places = ({ city, offers }: PlacesProps): JSX.Element => (
       <PlacesSorting />
       <div className="cities__places-list places__list tabs__content">
         {offers.map((offer) =>
-          <PlaceCard key={offer.id} className='cities__card' {...offer} />
+          <PlaceCard key={offer.id} typeCard='cities' offer={offer} />
         )}
       </div>
     </section>

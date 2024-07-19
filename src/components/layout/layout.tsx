@@ -1,8 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../header/header';
 import { getPageClass } from '../../utils';
+import { FC } from 'react';
 
-const Layout = (): JSX.Element => {
+const Layout: FC = () => {
   const { pathname } = useLocation();
   const pageClass = getPageClass(pathname);
   const childClass = '';

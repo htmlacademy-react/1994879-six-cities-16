@@ -5,7 +5,7 @@ const NotFoundPage = (): JSX.Element => {
 
   return (
     <div className='page'>
-      <h1 className='reviews__title'>404 - Page Not Found</h1>
+      <h1 className='reviews__title'>404 Not Found</h1>
       <p>Sorry, the page you are looking for could not be found.</p>
       <p>
         Go back to <a className='reviews__title' onClick={() => navigate(-1)}>previous page</a> or
