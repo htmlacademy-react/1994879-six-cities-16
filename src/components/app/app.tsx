@@ -8,6 +8,7 @@ import OfferPage from '../../pages/offer-page';
 import NotFoundPage from '../../pages/not-found-page';
 import Layout from '../layout/layout';
 import { PrivateRoute } from '../private-route/private-route';
+import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 
 const App = (): JSX.Element => {
   const authenticationStatus: AuthenticationStatus = AuthenticationStatus.Auth;
@@ -15,6 +16,7 @@ const App = (): JSX.Element => {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path={AppRoute.Main} element={<Layout />} >
             <Route index element={<MainPage />} />
