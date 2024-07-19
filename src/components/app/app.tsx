@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthenticationStatus } from '../../const';
+import { AppRoute, AuthenticationStatus, MockedHeaderSettings } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainPage from '../../pages/main-page';
 import FavoritesPage from '../../pages/favorites-page';
@@ -11,7 +11,8 @@ import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 
 const App = (): JSX.Element => {
-  const authenticationStatus: AuthenticationStatus = AuthenticationStatus.Auth;
+  const authenticationStatus: AuthenticationStatus =
+    MockedHeaderSettings.isLogged ? AuthenticationStatus.Auth : AuthenticationStatus.NoAuth;
 
   return (
     <HelmetProvider>

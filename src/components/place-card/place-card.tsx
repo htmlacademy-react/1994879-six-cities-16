@@ -28,7 +28,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
       onMouseLeave={() => handleHover(null)}
     >
       {isPremium && <Premium className='place-card__mark'/>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${typeCard}__image-wrapper place-card__image-wrapper`}>
         <Link to={offerLink} >
           <img className="place-card__image" src={ previewImage } width="260" height="200" alt="Place image" />
         </Link>

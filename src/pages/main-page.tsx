@@ -1,6 +1,6 @@
 import { DEFAULT_CITY } from '../const';
 import { MockOffers } from '../mock/offers';
-import LocationList from '../components/location-list/location-list';
+import { CityLinkList } from '../components/city-link';
 import NoPlaces from '../components/no-places/no-places';
 import Places from '../components/places/places';
 import { isEmpty } from '../utils';
@@ -15,7 +15,7 @@ const MainPage = (): JSX.Element => {
     <main className={`page__main page__main--index ${isEmptyOffers && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <LocationList />
+        <CityLinkList />
       </div>
       <div className="cities">
         {isEmptyOffers ?

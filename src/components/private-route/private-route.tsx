@@ -9,7 +9,7 @@ type Props = {
   children: JSX.Element;
 }
 
-export const PrivateRoute: FC<Props> = ({ authenticationStatus, isLoginLocation, children }) => {
+export const PrivateRoute: FC<Props> = ({ authenticationStatus, isLoginLocation = false, children }) => {
   const redirectRoute = isLoginLocation ? AppRoute.Main : AppRoute.Login;
 
   return authenticationStatus === (isLoginLocation ? AuthenticationStatus.NoAuth : AuthenticationStatus.Auth)

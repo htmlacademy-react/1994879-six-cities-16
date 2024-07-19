@@ -7,11 +7,16 @@ type RatingProps = {
   rating: number;
 }
 
-export const Rating: FC<RatingProps> = ({ type, rating }) => (
-  <div className={`${type}__rating rating`}>
-    <div className={`${type}__stars rating__stars`}>
-      <span style={{ width: ratingToPercent(rating) }}></span>
-      <span className="visually-hidden">Rating</span>
+export const Rating: FC<RatingProps> = ({ type, rating }) => {
+  const valueComponent = <span className="offer__rating-value rating__value">{rating}</span>;
+
+  return (
+    <div className={`${type}__rating rating`}>
+      <div className={`${type}__stars rating__stars`}>
+        <span style={{ width: ratingToPercent(rating) }}></span>
+        <span className="visually-hidden">Rating</span>
+      </div>
+      {type === 'offer' && valueComponent}
     </div>
-  </div>
-);
+  );
+};

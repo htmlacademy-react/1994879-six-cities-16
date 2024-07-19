@@ -1,6 +1,6 @@
 import OfferGallery from '../components/offer-gallery/offer-gallery';
 import OfferHost from '../components/offer-host/offer-host';
-import OfferReview from '../components/offer-review/offer-review';
+import { OfferReviews } from '../components/offer-reviews/offer-reviews';
 import PlaceCard from '../components/place-card/place-card';
 import Premium from '../components/premium/premium';
 import {useParams} from 'react-router-dom';
@@ -11,12 +11,15 @@ import { Offer, OfferFull } from '../types/offer';
 import { FC } from 'react';
 import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price/price';
+import { Rating } from '../components/rating';
+import { OfferFeatures } from '../components/offer-features';
 
 const tempFindOfferById = (id: string | undefined): OfferFull => MockOfferFull.id === id ? MockOfferFull : MockOfferFull;
 
 const OfferPage: FC = () => {
   const { id } = useParams();
   const offer: OfferFull = tempFindOfferById(id);
+  const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
 
   const nearOffers: Offer[] = MockFavorites;
   const comments = MockComments;
@@ -25,42 +28,26 @@ const OfferPage: FC = () => {
     <main className="page__main page__main--offer">
       <section className="offer">
         <div className="offer__gallery-container container">
-          <OfferGallery images={offer.images}/>
+          <OfferGallery images={images}/>
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
-            {offer.isPremium && <Premium className='offer__mark' />}
+            {isPremium && <Premium className='offer__mark' />}
             <div className="offer__name-wrapper">
-              <h1 className="offer__name">{offer.title}</h1>
-              <BookmarkButton type='offer' isActive={offer.isFavorite}/>
+              <h1 className="offer__name">{title}</h1>
+              <BookmarkButton type='offer' isActive={isFavorite}/>
             </div>
-            <div className="offer__rating rating">
-              <div className="offer__stars rating__stars">
-                <span style={{ width: '80%' }}></span>
-                <span className="visually-hidden">Rating</span>
-              </div>
-              <span className="offer__rating-value rating__value">{offer.rating}</span>
-            </div>
-            <ul className="offer__features">
-              <li className="offer__feature offer__feature--entire">
-                {offer.type}
-              </li>
-              <li className="offer__feature offer__feature--bedrooms">
-                {`${offer.bedrooms} Bedrooms`}
-              </li>
-              <li className="offer__feature offer__feature--adults">
-                {`Max ${offer.maxAdults} adults`}
-              </li>
-            </ul>
-            <Price type='offer' price={offer.price} />
+            <Rating type='offer' rating={rating} />
+            <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults}/>
+            <Price type='offer' price={price} />
             <div className="offer__inside">
               <h2 className="offer__inside-title">What&apos;s inside</h2>
               <ul className="offer__inside-list">
-                {offer.goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
+                {goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
               </ul>
             </div>
-            <OfferHost user={offer.host} description={offer.description} title={offer.title} />
-            <OfferReview comments={comments} isLogged/>
+            <OfferHost user={host} description={description} title={title} />
+            <OfferReviews reviews={comments} />
           </div>
         </div>
         <section className="offer__map map"></section>

@@ -22,6 +22,6 @@ export const MockFavorites: Offer[] = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 4,
-    'previewImage': 'https://url-to-image/image.png'
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/3.jpg'
   }
 ];

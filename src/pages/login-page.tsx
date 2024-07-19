@@ -1,7 +1,13 @@
-import { DEFAULT_CITY } from '../const';
+import { FC, useState } from 'react';
+import { CITIES, DEFAULT_CITY } from '../const';
+import { CityLink } from '../components/city-link';
+import { getRandomInt } from '../utils';
 
-const Login = () => {
-  const city = DEFAULT_CITY;
+const Login: FC = () => {
+  const [ randomCity, setRandomCity ] = useState(DEFAULT_CITY);
+
+  setRandomCity(CITIES[getRandomInt(0, CITIES.length - 1)]);
+
   return (
     <div className="page page--gray page--login">
       <main className="page__main page__main--login">
@@ -22,9 +28,7 @@ const Login = () => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>{city}</span>
-              </a>
+              <CityLink city={randomCity} />
             </div>
           </section>
         </div>
