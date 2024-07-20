@@ -3,7 +3,6 @@ export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', '
 
 export const MockedHeaderSettings = {
   email: 'Oliver.conner@gmail.com',
-  favoriteCount: 3,
   isLogged: true
 };
 
@@ -20,7 +19,7 @@ export enum AppRoute {
   All = '*',
 }
 
-export enum AuthenticationStatus {
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',

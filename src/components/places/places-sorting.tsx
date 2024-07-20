@@ -1,6 +1,6 @@
+import { FC } from 'react';
 
-
-export const PlacesSorting = (): JSX.Element => {
+export const PlacesSorting: FC = () => {
   const isOpened: boolean = false;
 
   return (

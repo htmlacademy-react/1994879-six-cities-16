@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Ratings } from './const';
 import { RatingStars } from '../rating-stars/rating-stars';
 
-const ReviewForm: FC = () => (
+export const ReviewForm: FC = () => (
   <form className="reviews__form form" action="#" method="post">
     <label className="reviews__label form__label" htmlFor="review">Your review</label>
     <div className="reviews__rating-form form__rating">
@@ -17,5 +17,3 @@ const ReviewForm: FC = () => (
     </div>
   </form>
 );
-
-export default ReviewForm;

@@ -8,7 +8,7 @@ type ReviewProps = {
   review: Comment;
 }
 
-const Review: FC<ReviewProps> = ({ review }) => {
+export const Review: FC<ReviewProps> = ({ review }) => {
   const { comment, date, rating, user } = review;
   const formattedDate = new Intl.DateTimeFormat('en-US', DateOptions).format(new Date(date));
 
@@ -23,5 +23,3 @@ const Review: FC<ReviewProps> = ({ review }) => {
     </li>
   );
 };
-
-export default Review;

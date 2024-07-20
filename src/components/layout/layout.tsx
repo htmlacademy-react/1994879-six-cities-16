@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Header from '../header/header';
+import { Header } from '../header';
 import { getPageClass } from '../../utils';
 import { FC } from 'react';
 

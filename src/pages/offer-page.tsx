@@ -1,4 +1,4 @@
-import OfferGallery from '../components/offer-gallery/offer-gallery';
+import { OfferGallery } from '../components/offer-gallery';
 import OfferHost from '../components/offer-host/offer-host';
 import { OfferReviews } from '../components/offer-reviews/offer-reviews';
 import PlaceCard from '../components/place-card/place-card';

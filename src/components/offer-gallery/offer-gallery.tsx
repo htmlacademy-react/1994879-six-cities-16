@@ -1,17 +1,16 @@
 import { FC } from 'react';
+import { IMAGES_LIMIT } from './const';
 
 type OfferGalleryProps = {
   images: string[];
 }
 
-const OfferGallery: FC<OfferGalleryProps> = ({ images }) => (
+export const OfferGallery: FC<OfferGalleryProps> = ({ images }) => (
   <div className="offer__gallery">
-    {images.map((image) => (
+    {images.slice(0, IMAGES_LIMIT).map((image) => (
       <div key={image} className="offer__image-wrapper">
         <img className="offer__image" src={image} alt="Photo studio" />
       </div>
     ))}
   </div>
 );
-
-export default OfferGallery;

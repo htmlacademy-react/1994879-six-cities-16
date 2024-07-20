@@ -1,18 +1,18 @@
 
 import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthenticationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { FC } from 'react';
 
 type Props = {
-  authenticationStatus: AuthenticationStatus;
+  authorizationStatus: AuthorizationStatus;
   isLoginLocation?: boolean;
   children: JSX.Element;
 }
 
-export const PrivateRoute: FC<Props> = ({ authenticationStatus, isLoginLocation = false, children }) => {
+export const PrivateRoute: FC<Props> = ({ authorizationStatus, isLoginLocation = false, children }) => {
   const redirectRoute = isLoginLocation ? AppRoute.Main : AppRoute.Login;
 
-  return authenticationStatus === (isLoginLocation ? AuthenticationStatus.NoAuth : AuthenticationStatus.Auth)
+  return authorizationStatus === (isLoginLocation ? AuthorizationStatus.NoAuth : AuthorizationStatus.Auth)
     ? children
     : <Navigate to={redirectRoute} />;
 };
