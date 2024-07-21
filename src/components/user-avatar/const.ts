@@ -1,12 +1,12 @@
 import { ComponentSize } from '../../types/common';
 
 export type UserAvatarType = 'offer' | 'reviews';
-type UserAvatarOptions = ComponentSize & {
+type UserAvatarOption = ComponentSize & {
   alt: string;
   baseClass: string;
 };
 
-export const UserAvatarSettings: Record<UserAvatarType, UserAvatarOptions > = {
+export const UserAvatarSettings: Record<UserAvatarType, UserAvatarOption > = {
   'offer': {
     baseClass: 'offer__host-user',
     width: 74,

@@ -7,6 +7,7 @@ import { PlaceCardSettings, PlaceCardType } from './const';
 import { BookmarkButton } from '../bookmark-button';
 import { Rating } from '../rating';
 import { Price } from '../price/price';
+import { getCapitalizedText } from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -17,23 +18,23 @@ type PlaceCardProps = {
 export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
   const { id, price, title, type, rating, previewImage, isPremium, isFavorite } = offer;
   const offerLink = AppRoute.Offer.replace(':id', id);
-  const className = PlaceCardSettings[typeCard];
+  const { baseClass, infoClass, width, height } = PlaceCardSettings[typeCard];
 
   const handleHover = (newOffer: Offer | null) => onHover?.(newOffer);
 
   return (
     <article
-      className={`${className} place-card`}
+      className={`${baseClass} place-card`}
       onMouseEnter={() => handleHover(offer)}
       onMouseLeave={() => handleHover(null)}
     >
       {isPremium && <Premium className='place-card__mark'/>}
       <div className={`${typeCard}__image-wrapper place-card__image-wrapper`}>
         <Link to={offerLink} >
-          <img className="place-card__image" src={ previewImage } width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${infoClass} place-card__info`}>
         <div className="place-card__price-wrapper">
           <Price type='place-card' price={price}/>
           <BookmarkButton type='place-card' isActive={isFavorite}/>
@@ -42,7 +43,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
         <h2 className="place-card__name">
           <Link to={offerLink} >{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{getCapitalizedText(type)}</p>
       </div>
     </article>
   );

@@ -2,14 +2,15 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from '../header';
 import { getPageClass } from '../../utils';
 import { FC } from 'react';
+import { MockFavorites } from '../../mock/favorites';
 
 const Layout: FC = () => {
   const { pathname } = useLocation();
-  const pageClass = getPageClass(pathname);
-  const childClass = '';
+  const favorites = MockFavorites;
+  const pageClass = getPageClass(pathname, favorites.length);
 
   return (
-    <div className={`page ${pageClass} ${childClass}`}>
+    <div className={`page ${pageClass}`}>
       <Header />
       <Outlet />
     </div>

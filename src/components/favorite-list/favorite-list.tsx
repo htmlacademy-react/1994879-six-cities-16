@@ -9,10 +9,10 @@ type FavoriteCityProps = {
 }
 
 type FavoriteListProps = {
-  items: FavoriteCityProps[];
+  list: FavoriteCityProps[];
 }
 
-const FavoriteCity = ({city, offers}: FavoriteCityProps) => (
+const FavoriteCity = ({ city, offers }: FavoriteCityProps) => (
   <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
@@ -28,13 +28,13 @@ const FavoriteCity = ({city, offers}: FavoriteCityProps) => (
   </li>
 );
 
-const FavoriteList = ({items}: FavoriteListProps) => (
+const FavoriteList = ({ list }: FavoriteListProps) => (
   <main className="page__main page__main--favorites">
     <div className="page__favorites-container container">
       <section className="favorites">
         <h1 className="favorites__title">Saved listing</h1>
         <ul className="favorites__list">
-          {items.map(({city, offers}) =>
+          {list.map(({city, offers}) =>
             <FavoriteCity key={city} city={city} offers={offers} />)}
         </ul>
       </section>

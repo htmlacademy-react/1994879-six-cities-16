@@ -4,10 +4,10 @@ import { CityLinkList } from '../components/city-link';
 import NoPlaces from '../components/no-places/no-places';
 import Places from '../components/places/places';
 import { isEmpty } from '../utils';
+import { useState } from 'react';
 
 const MainPage = (): JSX.Element => {
-
-  const city = DEFAULT_CITY;
+  const [ city, setCity ] = useState(DEFAULT_CITY);
   const cityOffers = MockOffers.filter((offer) => offer.city.name === city);
   const isEmptyOffers = isEmpty(cityOffers);
 
@@ -15,7 +15,7 @@ const MainPage = (): JSX.Element => {
     <main className={`page__main page__main--index ${isEmptyOffers && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <CityLinkList />
+        <CityLinkList activeCity={city} onCityChange={setCity}/>
       </div>
       <div className="cities">
         {isEmptyOffers ?

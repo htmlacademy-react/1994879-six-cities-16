@@ -1238,7 +1238,7 @@ export const MockOffers: Offer[] = [
       'longitude': 4.3536969999999995,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.3
   },
