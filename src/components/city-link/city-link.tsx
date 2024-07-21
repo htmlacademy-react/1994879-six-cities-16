@@ -5,11 +5,11 @@ import { AppRoute } from '../../const';
 interface CityLinkProps {
   city: string;
   isActive?: boolean;
-  onCityChange: (city: string) => void;
+  onCityChange?: (city: string) => void;
 }
 
 export const CityLink: FC<CityLinkProps> = ({ city, isActive = false, onCityChange }) => {
-  const handleClick = () => onCityChange(city);
+  const handleClick = () => onCityChange?.(city);
 
   return (
     <Link
