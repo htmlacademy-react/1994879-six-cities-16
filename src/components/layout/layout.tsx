@@ -1,8 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from '../header';
-import { getPageClass } from '../../utils';
+import { getHelmetTitle, getPageClass } from '../../utils';
 import { FC } from 'react';
 import { MockFavorites } from '../../mock/favorites';
+import { Helmet } from 'react-helmet-async';
 
 const Layout: FC = () => {
   const { pathname } = useLocation();
@@ -10,10 +11,15 @@ const Layout: FC = () => {
   const pageClass = getPageClass(pathname, favorites.length);
 
   return (
-    <div className={`page ${pageClass}`}>
-      <Header />
-      <Outlet />
-    </div>
+    <>
+      <Helmet>
+        <title>{getHelmetTitle(pathname)}</title>
+      </Helmet>
+      <div className={`page ${pageClass}`}>
+        <Header />
+        <Outlet />
+      </div>
+    </>
   );
 };
 

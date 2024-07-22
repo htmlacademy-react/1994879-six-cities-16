@@ -8,7 +8,7 @@ interface PlacesProps {
   offers: Offer[];
 }
 
-const Places: FC<PlacesProps> = ({ city, offers }) => (
+export const Places: FC<PlacesProps> = ({ city, offers }) => (
   <div className="cities__places-container container">
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -25,5 +25,3 @@ const Places: FC<PlacesProps> = ({ city, offers }) => (
     </div>
   </div>
 );
-
-export default Places;

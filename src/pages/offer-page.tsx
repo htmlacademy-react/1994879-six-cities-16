@@ -1,9 +1,9 @@
 import { OfferGallery } from '../components/offer-gallery';
-import OfferHost from '../components/offer-host/offer-host';
+import { OfferHost } from '../components/offer-host';
 import { OfferReviews } from '../components/offer-reviews/offer-reviews';
-import PlaceCard from '../components/place-card/place-card';
-import Premium from '../components/premium/premium';
-import {useParams} from 'react-router-dom';
+import { PlaceCard } from '../components/place-card';
+import { Premium } from '../components/premium/premium';
+import { useParams } from 'react-router-dom';
 import { MockComments } from '../mock/comment';
 import { MockFavorites } from '../mock/favorites';
 import { MockOfferFull } from '../mock/offers';
@@ -46,7 +46,7 @@ const OfferPage: FC = () => {
                 {goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
               </ul>
             </div>
-            <OfferHost user={host} description={description} title={title} />
+            <OfferHost user={host} description={description} />
             <OfferReviews reviews={comments} />
           </div>
         </div>

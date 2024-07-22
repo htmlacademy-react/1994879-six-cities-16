@@ -4,10 +4,8 @@ type PremiumProps = {
   className: string;
 }
 
-const Premium: FC<PremiumProps> = ({ className }) => (
+export const Premium: FC<PremiumProps> = ({ className }) => (
   <div className={className}>
     <span>Premium</span>
   </div>
 );
-
-export default Premium;

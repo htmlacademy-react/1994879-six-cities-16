@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import Premium from '../premium/premium';
+import { Premium } from '../premium';
 import { Offer } from '../../types/offer';
 import { AppRoute } from '../../const';
 import { PlaceCardSettings, PlaceCardType } from './const';

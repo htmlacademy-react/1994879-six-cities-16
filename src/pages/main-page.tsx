@@ -1,8 +1,8 @@
 import { DEFAULT_CITY } from '../const';
 import { MockOffers } from '../mock/offers';
 import { CityLinkList } from '../components/city-link';
-import NoPlaces from '../components/no-places/no-places';
-import Places from '../components/places/places';
+import { NoPlaces } from '../components/no-places';
+import { Places } from '../components/places';
 import { isEmpty } from '../utils';
 import { useState } from 'react';
 
