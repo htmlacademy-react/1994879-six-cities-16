@@ -39,7 +39,7 @@ const App = (): JSX.Element => {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.All} element={<NotFoundPage />} />
+          <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

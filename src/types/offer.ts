@@ -24,3 +24,4 @@ export type OfferFull = Offer & {
 }
 
 export type OfferOrNull = Offer | null;
+export type OfferFullOrNull = OfferFull | null;

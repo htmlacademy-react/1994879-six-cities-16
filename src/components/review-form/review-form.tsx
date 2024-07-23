@@ -5,7 +5,7 @@ import { inRange } from './utils';
 
 export const ReviewForm: FC = () => {
   const [ rating, setRating ] = useState(DEFAULT_RATING);
-  const [ text, SetText ] = useState('');
+  const [ text, setText ] = useState('');
   const isValidData = inRange(rating, RatingLimit) && inRange(text.length, CommentLimit);
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +15,7 @@ export const ReviewForm: FC = () => {
 
   const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {value} = evt.target;
-    SetText(value);
+    setText(value);
   };
 
   return (
