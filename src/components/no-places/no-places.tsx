@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import { CityName } from '../../types/city';
 
 interface NoPlacesProps {
-  city: string;
+  city: CityName;
 }
 
 export const NoPlaces: FC<NoPlacesProps> = ({ city }) => (

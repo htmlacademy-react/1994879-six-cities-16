@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { CityName } from '../../types/city';
 
 interface CityLinkProps {
-  city: string;
+  city: CityName;
   isActive?: boolean;
-  onCityChange?: (city: string) => void;
+  onCityChange?: (city: CityName) => void;
 }
 
 export const CityLink: FC<CityLinkProps> = ({ city, isActive = false, onCityChange }) => {

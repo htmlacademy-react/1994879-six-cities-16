@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { OfferGallery } from '../components/offer-gallery';
 import { OfferHost } from '../components/offer-host';
 import { OfferReviews } from '../components/offer-reviews/offer-reviews';
@@ -8,11 +9,11 @@ import { MockComments } from '../mock/comment';
 import { MockFavorites } from '../mock/favorites';
 import { MockOfferFull } from '../mock/offers';
 import { Offer, OfferFull } from '../types/offer';
-import { FC } from 'react';
 import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price/price';
 import { Rating } from '../components/rating';
 import { OfferFeatures } from '../components/offer-features';
+import { Map } from '../components/map';
 
 const tempFindOfferById = (id: string | undefined): OfferFull => MockOfferFull.id === id ? MockOfferFull : MockOfferFull;
 
@@ -50,7 +51,9 @@ const OfferPage: FC = () => {
             <OfferReviews reviews={comments} />
           </div>
         </div>
-        <section className="offer__map map"></section>
+        <section className="offer__map map">
+          <Map city={offer.city} offers={nearOffers} selectedOffer={offer} />
+        </section>
       </section>
 
       <div className="container">

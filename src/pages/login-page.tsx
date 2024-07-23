@@ -1,12 +1,16 @@
 import { FC, useEffect, useState } from 'react';
-import { CITIES, DEFAULT_CITY } from '../const';
+import { Cities, DEFAULT_CITY } from '../const';
 import { CityLink } from '../components/city-link';
 import { getRandomInt } from '../utils';
+import { CityName } from '../types/city';
 
 const Login: FC = () => {
   const [ randomCity, setRandomCity ] = useState(DEFAULT_CITY);
 
-  useEffect(() => setRandomCity(CITIES[getRandomInt(0, CITIES.length - 1)]), []);
+  useEffect(() => {
+    const cities = Object.keys(Cities);
+    setRandomCity(cities[getRandomInt(0, cities.length - 1)] as CityName);
+  }, []);
 
   return (
     <div className="page page--gray page--login">

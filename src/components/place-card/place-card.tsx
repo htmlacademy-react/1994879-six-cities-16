@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Premium } from '../premium';
-import { Offer } from '../../types/offer';
+import { Offer, OfferOrNull } from '../../types/offer';
 import { AppRoute } from '../../const';
 import { PlaceCardSettings, PlaceCardType } from './const';
 import { BookmarkButton } from '../bookmark-button';
@@ -12,7 +12,7 @@ import { getCapitalizedText } from '../../utils';
 type PlaceCardProps = {
   offer: Offer;
   typeCard: PlaceCardType;
-  onHover?: (offer: Offer | null) => void;
+  onHover?: (offer: OfferOrNull) => void;
 }
 
 export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
@@ -20,7 +20,11 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
   const offerLink = AppRoute.Offer.replace(':id', id);
   const { baseClass, infoClass, width, height } = PlaceCardSettings[typeCard];
 
-  const handleHover = (newOffer: Offer | null) => onHover?.(newOffer);
+  const handleHover = (newOffer: OfferOrNull) => {
+    if (onHover) {
+      onHover(newOffer);
+    }
+  };
 
   return (
     <article
