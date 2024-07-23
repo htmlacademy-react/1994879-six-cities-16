@@ -1,38 +1,41 @@
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
+import { AppRoute } from '../../const';
+import { CityName } from '../../types/city';
 
 type FavoriteCityProps = {
-  city: string;
+  city: CityName;
   offers: Offer[];
 }
 
 type FavoriteListProps = {
-  items: FavoriteCityProps[];
+  list: FavoriteCityProps[];
 }
 
-const FavoriteCity = ({city, offers}: FavoriteCityProps) => (
+const FavoriteCity = ({ city, offers }: FavoriteCityProps) => (
   <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
-        <a className="locations__item-link" href="#">
+        <Link to={AppRoute.Main} className="locations__item-link">
           <span>{city}</span>
-        </a>
+        </Link>
       </div>
     </div>
     <div className="favorites__places">
       {offers.map((offer) =>
-        <PlaceCard key={offer.id} className='favorites__card' {...offer} />)}
+        <PlaceCard key={offer.id} typeCard='favorites' offer={offer} />)}
     </div>
   </li>
 );
 
-const FavoriteList = ({items}: FavoriteListProps) => (
+const FavoriteList = ({ list }: FavoriteListProps) => (
   <main className="page__main page__main--favorites">
     <div className="page__favorites-container container">
       <section className="favorites">
         <h1 className="favorites__title">Saved listing</h1>
         <ul className="favorites__list">
-          {items.map(({city, offers}) =>
+          {list.map(({city, offers}) =>
             <FavoriteCity key={city} city={city} offers={offers} />)}
         </ul>
       </section>

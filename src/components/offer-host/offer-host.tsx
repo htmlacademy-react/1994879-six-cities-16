@@ -1,34 +1,24 @@
-import { Host } from '../../types/offer';
+
+import { FC } from 'react';
+import { User } from '../../types/user';
+import { UserAvatar } from '../user-avatar';
 
 type HostProps = {
-  host: Host;
+  user: User;
   description: string;
-  title: string;
 }
 
-const OfferHost = ({host, description, title}: HostProps) => (
-  <div className="offer__host">
-    <h2 className="offer__host-title">Meet the host</h2>
-    <div className="offer__host-user user">
-      <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-        <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+export const OfferHost: FC<HostProps> = ({ user, description }) => {
+  const sentences = description.split('. ').map((sentence, index) => (
+    { id: index, text: sentence, }
+  ));
+  return (
+    <div className="offer__host">
+      <h2 className="offer__host-title">Meet the host</h2>
+      <UserAvatar type='offer' user={user} />
+      <div className="offer__description">
+        {sentences.map(({ id, text }) => <p key={id} className="offer__text">{text}</p>)}
       </div>
-      <span className="offer__user-name">
-        {host.name}
-      </span>
-      <span className="offer__user-status">
-        {host.isPro ? 'Pro' : ''}
-      </span>
     </div>
-    <div className="offer__description">
-      <p className="offer__text">
-        {description}
-      </p>
-      <p className="offer__text">
-        {title}
-      </p>
-    </div>
-  </div>
-);
-
-export default OfferHost;
+  );
+};

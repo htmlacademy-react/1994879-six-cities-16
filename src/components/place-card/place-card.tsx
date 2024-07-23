@@ -1,39 +1,56 @@
-import { Place } from '../../types/place-card';
-import Premium from '../premium/premium';
+import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { Premium } from '../premium';
+import { Offer, OfferOrNull } from '../../types/offer';
+import { AppRoute } from '../../const';
+import { PlaceCardSettings, PlaceCardType } from './const';
+import { BookmarkButton } from '../bookmark-button';
+import { Rating } from '../rating';
+import { Price } from '../price/price';
+import { getCapitalizedText } from '../../utils';
 
-const PlaceCard = ({ className, price, title, type, previewImage, isPremium }: Place) => (
-  <article className={`${className} place-card`}>
-    {isPremium ? <Premium className='place-card__mark'/> : null}
-    <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#">
-        <img className="place-card__image" src={ previewImage } width="260" height="200" alt="Place image" />
-      </a>
-    </div>
-    <div className="place-card__info">
-      <div className="place-card__price-wrapper">
-        <div className="place-card__price">
-          <b className="place-card__price-value">&euro;{price}</b>
-          <span className="place-card__price-text">&#47;&nbsp;night</span>
-        </div>
-        <button className="place-card__bookmark-button button" type="button">
-          <svg className="place-card__bookmark-icon" width="18" height="19">
-            <use href="#icon-bookmark"></use>
-          </svg>
-          <span className="visually-hidden">To bookmarks</span>
-        </button>
+type PlaceCardProps = {
+  offer: Offer;
+  typeCard: PlaceCardType;
+  onHover?: (offer: OfferOrNull) => void;
+}
+
+export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
+  const { id, price, title, type, rating, previewImage, isPremium, isFavorite } = offer;
+  const offerLink = AppRoute.Offer.replace(':id', id);
+  const { baseClass, infoClass, width, height } = PlaceCardSettings[typeCard];
+
+  const handleHover = (newOffer: OfferOrNull) => {
+    if (onHover) {
+      onHover(newOffer);
+    }
+  };
+
+  return (
+    <article
+      className={`${baseClass} place-card`}
+      onMouseEnter={() => handleHover(offer)}
+      onMouseLeave={() => handleHover(null)}
+    >
+      {isPremium && <Premium className='place-card__mark'/>}
+      <div className={`${typeCard}__image-wrapper place-card__image-wrapper`}>
+        <Link to={offerLink} >
+          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image" />
+        </Link>
       </div>
-      <div className="place-card__rating rating">
-        <div className="place-card__stars rating__stars">
-          <span style={ {width: '80%'} }></span>
-          <span className="visually-hidden">Rating</span>
+      <div className={`${infoClass} place-card__info`}>
+        <div className="place-card__price-wrapper">
+          <Price type='place-card' price={price}/>
+          <BookmarkButton type='place-card' isActive={isFavorite}/>
         </div>
+        <Rating type='place-card' rating={rating}/>
+        <h2 className="place-card__name">
+          <Link to={offerLink} >{title}</Link>
+        </h2>
+        <p className="place-card__type">{getCapitalizedText(type)}</p>
       </div>
-      <h2 className="place-card__name">
-        <a href="#">{title}</a>
-      </h2>
-      <p className="place-card__type">{type}</p>
-    </div>
-  </article>
-);
+    </article>
+  );
+};
 
 export default PlaceCard;

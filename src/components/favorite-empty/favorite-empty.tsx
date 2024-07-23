@@ -1,4 +1,6 @@
-const FavoriteEmpty = () => (
+import { FC } from 'react';
+
+const FavoriteEmpty: FC = () => (
   <main className="page__main page__main--favorites page__main--favorites-empty">
     <div className="page__favorites-container container">
       <section className="favorites favorites--empty">

@@ -1,8 +1,11 @@
+import { FC } from 'react';
+import { CityName } from '../../types/city';
+
 interface NoPlacesProps {
-  city: string;
+  city: CityName;
 }
 
-const NoPlaces = ({ city }: NoPlacesProps) => (
+export const NoPlaces: FC<NoPlacesProps> = ({ city }) => (
   <div className="cities__places-container cities__places-container--empty container">
     <section className="cities__no-places">
       <div className="cities__status-wrapper tabs__content">
@@ -13,5 +16,3 @@ const NoPlaces = ({ city }: NoPlacesProps) => (
     <div className="cities__right-section"></div>
   </div>
 );
-
-export default NoPlaces;
