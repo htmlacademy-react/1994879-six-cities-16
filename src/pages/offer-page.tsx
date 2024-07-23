@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { OfferGallery } from '../components/offer-gallery';
 import { OfferHost } from '../components/offer-host';
 import { OfferReviews } from '../components/offer-reviews/offer-reviews';
@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { MockComments } from '../mock/comment';
 import { MockFavorites } from '../mock/favorites';
 import { MockOfferFull } from '../mock/offers';
-import { Offer, OfferFull } from '../types/offer';
+import { Offer, OfferFull, OfferOrNull } from '../types/offer';
 import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price/price';
 import { Rating } from '../components/rating';
@@ -18,12 +18,15 @@ import { Map } from '../components/map';
 const tempFindOfferById = (id: string | undefined): OfferFull => MockOfferFull.id === id ? MockOfferFull : MockOfferFull;
 
 const OfferPage: FC = () => {
+  const [ selectedNearOffer, setSelectedNearOffer ] = useState<OfferOrNull>(null);
   const { id } = useParams();
   const offer: OfferFull = tempFindOfferById(id);
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
 
   const nearOffers: Offer[] = MockFavorites;
   const comments = MockComments;
+
+  const handleHover = (newOffer: OfferOrNull) => setSelectedNearOffer(newOffer);
 
   return (
     <main className="page__main page__main--offer">
@@ -52,7 +55,7 @@ const OfferPage: FC = () => {
           </div>
         </div>
         <section className="offer__map map">
-          <Map city={offer.city} offers={nearOffers} selectedOffer={offer} />
+          <Map city={offer.city} offers={nearOffers} selectedOffer={selectedNearOffer} />
         </section>
       </section>
 
@@ -60,7 +63,8 @@ const OfferPage: FC = () => {
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {nearOffers.map((nearOffer) => <PlaceCard key={nearOffer.id} typeCard='near-places' offer={nearOffer} />)}
+            {nearOffers.map((nearOffer) =>
+              <PlaceCard key={nearOffer.id} typeCard='near-places' offer={nearOffer} onHover={handleHover} />)}
           </div>
         </section>
       </div>
