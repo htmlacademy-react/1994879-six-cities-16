@@ -13,6 +13,7 @@ import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price/price';
 import { Rating } from '../components/rating';
 import { OfferFeatures } from '../components/offer-features';
+import { OfferInside } from '../components/offer-inside';
 import { Map } from '../components/map';
 import { AppRoute } from '../const';
 
@@ -23,8 +24,7 @@ const OfferPage: FC = () => {
   const offer: OfferFull | undefined = tempFindOfferById(id);
 
   if (!offer) {
-    <Navigate to={AppRoute.NotFound} replace />;
-    return;
+    return <Navigate to={AppRoute.NotFound} replace />;
   }
 
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
@@ -48,12 +48,7 @@ const OfferPage: FC = () => {
             <Rating type='offer' rating={rating} />
             <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults}/>
             <Price type='offer' price={price} />
-            <div className="offer__inside">
-              <h2 className="offer__inside-title">What&apos;s inside</h2>
-              <ul className="offer__inside-list">
-                {goods.map((good) => <li key={good} className="offer__inside-item">{good}</li>)}
-              </ul>
-            </div>
+            <OfferInside goods={goods} />
             <OfferHost user={host} description={description} />
             <OfferReviews reviews={comments} />
           </div>
