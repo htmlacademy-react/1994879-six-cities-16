@@ -1,1 +1,1 @@
-export const REVIEWS_LIMIT = 10;
+export const REVIEWS_LIMIT = 3;

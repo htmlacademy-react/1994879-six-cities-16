@@ -1,7 +1,7 @@
 
 import { useRef, useEffect, FC } from 'react';
 import { Marker, layerGroup } from 'leaflet';
-import { Offer, OfferOrNull } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { City } from '../../types/city';
 import { getCustomIcon } from './utils';
 import { useMap } from './use-map';
@@ -10,7 +10,7 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   city: City;
   offers: Offer[];
-  selectedOffer: OfferOrNull;
+  selectedOffer: Offer | undefined;
 };
 
 export const Map: FC<MapProps> = ({ city, offers, selectedOffer }) => {
@@ -30,7 +30,7 @@ export const Map: FC<MapProps> = ({ city, offers, selectedOffer }) => {
         });
 
         marker
-          .setIcon(getCustomIcon(id === selectedOffer?.id))
+          .setIcon(getCustomIcon(selectedOffer?.id === id))
           .addTo(markerLayer);
       });
 

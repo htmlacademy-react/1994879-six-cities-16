@@ -22,6 +22,3 @@ export type OfferFull = Offer & {
   images: string[];
   maxAdults: number;
 }
-
-export type OfferOrNull = Offer | null;
-export type OfferFullOrNull = OfferFull | null;

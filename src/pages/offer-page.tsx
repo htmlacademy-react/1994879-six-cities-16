@@ -8,7 +8,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { MockComments } from '../mock/comment';
 import { MockFavorites } from '../mock/favorites';
 import { MockOfferFull } from '../mock/offers';
-import { Offer, OfferFullOrNull } from '../types/offer';
+import { Offer, OfferFull } from '../types/offer';
 import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price/price';
 import { Rating } from '../components/rating';
@@ -16,11 +16,11 @@ import { OfferFeatures } from '../components/offer-features';
 import { Map } from '../components/map';
 import { AppRoute } from '../const';
 
-const tempFindOfferById = (id: string | undefined): OfferFullOrNull => MockOfferFull.id === id ? MockOfferFull : MockOfferFull;
+const tempFindOfferById = (id: string | undefined): OfferFull | undefined => MockOfferFull.id === id ? MockOfferFull : MockOfferFull;
 
 const OfferPage: FC = () => {
   const { id } = useParams();
-  const offer: OfferFullOrNull = tempFindOfferById(id);
+  const offer: OfferFull | undefined = tempFindOfferById(id);
 
   if (!offer) {
     <Navigate to={AppRoute.NotFound} replace />;
