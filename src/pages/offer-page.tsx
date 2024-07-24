@@ -28,8 +28,8 @@ const OfferPage: FC = () => {
   }
 
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
-
   const nearOffers: Offer[] = MockFavorites;
+  const mapOffers = [...nearOffers, offer];
   const comments = MockComments;
 
   return (
@@ -59,7 +59,7 @@ const OfferPage: FC = () => {
           </div>
         </div>
         <section className="offer__map map">
-          <Map city={offer.city} offers={nearOffers} selectedOffer={offer} />
+          <Map city={offer.city} offers={mapOffers} selectedOffer={offer} />
         </section>
       </section>
 

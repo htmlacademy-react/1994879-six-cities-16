@@ -1,21 +1,17 @@
 import { IconOptions, TileLayerOptions } from 'leaflet';
 
-export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-
-export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER_DEFAULT = './img/pin.svg';
+export const URL_MARKER_CURRENT = './img/pin-active.svg';
 
 export const DefaultIconOptions: IconOptions = {
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [27, 39],
+  iconAnchor: [13, 39],
 };
 
 export const CurrentCustomIcon: IconOptions = {
+  ...DefaultIconOptions,
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
 };
 
 type TileLayerConfigType = {

@@ -3,7 +3,7 @@ import { Comment } from '../../types/comment';
 import { ReviewForm } from '../review-form';
 import { Review } from '../review/review';
 import { MockedHeaderSettings } from '../../const';
-import { REVIEWS_LIMIT } from './const';
+import { REVIEWS_LIMIT, sortComments } from './utils';
 
 type OfferReviewsProps = {
   reviews: Comment[];
@@ -11,7 +11,7 @@ type OfferReviewsProps = {
 
 export const OfferReviews: FC<OfferReviewsProps> = ({ reviews }) => {
   const { isLogged } = MockedHeaderSettings;
-  const limitedReviews = reviews.slice(0, REVIEWS_LIMIT);
+  const limitedReviews = [...reviews].sort(sortComments).slice(0, REVIEWS_LIMIT);
 
   return (
     <section className="offer__reviews reviews">
