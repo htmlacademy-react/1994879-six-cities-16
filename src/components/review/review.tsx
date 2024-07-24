@@ -11,6 +11,7 @@ type ReviewProps = {
 export const Review: FC<ReviewProps> = ({ review }) => {
   const { comment, date, rating, user } = review;
   const formattedDate = new Intl.DateTimeFormat('en-US', DateOptions).format(new Date(date));
+  const dateTime = date.toISOString().split('T')[0];
 
   return (
     <li className="reviews__item">
@@ -18,7 +19,7 @@ export const Review: FC<ReviewProps> = ({ review }) => {
       <div className="reviews__info">
         <Rating type='reviews' rating={rating} />
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime={date}>{formattedDate}</time>
+        <time className="reviews__time" dateTime={dateTime}>{formattedDate}</time>
       </div>
     </li>
   );

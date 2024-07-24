@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Offer, OfferOrNull } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { PlaceCard } from '../place-card';
 import { PlacesSorting } from './places-sorting';
 import { Map } from '../map';
@@ -12,10 +12,10 @@ interface PlacesProps {
 }
 
 export const Places: FC<PlacesProps> = ({ city, offers }) => {
-  const [ selectedOffer, setSelectedOffer ] = useState<OfferOrNull>(null);
+  const [ selectedOffer, setSelectedOffer ] = useState<Offer>();
   const cityLocation = Cities[city];
 
-  const handleHover = (newOffer: OfferOrNull) => setSelectedOffer(newOffer);
+  const handleHover = (newOffer: Offer | undefined) => setSelectedOffer(newOffer);
 
   return (
     <div className="cities__places-container container">

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Premium } from '../premium';
-import { Offer, OfferOrNull } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { AppRoute } from '../../const';
 import { PlaceCardSettings, PlaceCardType } from './const';
 import { BookmarkButton } from '../bookmark-button';
@@ -12,7 +12,7 @@ import { getCapitalizedText } from '../../utils';
 type PlaceCardProps = {
   offer: Offer;
   typeCard: PlaceCardType;
-  onHover?: (offer: OfferOrNull) => void;
+  onHover?: (offer: Offer | undefined) => void;
 }
 
 export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
@@ -20,7 +20,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
   const offerLink = AppRoute.Offer.replace(':id', id);
   const { baseClass, infoClass, width, height } = PlaceCardSettings[typeCard];
 
-  const handleHover = (newOffer: OfferOrNull) => {
+  const handleHover = (newOffer: Offer | undefined) => {
     if (onHover) {
       onHover(newOffer);
     }
@@ -30,7 +30,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
     <article
       className={`${baseClass} place-card`}
       onMouseEnter={() => handleHover(offer)}
-      onMouseLeave={() => handleHover(null)}
+      onMouseLeave={() => handleHover(undefined)}
     >
       {isPremium && <Premium className='place-card__mark'/>}
       <div className={`${typeCard}__image-wrapper place-card__image-wrapper`}>
