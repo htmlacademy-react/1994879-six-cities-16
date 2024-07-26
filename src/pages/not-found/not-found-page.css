@@ -1,0 +1,27 @@
+.not-found-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    font-style: 'oblique';
+    font-weight: 400;
+  }
+  
+  .not-found-page h1 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .not-found-page p {
+    margin-bottom: 20px;
+  }
+  
+  .not-found-page a {
+    text-decoration: none;
+    color: #337ab7; /* blue color */
+  }
+  
+  .not-found-page a:hover {
+    text-decoration: underline;
+  }

@@ -18,9 +18,7 @@ export const Places: FC<PlacesProps> = ({ city, offers }) => {
   const cityLocation = Cities[city];
 
   const handleHover = (newOffer: Offer | undefined) => setSelectedOffer(newOffer);
-  const handleSorting = (sortFunction: OfferSortFunction | undefined) => {
-    setSortedOffers(offers.sort(sortFunction));
-  };
+  const handleSorting = (sortFunction: OfferSortFunction) => setSortedOffers(offers.slice().sort(sortFunction));
 
   return (
     <div className="cities__places-container container">
@@ -30,7 +28,7 @@ export const Places: FC<PlacesProps> = ({ city, offers }) => {
         <PlacesSorting onSort={handleSorting} />
         <div className="cities__places-list places__list tabs__content">
           {sortedOffers.map((offer) =>
-            <PlaceCard key={offer.id} typeCard='cities' offer={offer} onHover={handleHover} />
+            <PlaceCard key={offer.id} typeCard='cities' offer={offer} onCardHover={handleHover} />
           )}
         </div>
       </section>

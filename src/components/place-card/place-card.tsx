@@ -2,35 +2,34 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Premium } from '../premium';
 import { Offer } from '../../types/offer';
-import { AppRoute } from '../../const';
 import { PlaceCardSettings, PlaceCardType } from './const';
 import { BookmarkButton } from '../bookmark-button';
 import { Rating } from '../rating';
 import { Price } from '../price/price';
-import { getCapitalizedText } from '../../utils';
+import { getCapitalizedText, getOfferRoute } from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer;
   typeCard: PlaceCardType;
-  onHover?: (offer: Offer | undefined) => void;
+  onCardHover?: (offer: Offer | undefined) => void;
 }
 
-export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
+export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }) => {
   const { id, price, title, type, rating, previewImage, isPremium, isFavorite } = offer;
-  const offerLink = AppRoute.Offer.replace(':id', id);
+  const offerLink = getOfferRoute(id);
   const { baseClass, infoClass, width, height } = PlaceCardSettings[typeCard];
 
-  const handleHover = (newOffer: Offer | undefined) => {
-    if (onHover) {
-      onHover(newOffer);
+  const handleMouseHover = (newOffer: Offer | undefined) => {
+    if (onCardHover) {
+      onCardHover(newOffer);
     }
   };
 
   return (
     <article
       className={`${baseClass} place-card`}
-      onMouseEnter={() => handleHover(offer)}
-      onMouseLeave={() => handleHover(undefined)}
+      onMouseEnter={() => handleMouseHover(offer)}
+      onMouseLeave={() => handleMouseHover(undefined)}
     >
       {isPremium && <Premium className='place-card__mark'/>}
       <div className={`${typeCard}__image-wrapper place-card__image-wrapper`}>
@@ -52,5 +51,3 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onHover }) => {
     </article>
   );
 };
-
-export default PlaceCard;

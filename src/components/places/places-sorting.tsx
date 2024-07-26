@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { OfferSortFunction, PlacesOptionType, PlacesOptions } from './const';
 
 type PlacesSortingProps = {
-  onSort: (sortFunction: OfferSortFunction | undefined) => void;
+  onSort: (sortFunction: OfferSortFunction) => void;
 }
 
 export const PlacesSorting: FC<PlacesSortingProps> = ({ onSort }) => {
@@ -23,7 +23,7 @@ export const PlacesSorting: FC<PlacesSortingProps> = ({ onSort }) => {
           <use href="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isOpened ? 'places__options--opened' : ''}`}>
+      <ul className={`places__options places__options--custom ${isOpened ? 'places__options--opened' : ''}`} >
         {Object.keys(PlacesOptions).map((key) => (
           <li
             className={`places__option ${activeOption === key && 'places__option--active'}`}

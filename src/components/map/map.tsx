@@ -6,6 +6,8 @@ import { getCustomIcon, getTooltipText } from './utils';
 import { useMap } from './use-map';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { useNavigate } from 'react-router-dom';
+import { getOfferRoute } from '../../utils';
 
 type MapProps = {
   city: City;
@@ -13,9 +15,10 @@ type MapProps = {
   selectedOffer: Offer | undefined;
 };
 
-export const Map: FC<MapProps> = ({ city, offers, selectedOffer }) => {
+export const Map: FC<MapProps> = ({ city, offers, selectedOffer}) => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!map) {
@@ -33,13 +36,13 @@ export const Map: FC<MapProps> = ({ city, offers, selectedOffer }) => {
         .setIcon(getCustomIcon(selectedOffer?.id === id))
         .bindTooltip(getTooltipText(title, type));
 
-      marker.addTo(markerLayer);
+      marker.addTo(markerLayer).on('click', () => navigate(getOfferRoute(id)));
     });
 
     return () => {
       map.removeLayer(markerLayer);
     };
-  }, [city.location, map, offers, selectedOffer]);
+  }, [city.location, map, offers, selectedOffer, navigate]);
 
   return <div style={{ height: '100%' }} ref={mapRef}></div>;
 };

@@ -26,3 +26,5 @@ export const getCapitalizedText = (text: string) => {
   const [firstLetter,...rest] = text;
   return `${firstLetter.toUpperCase()}${rest.join('')}`;
 };
+
+export const getOfferRoute = (id: string) => AppRoute.Offer.replace(':id', id);

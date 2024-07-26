@@ -6,13 +6,13 @@ export type OfferSortFunction = (a: Offer, b: Offer) => number;
 
 export type PlacesOption = {
   text: string;
-  sort: OfferSortFunction | undefined;
+  sort: OfferSortFunction;
 }
 
 export const PlacesOptions: Record<PlacesOptionType, PlacesOption> = {
   'popular': {
     text: 'Popular',
-    sort: undefined,
+    sort: () => 0,
   },
   'price-low': {
     text: 'Price: low to high',
