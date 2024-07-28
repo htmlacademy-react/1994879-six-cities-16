@@ -5,7 +5,7 @@ import MainPage from '../../pages/main-page';
 import FavoritesPage from '../../pages/favorites-page';
 import LoginPage from '../../pages/login-page';
 import OfferPage from '../../pages/offer-page';
-import NotFoundPage from '../../pages/not-found-page';
+import NotFoundPage from '../../pages/not-found/not-found-page';
 import Layout from '../layout/layout';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';

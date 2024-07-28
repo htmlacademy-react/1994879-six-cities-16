@@ -1,16 +1,18 @@
-import { FC, useEffect, useState } from 'react';
-import { Cities, DEFAULT_CITY } from '../const';
+import { FC } from 'react';
+import { Cities } from '../const';
 import { CityLink } from '../components/city-link';
 import { getRandomInt } from '../utils';
 import { CityName } from '../types/city';
+import { getActiveCity, selectCity } from '../store/city-slice';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../hooks';
 
 const Login: FC = () => {
-  const [ randomCity, setRandomCity ] = useState(DEFAULT_CITY);
+  const dispatch = useDispatch();
+  const cities = Object.keys(Cities) as CityName[];
+  dispatch(selectCity(cities[getRandomInt(0, cities.length - 1)]));
 
-  useEffect(() => {
-    const cities = Object.keys(Cities);
-    setRandomCity(cities[getRandomInt(0, cities.length - 1)] as CityName);
-  }, []);
+  const { name: randomCity } = useAppSelector(getActiveCity);
 
   return (
     <div className="page page--gray page--login">

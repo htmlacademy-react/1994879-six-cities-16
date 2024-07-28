@@ -2,7 +2,7 @@ import { Offer } from '../types/offer';
 
 export const MockFavorites: Offer[] = [
   {
-    'id': '7c941d2d-fc4c-4325-ae80-6fa0db8525d2',
+    'id': '6ba1dd4b-66cc-40b4-97cd-c965b0fe4434',
     'title': 'Canal View Prinsengracht',
     'type': 'hotel',
     'price': 166,
@@ -25,7 +25,7 @@ export const MockFavorites: Offer[] = [
     'rating': 4.6
   },
   {
-    'id': 'a64b6904-6879-455a-9ca8-2e9e0eec168a',
+    'id': '7ff1b879-6ec3-4153-916a-d8e6ece36799',
     'title': 'The Pondhouse - A Magical Place',
     'type': 'room',
     'price': 109,
@@ -69,5 +69,77 @@ export const MockFavorites: Offer[] = [
     'isFavorite': true,
     'isPremium': false,
     'rating': 4.3
+  },
+];
+
+export const MockNearOffers: Offer[] = [
+  {
+    'id': '941cf58c-e73f-47dc-b4df-3fa1fb2b11c6',
+    'title': 'The Joshua Tree House',
+    'type': 'house',
+    'price': 635,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.837610000000005,
+      'longitude': 2.364499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 1.5
+  },
+  {
+    'id': 'bcf2f2a7-e3fb-4485-8777-e60c94365848',
+    'title': 'Beautiful & luxurious apartment at great location',
+    'type': 'hotel',
+    'price': 272,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.843610000000005,
+      'longitude': 2.338499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 2.3
+  },
+  {
+    'id': '3fbc98e6-6c9e-4b0c-9c0a-ba8cd5a0eb37',
+    'title': 'Loft Studio in the Central Area',
+    'type': 'house',
+    'price': 916,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.84461,
+      'longitude': 2.374499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 2.6
   },
 ];

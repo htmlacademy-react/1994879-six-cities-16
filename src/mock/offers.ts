@@ -1,57 +1,20 @@
 import { Offer, OfferFull } from '../types/offer';
 
-export const MockOfferFull: OfferFull = {
-  'id': '77016a63-26c2-47da-bd56-55ede76fae75',
-  'title': 'Perfectly located Castro',
-  'description': 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
-  'type': 'house',
-  'price': 211,
-  'images': [
-    'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
-    'https://16.design.htmlacademy.pro/static/hotel/13.jpg',
-    'https://16.design.htmlacademy.pro/static/hotel/17.jpg',
-    'https://16.design.htmlacademy.pro/static/hotel/4.jpg',
-    'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
-    'https://16.design.htmlacademy.pro/static/hotel/3.jpg'
-  ],
-  'city': {
-    'name': 'Paris',
-    'location': {
-      'latitude': 48.85661,
-      'longitude': 2.351499,
-      'zoom': 13
-    }
-  },
-  'location': {
-    'latitude': 48.858610000000006,
-    'longitude': 2.330499,
-    'zoom': 16
-  },
-  'goods': [
-    'Laptop friendly workspace',
-    'Heating',
-    'Kitchen',
-    'Dishwasher'
-  ],
-  'host': {
-    'isPro': true,
-    'name': 'Angelina',
-    'avatarUrl': 'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
-  },
-  'isPremium': false,
-  'isFavorite': false,
-  'rating': 1.6,
-  'bedrooms': 2,
-  'maxAdults': 5
-};
-
-export const MockOffers: Offer[] = [
+export const MockOffersFull: OfferFull[] = [
   {
-    'id': '7c941d2d-fc4c-4325-ae80-6fa0db8525d2',
-    'title': 'Canal View Prinsengracht',
-    'type': 'hotel',
-    'price': 166,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
+    'id': '6ba1dd4b-66cc-40b4-97cd-c965b0fe4434',
+    'title': 'The house among olive ',
+    'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+    'type': 'house',
+    'price': 816,
+    'images': [
+      'https://16.design.htmlacademy.pro/static/hotel/12.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/14.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/9.jpg'
+    ],
     'city': {
       'name': 'Paris',
       'location': {
@@ -61,20 +24,96 @@ export const MockOffers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 48.87961000000001,
-      'longitude': 2.353499,
+      'latitude': 48.868610000000004,
+      'longitude': 2.342499,
       'zoom': 16
     },
-    'isFavorite': true,
-    'isPremium': false,
-    'rating': 4.6
+    'goods': [
+      'Cable TV',
+      'Washing machine',
+      'Air conditioning',
+      'Wi-Fi',
+      'Laptop friendly workspace',
+      'Breakfast',
+      'Coffee machine',
+      'Dishwasher',
+      'Heating'
+    ],
+    'host': {
+      'isPro': true,
+      'name': 'Angelina',
+      'avatarUrl': 'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
+    },
+    'isPremium': true,
+    'isFavorite': false,
+    'rating': 4.2,
+    'bedrooms': 1,
+    'maxAdults': 3
   },
   {
-    'id': '1fd25b8d-e0fe-452d-a78c-24e2427ae41a',
-    'title': 'Tile House',
+    'id': '7ff1b879-6ec3-4153-916a-d8e6ece36799',
+    'title': 'Amazing and Extremely Central Flat',
+    'description': 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     'type': 'room',
     'price': 161,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/7.jpg',
+    'images': [
+      'https://16.design.htmlacademy.pro/static/hotel/14.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/8.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/6.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/13.jpg'
+    ],
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.858610000000006,
+      'longitude': 2.330499,
+      'zoom': 16
+    },
+    'goods': [
+      'Laptop friendly workspace',
+      'Baby seat',
+      'Towels',
+      'Coffee machine',
+      'Washing machine',
+      'Cable TV',
+      'Kitchen',
+      'Breakfast',
+      'Fridge',
+      'Heating'
+    ],
+    'host': {
+      'isPro': true,
+      'name': 'Angelina',
+      'avatarUrl': 'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
+    },
+    'isPremium': true,
+    'isFavorite': false,
+    'rating': 3.3,
+    'bedrooms': 1,
+    'maxAdults': 1
+  },
+  {
+    'id': '205a8ecf-7253-42b1-a4b6-44972543a964',
+    'title': 'Canal View Prinsengracht',
+    'description': 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
+    'type': 'hotel',
+    'price': 383,
+    'images': [
+      'https://16.design.htmlacademy.pro/static/hotel/12.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/6.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/5.jpg'
+    ],
     'city': {
       'name': 'Paris',
       'location': {
@@ -85,19 +124,111 @@ export const MockOffers: Offer[] = [
     },
     'location': {
       'latitude': 48.834610000000005,
-      'longitude': 2.364499,
+      'longitude': 2.335499,
+      'zoom': 16
+    },
+    'goods': [
+      'Kitchen',
+      'Cable TV',
+      'Towels',
+      'Laptop friendly workspace',
+      'Wi-Fi'
+    ],
+    'host': {
+      'isPro': true,
+      'name': 'Angelina',
+      'avatarUrl': 'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
+    },
+    'isPremium': true,
+    'isFavorite': false,
+    'rating': 1.3,
+    'bedrooms': 1,
+    'maxAdults': 5
+  },
+  {
+    'id': 'fe3a1eb0-1077-41bb-b271-a046d7c34f33',
+    'title': 'Wood and stone place',
+    'description': 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
+    'type': 'house',
+    'price': 951,
+    'images': [
+      'https://16.design.htmlacademy.pro/static/hotel/8.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/5.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/13.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
+      'https://16.design.htmlacademy.pro/static/hotel/15.jpg'
+    ],
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.85761,
+      'longitude': 2.358499,
+      'zoom': 16
+    },
+    'goods': [
+      'Air conditioning',
+      'Wi-Fi',
+      'Breakfast',
+      'Dishwasher',
+      'Laptop friendly workspace',
+      'Coffee machine',
+      'Washing machine',
+      'Kitchen',
+      'Heating',
+      'Baby seat',
+      'Towels',
+      'Fridge'
+    ],
+    'host': {
+      'isPro': true,
+      'name': 'Angelina',
+      'avatarUrl': 'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
+    },
+    'isPremium': true,
+    'isFavorite': false,
+    'rating': 3.8,
+    'bedrooms': 1,
+    'maxAdults': 8
+  },
+];
+
+export const MockOffers: Offer[] = [
+  {
+    'id': '6ba1dd4b-66cc-40b4-97cd-c965b0fe4434',
+    'title': 'The house among olive ',
+    'type': 'house',
+    'price': 816,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/3.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.868610000000004,
+      'longitude': 2.342499,
       'zoom': 16
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 4
+    'rating': 4.2
   },
   {
-    'id': 'a64b6904-6879-455a-9ca8-2e9e0eec168a',
-    'title': 'The Pondhouse - A Magical Place',
+    'id': '7ff1b879-6ec3-4153-916a-d8e6ece36799',
+    'title': 'Amazing and Extremely Central Flat',
     'type': 'room',
-    'price': 109,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/17.jpg',
+    'price': 161,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/4.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -107,66 +238,20 @@ export const MockOffers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 48.837610000000005,
-      'longitude': 2.3454990000000002,
-      'zoom': 16
-    },
-    'isFavorite': true,
-    'isPremium': true,
-    'rating': 3.9
-  },
-  {
-    'id': '26f61f29-9a31-43b5-8a65-a1275fadd67a',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'room',
-    'price': 126,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/17.jpg',
-    'city': {
-      'name': 'Paris',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 48.84761,
-      'longitude': 2.356499,
-      'zoom': 16
-    },
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 2.9
-  },
-  {
-    'id': '05e54abb-6df4-4be0-a40c-3192301f830f',
-    'title': 'The Pondhouse - A Magical Place',
-    'type': 'apartment',
-    'price': 259,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/9.jpg',
-    'city': {
-      'name': 'Paris',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 48.862610000000004,
-      'longitude': 2.369499,
+      'latitude': 48.858610000000006,
+      'longitude': 2.330499,
       'zoom': 16
     },
     'isFavorite': false,
     'isPremium': true,
-    'rating': 2.4
+    'rating': 3.3
   },
   {
-    'id': '3c781387-a7de-4248-8ed9-f0d4b106be10',
-    'title': 'Nice, cozy, warm big bed apartment',
-    'type': 'room',
-    'price': 277,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/11.jpg',
+    'id': '205a8ecf-7253-42b1-a4b6-44972543a964',
+    'title': 'Canal View Prinsengracht',
+    'type': 'hotel',
+    'price': 383,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/13.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -176,20 +261,20 @@ export const MockOffers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 48.83861,
-      'longitude': 2.350499,
+      'latitude': 48.834610000000005,
+      'longitude': 2.335499,
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 3.1
+    'isPremium': true,
+    'rating': 1.3
   },
   {
-    'id': '7edecfb3-5245-490b-af5e-05437374dd63',
-    'title': 'Loft Studio in the Central Area',
-    'type': 'room',
-    'price': 289,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+    'id': 'fe3a1eb0-1077-41bb-b271-a046d7c34f33',
+    'title': 'Wood and stone place',
+    'type': 'house',
+    'price': 951,
+    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/5.jpg',
     'city': {
       'name': 'Paris',
       'location': {
@@ -199,13 +284,13 @@ export const MockOffers: Offer[] = [
       }
     },
     'location': {
-      'latitude': 48.861610000000006,
-      'longitude': 2.340499,
+      'latitude': 48.85761,
+      'longitude': 2.358499,
       'zoom': 16
     },
     'isFavorite': false,
-    'isPremium': false,
-    'rating': 1.1
+    'isPremium': true,
+    'rating': 3.8
   },
   {
     'id': '877a05e5-a5ba-49d7-b38d-cd64d431294c',

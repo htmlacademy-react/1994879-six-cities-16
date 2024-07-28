@@ -6,9 +6,8 @@ import { PlaceCard } from '../components/place-card';
 import { Premium } from '../components/premium/premium';
 import { Navigate, useParams } from 'react-router-dom';
 import { MockComments } from '../mock/comment';
-import { MockFavorites } from '../mock/favorites';
-import { MockOfferFull } from '../mock/offers';
-import { Offer, OfferFull } from '../types/offer';
+import { MockOffersFull } from '../mock/offers';
+import { OfferFull } from '../types/offer';
 import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price/price';
 import { Rating } from '../components/rating';
@@ -16,11 +15,14 @@ import { OfferFeatures } from '../components/offer-features';
 import { OfferInside } from '../components/offer-inside';
 import { Map } from '../components/map';
 import { AppRoute } from '../const';
+import { useAppSelector } from '../hooks';
+import { getNearOffers } from '../store/offer-slice';
 
-const tempFindOfferById = (id: string | undefined): OfferFull | undefined => MockOfferFull.id === id ? MockOfferFull : MockOfferFull;
+const tempFindOfferById = (id: string | undefined): OfferFull | undefined => MockOffersFull.find((offer) => offer.id === id);
 
 const OfferPage: FC = () => {
   const { id } = useParams();
+  const nearOffers = useAppSelector(getNearOffers);
   const offer: OfferFull | undefined = tempFindOfferById(id);
 
   if (!offer) {
@@ -28,7 +30,6 @@ const OfferPage: FC = () => {
   }
 
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
-  const nearOffers: Offer[] = MockFavorites;
   const mapOffers = [...nearOffers, offer];
   const comments = MockComments;
 
