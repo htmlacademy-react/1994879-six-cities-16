@@ -5,7 +5,9 @@ import { PlacesSorting } from './places-sorting';
 import { Map } from '../map';
 import { Cities } from '../../const';
 import { CityName } from '../../types/city';
-import { OfferSortFunction } from './const';
+import { PlacesSortOptions } from './const';
+import { useAppSelector } from '../../hooks';
+import { getSortType } from '../../store/app-slice';
 
 interface PlacesProps {
   city: CityName;
@@ -14,18 +16,21 @@ interface PlacesProps {
 
 export const Places: FC<PlacesProps> = ({ city, offers }) => {
   const [ selectedOffer, setSelectedOffer ] = useState<Offer>();
-  const [ sortedOffers, setSortedOffers ] = useState<Offer[]>(offers ?? []);
+
+  const sortType = useAppSelector(getSortType);
+  const sortedOffers = offers.slice().sort(PlacesSortOptions[sortType].sort);
   const cityLocation = Cities[city];
 
   const handleHover = (newOffer: Offer | undefined) => setSelectedOffer(newOffer);
-  const handleSorting = (sortFunction: OfferSortFunction) => setSortedOffers(offers.slice().sort(sortFunction));
 
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{`${sortedOffers.length} places to stay in ${city}`}</b>
-        <PlacesSorting onSort={handleSorting} />
+        <b className="places__found">
+          {`${sortedOffers.length} place${sortedOffers.length > 1 ? 's' : ''} to stay in ${city}`}
+        </b>
+        <PlacesSorting />
         <div className="cities__places-list places__list tabs__content">
           {sortedOffers.map((offer) =>
             <PlaceCard key={offer.id} typeCard='cities' offer={offer} onCardHover={handleHover} />

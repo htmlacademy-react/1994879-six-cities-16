@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 
-export type PlacesOptionType = 'popular' | 'price-low' | 'price-high' | 'top-rated' ;
+export type PlacesSortType = 'popular' | 'price-low' | 'price-high' | 'top-rated' ;
 
 export type OfferSortFunction = (a: Offer, b: Offer) => number;
 
@@ -9,7 +9,7 @@ export type PlacesOption = {
   sort: OfferSortFunction;
 }
 
-export const PlacesOptions: Record<PlacesOptionType, PlacesOption> = {
+export const PlacesSortOptions: Record<PlacesSortType, PlacesOption> = {
   'popular': {
     text: 'Popular',
     sort: () => 0,
