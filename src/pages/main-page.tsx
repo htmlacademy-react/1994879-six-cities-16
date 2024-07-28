@@ -2,15 +2,14 @@ import { CityLinkList } from '../components/city-link';
 import { NoPlaces } from '../components/no-places';
 import { Places } from '../components/places';
 import { isEmpty } from '../utils';
-import { getActiveCity, selectCity } from '../store/city-slice';
-import { useAppSelector } from '../hooks';
-import { useDispatch } from 'react-redux';
+import { getActiveCity, selectCity } from '../store/app-slice';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { CityName } from '../types/city';
 import { getOffers } from '../store/offer-slice';
 
 
 const MainPage = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { name: cityName } = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
 

@@ -3,12 +3,11 @@ import { Cities } from '../const';
 import { CityLink } from '../components/city-link';
 import { getRandomInt } from '../utils';
 import { CityName } from '../types/city';
-import { getActiveCity, selectCity } from '../store/city-slice';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../hooks';
+import { getActiveCity, selectCity } from '../store/app-slice';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 const Login: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cities = Object.keys(Cities) as CityName[];
   dispatch(selectCity(cities[getRandomInt(0, cities.length - 1)]));
 

@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { cityReducer } from './city-slice';
+import { appReducer } from './app-slice';
 import { offersReducer } from './offer-slice';
 import { userReducer } from './user-slice';
 
 export const store = configureStore({
   reducer: {
-    cities: cityReducer,
+    app: appReducer,
     offers: offersReducer,
     user: userReducer,
   },
