@@ -6,7 +6,7 @@ import { CityName } from '../types/city';
 import { getActiveCity, selectCity } from '../store/app-slice';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
-const Login: FC = () => {
+export const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const cities = Object.keys(Cities) as CityName[];
   dispatch(selectCity(cities[getRandomInt(0, cities.length - 1)]));
@@ -40,5 +40,3 @@ const Login: FC = () => {
       </main>
     </div>);
 };
-
-export default Login;

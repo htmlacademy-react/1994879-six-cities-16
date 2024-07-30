@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, MockedHeaderSettings } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
-import MainPage from '../../pages/main-page';
-import FavoritesPage from '../../pages/favorites-page';
-import LoginPage from '../../pages/login-page';
-import OfferPage from '../../pages/offer-page';
-import NotFoundPage from '../../pages/not-found/not-found-page';
-import Layout from '../layout/layout';
+import { MainPage } from '../../pages/main-page';
+import { FavoritesPage } from '../../pages/favorites-page';
+import { LoginPage } from '../../pages/login-page';
+import { OfferPage } from '../../pages/offer-page';
+import { NotFoundPage } from '../../pages/not-found/not-found-page';
+import { Layout } from '../layout/layout';
 import { PrivateRoute } from '../private-route/private-route';
 import { ScrollToTop } from '../scroll-to-top/scroll-to-top';
 

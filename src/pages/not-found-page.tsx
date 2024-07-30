@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const NotFoundPage = (): JSX.Element => {
+export const NotFoundPage: FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -13,5 +14,3 @@ const NotFoundPage = (): JSX.Element => {
       </p>
     </div>);
 };
-
-export default NotFoundPage;

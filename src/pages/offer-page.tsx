@@ -20,7 +20,7 @@ import { getNearOffers } from '../store/offer-slice';
 
 const tempFindOfferById = (id: string | undefined): OfferFull | undefined => MockOffersFull.find((offer) => offer.id === id);
 
-const OfferPage: FC = () => {
+export const OfferPage: FC = () => {
   const { id } = useParams();
   const nearOffers = useAppSelector(getNearOffers);
   const offer: OfferFull | undefined = tempFindOfferById(id);
@@ -71,5 +71,3 @@ const OfferPage: FC = () => {
     </main>
   );
 };
-
-export default OfferPage;

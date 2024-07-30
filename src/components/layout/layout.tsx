@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { MockFavorites } from '../../mock/favorites';
 import { Helmet } from 'react-helmet-async';
 
-const Layout: FC = () => {
+export const Layout: FC = () => {
   const { pathname } = useLocation();
   const favorites = MockFavorites;
   const pageClass = getPageClass(pathname, favorites.length);
@@ -22,5 +22,3 @@ const Layout: FC = () => {
     </>
   );
 };
-
-export default Layout;

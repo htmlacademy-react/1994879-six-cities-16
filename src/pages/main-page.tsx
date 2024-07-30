@@ -2,27 +2,24 @@ import { CityLinkList } from '../components/city-link';
 import { NoPlaces } from '../components/no-places';
 import { Places } from '../components/places';
 import { isEmpty } from '../utils';
-import { getActiveCity, selectCity } from '../store/app-slice';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { CityName } from '../types/city';
+import { getActiveCity } from '../store/app-slice';
+import { useAppSelector } from '../hooks';
 import { getOffers } from '../store/offer-slice';
+import { FC } from 'react';
 
 
-const MainPage = (): JSX.Element => {
-  const dispatch = useAppDispatch();
+export const MainPage: FC = () => {
   const { name: cityName } = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
 
   const cityOffers = offers.filter((offer) => offer.city.name === cityName);
   const isEmptyOffers = isEmpty(cityOffers);
 
-  const handleCityChange = (city: CityName) => dispatch(selectCity(city));
-
   return (
     <main className={`page__main page__main--index ${isEmptyOffers && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <CityLinkList activeCity={cityName} onCityChange={handleCityChange} />
+        <CityLinkList activeCity={cityName} />
       </div>
       <div className="cities">
         {isEmptyOffers ?
@@ -32,5 +29,3 @@ const MainPage = (): JSX.Element => {
     </main>
   );
 };
-
-export default MainPage;

@@ -2,15 +2,18 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { CityName } from '../../types/city';
+import { useAppDispatch } from '../../hooks';
+import { selectCity } from '../../store/app-slice';
+
 
 interface CityLinkProps {
   city: CityName;
   isActive?: boolean;
-  onCityChange?: (city: CityName) => void;
 }
 
-export const CityLink: FC<CityLinkProps> = ({ city, isActive = false, onCityChange }) => {
-  const handleClick = () => onCityChange?.(city);
+export const CityLink: FC<CityLinkProps> = ({ city, isActive = false }) => {
+  const dispatch = useAppDispatch();
+  const handleClick = () => dispatch(selectCity(city));
 
   return (
     <Link
