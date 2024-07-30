@@ -6,6 +6,7 @@ import { getActiveCity } from '../store/app-slice';
 import { useAppSelector } from '../hooks';
 import { getOffers } from '../store/offer-slice';
 import { FC } from 'react';
+import { Spinner } from '../components/spinner';
 
 
 export const MainPage: FC = () => {
@@ -22,6 +23,8 @@ export const MainPage: FC = () => {
         <CityLinkList activeCity={cityName} />
       </div>
       <div className="cities">
+        <Spinner message='Loading offers' />
+
         {isEmptyOffers ?
           <NoPlaces city={cityName} /> :
           <Places city={cityName} offers={cityOffers}/>}

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { PlacesSortType, PlacesSortOptions } from './const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getSortType, setSortType } from '../../store/app-slice';
+import { getSortType, selectSortType } from '../../store/app-slice';
 
 export const PlacesSorting: FC = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +9,7 @@ export const PlacesSorting: FC = () => {
   const activeSort = useAppSelector(getSortType);
 
   const handleOptionClick = (sortType: PlacesSortType) => {
-    dispatch(setSortType(sortType));
+    dispatch(selectSortType(sortType));
     setIsOpened(!isOpened);
   };
 
