@@ -1,32 +1,38 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit';
 import { Offer } from '../../types/offer';
-import { MockOffers } from '../../mock/offers';
-import { MockFavorites, MockNearOffers } from '../../mock/favorites';
+import { fetchOffers } from './thunk';
+import { State } from '../../hooks';
 
-export type OffersState = {
-  offers: Offer[];
-  favorites: Offer[];
-  nearOffers: Offer[];
+type OffersState = {
+  value: Offer[];
+  loading: boolean;
 }
 
-const initialState: OffersState = {
-  offers: MockOffers,
-  favorites: MockFavorites,
-  nearOffers: MockNearOffers,
+export type InitialState = {
+  offers: OffersState;
+  favorites: OffersState;
+  nearOffers: OffersState;
+}
+
+const initialState: InitialState = {
+  offers: { value: [], loading: false},
+  favorites: { value: [], loading: false},
+  nearOffers: { value: [], loading: false},
 };
 
 export const offersSlice = createSlice({
   name: 'offers',
   initialState,
   reducers: {
-    setOffers: (state, action: PayloadAction<Offer[]>) => {
-      state.offers = action.payload;
+    [fetchOffers.pending]: (state) => {
+      state.offers.loading = true;
     },
-    setFavorites: (state, action: PayloadAction<Offer[]>) => {
-      state.favorites = action.payload;
+    [fetchOffers.fulfilled]: (state: State, action: PayloadAction<Offer[]>) => {
+      state.offers.value = action.payload;
+      state.offers.loading = false;
     },
-    setNearOffers: (state, action: PayloadAction<Offer[]>) => {
-      state.nearOffers = action.payload;
+    [fetchOffers.rejected]: (state: State) => {
+      state.offers.loading = false;
     },
   },
 });

@@ -11,7 +11,7 @@ import { Spinner } from '../components/spinner';
 
 export const MainPage: FC = () => {
   const { name: cityName } = useAppSelector(getActiveCity);
-  const offers = useAppSelector(getOffers);
+  const { loading: isLoading, value: offers } = useAppSelector(getOffers);
 
   const cityOffers = offers.filter((offer) => offer.city.name === cityName);
   const isEmptyOffers = isEmpty(cityOffers);
@@ -23,7 +23,7 @@ export const MainPage: FC = () => {
         <CityLinkList activeCity={cityName} />
       </div>
       <div className="cities">
-        <Spinner message='Loading offers' />
+        <Spinner isLoading={isLoading} message='Loading offers' />
 
         {isEmptyOffers ?
           <NoPlaces city={cityName} /> :
