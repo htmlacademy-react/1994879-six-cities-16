@@ -7,7 +7,7 @@ import { useAppSelector } from '../hooks';
 import { getFavorites } from '../store/favorite-slice/selectors';
 
 export const FavoritesPage: FC = () => {
-  const offers = useAppSelector(getFavorites).value ?? [];
+  const { value: offers = [] } = useAppSelector(getFavorites);
   const isEmptyFavorites = isEmpty(offers);
   const cities = [...new Set(offers.map((offer) => offer.city.name))];
   const favorites = cities.map((city) => ({

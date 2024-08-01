@@ -2,8 +2,13 @@ import { FC, useState } from 'react';
 import { CommentLimit, DEFAULT_RATING, RatingLimit, Ratings } from './const';
 import { RatingStars } from '../rating-stars/rating-stars';
 import { inRange } from './utils';
+import { useAppDispatch } from '../../hooks';
+import { CommentPost, postComment } from '../../store/comment-slice/thunk';
+import { useParams } from 'react-router-dom';
 
 export const ReviewForm: FC = () => {
+  const { id = '' } = useParams();
+  const dispatch = useAppDispatch();
   const [ rating, setRating ] = useState(DEFAULT_RATING);
   const [ text, setText ] = useState('');
   const isValidData = inRange(rating, RatingLimit) && inRange(text.length, CommentLimit);
@@ -18,8 +23,26 @@ export const ReviewForm: FC = () => {
     setText(value);
   };
 
+  const handleSubmitForm = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    const data: CommentPost = {
+      offerId: id,
+      data: {
+        rating,
+        comment: text,
+      }
+    };
+    dispatch(postComment(data));
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleSubmitForm}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Ratings.map(({ value, title }) =>

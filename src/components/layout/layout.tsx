@@ -8,8 +8,8 @@ import { getFavorites } from '../../store/favorite-slice/selectors';
 
 export const Layout: FC = () => {
   const { pathname } = useLocation();
-  const { value: favorites } = useAppSelector(getFavorites);
-  const pageClass = getPageClass(pathname, (favorites ?? []).length);
+  const { value: favorites = [] } = useAppSelector(getFavorites);
+  const pageClass = getPageClass(pathname, favorites.length);
 
   return (
     <>

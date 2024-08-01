@@ -3,7 +3,7 @@ import { Endpoint } from '../../const';
 import { Comment, CommentEntity } from '../../types/comment';
 import { AsyncThunkPropWithAxios } from '../type';
 
-type CommentPost = {
+export type CommentPost = {
   offerId: string;
   data: CommentEntity;
 }

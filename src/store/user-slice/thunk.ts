@@ -5,16 +5,16 @@ import { LoggedUser, LoginEntity } from '../../types/user';
 import { HttpStatusCode } from 'axios';
 
 
-export const login = createAsyncThunk<LoggedUser, undefined, AsyncThunkPropWithAxios>(
-  'user/getLogin',
+export const checkLogin = createAsyncThunk<LoggedUser, undefined, AsyncThunkPropWithAxios>(
+  'user/checkLogin',
   async (_arg, { extra: api }) => {
     const response = await api.get<LoggedUser>(Endpoint.Login);
     return response.data;
   }
 );
 
-export const postLogin = createAsyncThunk<LoggedUser, LoginEntity, AsyncThunkPropWithAxios>(
-  'user/postLogin',
+export const login = createAsyncThunk<LoggedUser, LoginEntity, AsyncThunkPropWithAxios>(
+  'user/login',
   async (data, { extra: api }) => {
     const response = await api.post<LoggedUser>(Endpoint.Login, data);
     return response.data;

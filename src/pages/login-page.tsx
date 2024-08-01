@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 import { CityLink } from '../components/city-link';
 import { getRandomCity } from '../utils';
 import { useAppDispatch } from '../hooks';
-import { postLogin } from '../store/user-slice/thunk';
+import { login } from '../store/user-slice/thunk';
 import { LoginEntity } from '../types/user';
 
 export const LoginPage: FC = () => {
@@ -16,7 +16,7 @@ export const LoginPage: FC = () => {
     evt.preventDefault();
     const email = emailRef.current?.value.trim() || '';
     const password = passwordRef.current?.value.trim() || '';
-    dispatch(postLogin({ email, password } as LoginEntity));
+    dispatch(login({ email, password } as LoginEntity));
   };
 
   return (

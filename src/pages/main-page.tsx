@@ -10,7 +10,7 @@ import { Spinner } from '../components/spinner';
 
 export const MainPage: FC = () => {
   const { name: cityName } = useAppSelector(getActiveCity);
-  const { loading: isLoading, value: offers } = useAppSelector(getOffers);
+  const { loading: isLoading, value: offers = [] } = useAppSelector(getOffers);
 
   const cityOffers = offers.filter((offer) => offer.city.name === cityName);
   const isEmptyOffers = isEmpty(cityOffers);

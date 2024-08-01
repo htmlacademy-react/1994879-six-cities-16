@@ -9,8 +9,8 @@ import { logout } from '../../store/user-slice/thunk';
 
 export const HeaderNav: FC = () => {
   const dispatch = useAppDispatch();
-  const {email, isLogged} = useAppSelector(getUserInfo);
-  const favorites = useAppSelector(getFavorites).value ?? [];
+  const { email, isLogged } = useAppSelector(getUserInfo);
+  const { value: favorites = []} = useAppSelector(getFavorites);
 
   const handleSignOutClick = async () => await dispatch(logout());
 

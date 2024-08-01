@@ -22,9 +22,9 @@ import { getComments } from '../store/offer-slice/selectors';
 export const OfferPage: FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { value: nearOffers, loading: isNearLoading } = useAppSelector(getNearOffers);
+  const { value: nearOffers = [], loading: isNearLoading } = useAppSelector(getNearOffers);
   const { value: offer, loading: isOfferLoading } = useAppSelector(getOffer);
-  const { value: comments, loading: isCommentsLoading } = useAppSelector(getComments);
+  const { value: comments = [], loading: isCommentsLoading } = useAppSelector(getComments);
 
   useEffect(() => {
     if (id) {
@@ -66,7 +66,7 @@ export const OfferPage: FC = () => {
             <OfferHost user={host} description={description} />
             {isCommentsLoading ?
               <Spinner /> :
-              <OfferReviews reviews={comments ?? []} />}
+              <OfferReviews reviews={comments} />}
           </div>
         </div>
         <section className="offer__map map">
