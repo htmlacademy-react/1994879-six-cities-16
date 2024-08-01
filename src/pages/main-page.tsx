@@ -8,13 +8,16 @@ import { getOffers } from '../store/offer-slice';
 import { FC } from 'react';
 import { Spinner } from '../components/spinner';
 
-
 export const MainPage: FC = () => {
   const { name: cityName } = useAppSelector(getActiveCity);
   const { loading: isLoading, value: offers } = useAppSelector(getOffers);
 
   const cityOffers = offers.filter((offer) => offer.city.name === cityName);
   const isEmptyOffers = isEmpty(cityOffers);
+
+  if (isLoading) {
+    return <Spinner message='Loading offers' />;
+  }
 
   return (
     <main className={`page__main page__main--index ${isEmptyOffers && 'page__main--index-empty'}`}>
@@ -23,8 +26,6 @@ export const MainPage: FC = () => {
         <CityLinkList activeCity={cityName} />
       </div>
       <div className="cities">
-        <Spinner isLoading={isLoading} message='Loading offers' />
-
         {isEmptyOffers ?
           <NoPlaces city={cityName} /> :
           <Places city={cityName} offers={cityOffers}/>}

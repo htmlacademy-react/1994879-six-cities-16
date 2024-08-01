@@ -1,9 +1,12 @@
 import { User } from './user';
 
-export type Comment = {
-  id: string;
-  date: Date;
-  user: User;
+export type CommentEntity = {
   comment: string;
   rating: number;
+}
+
+export type Comment = CommentEntity & {
+  id: string;
+  date: string;
+  user: User;
 }

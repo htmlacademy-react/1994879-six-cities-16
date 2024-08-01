@@ -1,11 +1,7 @@
 import { City, CityName } from './types/city';
 
 export const DEFAULT_CITY: CityName = 'Paris';
-
-export const MockedHeaderSettings = {
-  email: 'Oliver.conner@gmail.com',
-  isLogged: true
-};
+export const NEARBY_LIMIT = 3;
 
 export const DateOptions: Intl.DateTimeFormatOptions = {
   month: 'long',
@@ -17,13 +13,14 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
-  NotFound = '/*',
+  NotFound = '/not-found',
+  All = '*'
 }
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN_AUTH',
 }
 
 export enum Endpoint {
@@ -42,3 +39,5 @@ export const Cities: Record<CityName, City > = {
   Hamburg: { name: 'Hamburg', location: { latitude: 53.550341, longitude: 10.000654, zoom: 13 } },
   Dusseldorf: { name: 'Dusseldorf', location: { latitude: 51.225402, longitude: 6.776314, zoom: 13 } },
 };
+
+export const cityNames = Object.keys(Cities) as CityName[];

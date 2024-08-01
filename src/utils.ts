@@ -1,4 +1,4 @@
-import { AppRoute } from './const';
+import { AppRoute, cityNames } from './const';
 
 export const isEmpty = <T extends { length: number }>(data: T): boolean => data.length === 0;
 
@@ -28,3 +28,5 @@ export const getCapitalizedText = (text: string) => {
 };
 
 export const getOfferRoute = (id: string) => AppRoute.Offer.replace(':id', id);
+
+export const getRandomCity = () => cityNames[getRandomInt(0, cityNames.length - 1)];

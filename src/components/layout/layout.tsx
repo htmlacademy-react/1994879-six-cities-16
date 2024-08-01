@@ -2,13 +2,14 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from '../header';
 import { getHelmetTitle, getPageClass } from '../../utils';
 import { FC } from 'react';
-import { MockFavorites } from '../../mock/favorites';
 import { Helmet } from 'react-helmet-async';
+import { useAppSelector } from '../../hooks';
+import { getFavorites } from '../../store/favorite-slice/selectors';
 
 export const Layout: FC = () => {
   const { pathname } = useLocation();
-  const favorites = MockFavorites;
-  const pageClass = getPageClass(pathname, favorites.length);
+  const { value: favorites } = useAppSelector(getFavorites);
+  const pageClass = getPageClass(pathname, (favorites ?? []).length);
 
   return (
     <>

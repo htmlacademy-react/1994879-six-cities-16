@@ -1,37 +1,50 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { OfferGallery } from '../components/offer-gallery';
 import { OfferHost } from '../components/offer-host';
 import { OfferReviews } from '../components/offer-reviews/offer-reviews';
 import { PlaceCard } from '../components/place-card';
 import { Premium } from '../components/premium/premium';
 import { Navigate, useParams } from 'react-router-dom';
-import { MockComments } from '../mock/comment';
-import { MockOffersFull } from '../mock/offers';
-import { OfferFull } from '../types/offer';
 import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price/price';
 import { Rating } from '../components/rating';
 import { OfferFeatures } from '../components/offer-features';
 import { OfferInside } from '../components/offer-inside';
 import { Map } from '../components/map';
-import { AppRoute } from '../const';
-import { useAppSelector } from '../hooks';
-import { getNearOffers } from '../store/offer-slice';
-
-const tempFindOfferById = (id: string | undefined): OfferFull | undefined => MockOffersFull.find((offer) => offer.id === id);
+import { AppRoute, NEARBY_LIMIT } from '../const';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { getNearOffers, getOffer } from '../store/offer-slice';
+import { fetchNearOffers, fetchOffer } from '../store/offer-slice/thunk';
+import { Spinner } from '../components/spinner';
+import { fetchComments } from '../store/comment-slice/thunk';
+import { getComments } from '../store/offer-slice/selectors';
 
 export const OfferPage: FC = () => {
   const { id } = useParams();
-  const nearOffers = useAppSelector(getNearOffers);
-  const offer: OfferFull | undefined = tempFindOfferById(id);
+  const dispatch = useAppDispatch();
+  const { value: nearOffers, loading: isNearLoading } = useAppSelector(getNearOffers);
+  const { value: offer, loading: isOfferLoading } = useAppSelector(getOffer);
+  const { value: comments, loading: isCommentsLoading } = useAppSelector(getComments);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOffer(id));
+      dispatch(fetchNearOffers(id));
+      dispatch(fetchComments(id));
+    }
+  }, [dispatch, id]);
+
+  if (isOfferLoading || isNearLoading) {
+    return <Spinner message='Offer loading' />;
+  }
 
   if (!offer) {
     return <Navigate to={AppRoute.NotFound} replace />;
   }
 
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
-  const mapOffers = [...nearOffers, offer];
-  const comments = MockComments;
+  const limitedNearOffers = nearOffers.slice(0, NEARBY_LIMIT);
+  const mapOffers = [...limitedNearOffers, offer];
 
   return (
     <main className="page__main page__main--offer">
@@ -51,7 +64,9 @@ export const OfferPage: FC = () => {
             <Price type='offer' price={price} />
             <OfferInside goods={goods} />
             <OfferHost user={host} description={description} />
-            <OfferReviews reviews={comments} />
+            {isCommentsLoading ?
+              <Spinner /> :
+              <OfferReviews reviews={comments ?? []} />}
           </div>
         </div>
         <section className="offer__map map">
@@ -62,8 +77,9 @@ export const OfferPage: FC = () => {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          {isNearLoading && <Spinner />}
           <div className="near-places__list places__list">
-            {nearOffers.map((nearOffer) =>
+            {limitedNearOffers.map((nearOffer) =>
               <PlaceCard key={nearOffer.id} typeCard='near-places' offer={nearOffer} />)}
           </div>
         </section>

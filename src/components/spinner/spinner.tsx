@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import ReactLoading, { LoadingType } from 'react-loading';
+import './spinner.css';
 
 type SpinnerConfigType = {
   type: LoadingType;
@@ -12,14 +13,12 @@ const spinnerConfig: SpinnerConfigType = {
 };
 
 type SpinnerProps = {
-  isLoading?: boolean;
-  message: string;
+  message?: string;
 }
 
-export const Spinner: FC<SpinnerProps> = ({ isLoading = false, message }) => (
-  isLoading &&
-    <div >
-      <ReactLoading {...spinnerConfig} />
-      <p>{message}</p>
-    </div>
+export const Spinner: FC<SpinnerProps> = ({ message = 'Loading...' }) => (
+  <div className="spinner-container">
+    <ReactLoading {...spinnerConfig} className="spinner-loading" />
+    <p>{message}</p>
+  </div>
 );

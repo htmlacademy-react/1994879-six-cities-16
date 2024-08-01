@@ -1,5 +1,5 @@
-import { State } from '../../hooks';
 import { appSlice } from './app-slice';
+import { State } from '../../hooks';
 
 export const { selectCity, selectSortType } = appSlice.actions;
 export const appReducer = appSlice.reducer;

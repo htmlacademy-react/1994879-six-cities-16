@@ -2,15 +2,16 @@ import { FC } from 'react';
 import { Comment } from '../../types/comment';
 import { ReviewForm } from '../review-form';
 import { Review } from '../review/review';
-import { MockedHeaderSettings } from '../../const';
 import { REVIEWS_LIMIT, sortComments } from './utils';
+import { useAppSelector } from '../../hooks';
+import { getUserInfo } from '../../store/user-slice/selectors';
 
 type OfferReviewsProps = {
   reviews: Comment[];
 }
 
 export const OfferReviews: FC<OfferReviewsProps> = ({ reviews }) => {
-  const { isLogged } = MockedHeaderSettings;
+  const { isLogged } = useAppSelector(getUserInfo);
   const limitedReviews = [...reviews].sort(sortComments).slice(0, REVIEWS_LIMIT);
 
   return (

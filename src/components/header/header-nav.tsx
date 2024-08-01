@@ -1,11 +1,18 @@
 import { FC } from 'react';
-import { AppRoute, MockedHeaderSettings } from '../../const';
+import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-import { MockFavorites } from '../../mock/favorites';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFavorites } from '../../store/favorite-slice/selectors';
+import { getUserInfo } from '../../store/user-slice/selectors';
+import { logout } from '../../store/user-slice/thunk';
+
 
 export const HeaderNav: FC = () => {
-  const { email, isLogged } = MockedHeaderSettings;
-  const favorites = MockFavorites;
+  const dispatch = useAppDispatch();
+  const {email, isLogged} = useAppSelector(getUserInfo);
+  const favorites = useAppSelector(getFavorites).value ?? [];
+
+  const handleSignOutClick = async () => await dispatch(logout());
 
   const signIn = <span className="header__login">Sign in</span>;
   const signOut = <span className="header__signout">Sign out</span>;
@@ -28,7 +35,7 @@ export const HeaderNav: FC = () => {
         </li>
         {isLogged &&
           <li className="header__nav-item">
-            <a className="header__nav-link" href="#">
+            <a className="header__nav-link" onClick={() => handleSignOutClick}>
               {signOut}
             </a>
           </li>}

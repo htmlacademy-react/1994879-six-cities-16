@@ -4,7 +4,9 @@ import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { fetchOffers } from './store/offer-slice/thunk';
+import { login } from './store/user-slice/thunk';
 
+store.dispatch(login());
 store.dispatch(fetchOffers());
 
 const root = ReactDOM.createRoot(
