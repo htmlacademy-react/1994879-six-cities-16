@@ -8,7 +8,7 @@ import { checkLogin } from './store/user-slice/thunk';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-await store.dispatch(checkLogin());
+store.dispatch(checkLogin());
 store.dispatch(fetchOffers());
 
 const root = ReactDOM.createRoot(
