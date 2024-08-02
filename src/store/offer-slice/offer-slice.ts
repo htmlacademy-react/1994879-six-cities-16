@@ -10,9 +10,9 @@ export type InitialState = {
 }
 
 const initialState: InitialState = {
-  offer: { value: undefined, loading: false },
-  offers: { value: [], loading: false },
-  nearOffers: { value: [], loading: false },
+  offer: { entity: undefined, loading: false },
+  offers: { entity: [], loading: false },
+  nearOffers: { entity: [], loading: false },
 };
 
 export const offersSlice = createSlice({
@@ -25,27 +25,29 @@ export const offersSlice = createSlice({
         state.offers.loading = true;
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
-        state.offers.value = action.payload;
+        state.offers.entity = action.payload;
         state.offers.loading = false;
       })
       .addCase(fetchOffers.rejected, (state) => {
         state.offers.loading = false;
       })
       .addCase(fetchOffer.pending, (state) => {
+        state.offer.entity = undefined;
         state.offer.loading = true;
       })
       .addCase(fetchOffer.fulfilled, (state, action) => {
-        state.offer.value = action.payload;
+        state.offer.entity = action.payload;
         state.offer.loading = false;
       })
       .addCase(fetchOffer.rejected, (state) => {
+        state.offer.entity = undefined;
         state.offer.loading = false;
       })
       .addCase(fetchNearOffers.pending, (state) => {
         state.nearOffers.loading = true;
       })
       .addCase(fetchNearOffers.fulfilled, (state, action) => {
-        state.nearOffers.value = action.payload;
+        state.nearOffers.entity = action.payload;
         state.nearOffers.loading = false;
       })
       .addCase(fetchNearOffers.rejected, (state) => {

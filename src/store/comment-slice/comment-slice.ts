@@ -9,8 +9,8 @@ type InitialState = {
 }
 
 const initialState: InitialState = {
-  comments: { value: [], loading: false },
-  newComment: { value: undefined, loading: false },
+  comments: { entity: [], loading: false },
+  newComment: { entity: undefined, loading: false },
 };
 
 export const commentSlice = createSlice({
@@ -23,7 +23,7 @@ export const commentSlice = createSlice({
         state.comments.loading = true;
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
-        state.comments.value = action.payload;
+        state.comments.entity = action.payload;
         state.comments.loading = false;
       })
       .addCase(fetchComments.rejected, (state) => {
@@ -33,7 +33,8 @@ export const commentSlice = createSlice({
         state.newComment.loading = true;
       })
       .addCase(postComment.fulfilled, (state, action) => {
-        state.newComment.value = action.payload;
+        state.newComment.entity = action.payload;
+        state.comments.entity = [...state.comments.entity ?? [], state.newComment.entity];
         state.newComment.loading = false;
       })
       .addCase(postComment.rejected, (state) => {

@@ -13,18 +13,17 @@ import { OfferInside } from '../components/offer-inside';
 import { Map } from '../components/map';
 import { AppRoute, NEARBY_LIMIT } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { getNearOffers, getOffer } from '../store/offer-slice';
 import { fetchNearOffers, fetchOffer } from '../store/offer-slice/thunk';
 import { Spinner } from '../components/spinner';
 import { fetchComments } from '../store/comment-slice/thunk';
-import { getComments } from '../store/offer-slice/selectors';
+import { allComments, allNearOffers, fullOffer } from '../store/selectors';
 
 export const OfferPage: FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { value: nearOffers = [], loading: isNearLoading } = useAppSelector(getNearOffers);
-  const { value: offer, loading: isOfferLoading } = useAppSelector(getOffer);
-  const { value: comments = [], loading: isCommentsLoading } = useAppSelector(getComments);
+  const { offer, isLoading: isOfferLoading } = useAppSelector(fullOffer);
+  const { comments, isLoading: isCommentsLoading } = useAppSelector(allComments);
+  const { nearOffers, isLoading: isNearOffersLoading } = useAppSelector(allNearOffers);
 
   useEffect(() => {
     if (id) {
@@ -34,11 +33,11 @@ export const OfferPage: FC = () => {
     }
   }, [dispatch, id]);
 
-  if (isOfferLoading || isNearLoading) {
+  if (isOfferLoading) {
     return <Spinner message='Offer loading' />;
   }
 
-  if (!offer) {
+  if (!offer || !id) {
     return <Navigate to={AppRoute.NotFound} replace />;
   }
 
@@ -57,7 +56,7 @@ export const OfferPage: FC = () => {
             {isPremium && <Premium className='offer__mark' />}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{title}</h1>
-              <BookmarkButton type='offer' isActive={isFavorite}/>
+              <BookmarkButton type='offer' offerId={id} isActive={isFavorite}/>
             </div>
             <Rating type='offer' rating={rating} />
             <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults}/>
@@ -70,14 +69,16 @@ export const OfferPage: FC = () => {
           </div>
         </div>
         <section className="offer__map map">
-          <Map city={offer.city} offers={mapOffers} selectedOffer={offer} />
+          {isNearOffersLoading ?
+            <Spinner /> :
+            <Map city={offer.city} offers={mapOffers} selectedOffer={offer} />}
         </section>
       </section>
 
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          {isNearLoading && <Spinner />}
+          {isNearOffersLoading && <Spinner />}
           <div className="near-places__list places__list">
             {limitedNearOffers.map((nearOffer) =>
               <PlaceCard key={nearOffer.id} typeCard='near-places' offer={nearOffer} />)}

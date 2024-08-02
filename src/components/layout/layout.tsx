@@ -4,12 +4,12 @@ import { getHelmetTitle, getPageClass } from '../../utils';
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
-import { getFavorites } from '../../store/favorite-slice/selectors';
+import { favoritesOffersCount } from '../../store/selectors';
 
 export const Layout: FC = () => {
   const { pathname } = useLocation();
-  const { value: favorites = [] } = useAppSelector(getFavorites);
-  const pageClass = getPageClass(pathname, favorites.length);
+  const favoritesCount = useAppSelector(favoritesOffersCount);
+  const pageClass = getPageClass(pathname, favoritesCount);
 
   return (
     <>

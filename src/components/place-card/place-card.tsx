@@ -40,7 +40,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }) 
       <div className={`${infoClass} place-card__info`}>
         <div className="place-card__price-wrapper">
           <Price type='place-card' price={price}/>
-          <BookmarkButton type='place-card' isActive={isFavorite}/>
+          <BookmarkButton type='place-card' offerId={id} isActive={isFavorite}/>
         </div>
         <Rating type='place-card' rating={rating}/>
         <h2 className="place-card__name">

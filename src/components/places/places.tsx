@@ -7,7 +7,7 @@ import { Cities } from '../../const';
 import { CityName } from '../../types/city';
 import { PlacesSortOptions } from './const';
 import { useAppSelector } from '../../hooks';
-import { getSortType } from '../../store/app-slice';
+import { activeSortType } from '../../store/selectors';
 
 interface PlacesProps {
   city: CityName;
@@ -17,7 +17,7 @@ interface PlacesProps {
 export const Places: FC<PlacesProps> = ({ city, offers }) => {
   const [ selectedOffer, setSelectedOffer ] = useState<Offer>();
 
-  const sortType = useAppSelector(getSortType);
+  const sortType = useAppSelector(activeSortType);
   const sortedOffers = offers.slice().sort(PlacesSortOptions[sortType].sort);
   const cityLocation = Cities[city];
 

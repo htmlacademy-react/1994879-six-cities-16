@@ -5,7 +5,8 @@ import { AppRoute } from '../../const';
 import { CityName } from '../../types/city';
 import { FC } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { selectCity } from '../../store/app-slice';
+import { selectCity } from '../../store/selectors';
+
 
 export type FavoriteCityProps = {
   city: CityName;

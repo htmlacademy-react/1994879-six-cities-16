@@ -1,10 +1,10 @@
 import { AxiosInstance } from 'axios';
 
 export type StateLoading<T> = {
-  value: T | undefined;
+  entity: T | undefined;
   loading: boolean;
 }
 
-export type AsyncThunkPropWithAxios = {
+export type ExtraAxios = {
   extra: AxiosInstance;
 }

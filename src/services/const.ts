@@ -11,5 +11,6 @@ export const axiosCreateConfig: CreateAxiosDefaults = {
 export const errorStatusCodes = [
   StatusCodes.BAD_REQUEST,
   StatusCodes.UNAUTHORIZED,
-  StatusCodes.NOT_FOUND
+  StatusCodes.NOT_FOUND,
+  StatusCodes.CONFLICT,
 ];

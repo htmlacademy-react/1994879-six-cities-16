@@ -4,14 +4,14 @@ import { ReviewForm } from '../review-form';
 import { Review } from '../review/review';
 import { REVIEWS_LIMIT, sortComments } from './utils';
 import { useAppSelector } from '../../hooks';
-import { getUserInfo } from '../../store/user-slice/selectors';
+import { isUserLogged } from '../../store/selectors';
 
 type OfferReviewsProps = {
   reviews: Comment[];
 }
 
 export const OfferReviews: FC<OfferReviewsProps> = ({ reviews }) => {
-  const { isLogged } = useAppSelector(getUserInfo);
+  const isLogged = useAppSelector(isUserLogged);
   const limitedReviews = [...reviews].sort(sortComments).slice(0, REVIEWS_LIMIT);
 
   return (
