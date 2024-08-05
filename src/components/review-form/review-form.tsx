@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { CommentLimit, DEFAULT_RATING, RatingLimit, Ratings } from './const';
-import { RatingStars } from '../rating-stars/rating-stars';
+import { RatingStars } from '../rating-stars';
 import { inRange } from './utils';
 import { useAppDispatch } from '../../hooks';
 import { CommentPost, postComment } from '../../store/comment-slice/thunk';
@@ -13,10 +13,10 @@ export const ReviewForm: FC = () => {
   const [ text, setText ] = useState('');
   const isValidData = inRange(rating, RatingLimit) && inRange(text.length, CommentLimit);
 
-  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const {value} = evt.target;
+  const handleInputChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = evt.target;
     setRating(Number(value));
-  };
+  }, [setRating]);
 
   const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {value} = evt.target;

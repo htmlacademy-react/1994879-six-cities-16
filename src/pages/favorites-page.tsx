@@ -13,7 +13,13 @@ export const FavoritesPage: FC = () => {
   const { favorites: offers, isLoading } = useAppSelector(favoritesOffers);
 
   useEffect(() => {
-    dispatch(fetchFavorites());
+    let isMounted = true;
+    if (isMounted) {
+      dispatch(fetchFavorites());
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   if (isLoading) {

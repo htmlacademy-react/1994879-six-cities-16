@@ -1,11 +1,13 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 type PremiumProps = {
   className: string;
 }
 
-export const Premium: FC<PremiumProps> = ({ className }) => (
+const PremiumComponent: FC<PremiumProps> = ({ className }) => (
   <div className={className}>
     <span>Premium</span>
   </div>
 );
+
+export const Premium = memo(PremiumComponent);

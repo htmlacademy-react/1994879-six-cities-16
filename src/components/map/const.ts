@@ -1,7 +1,7 @@
 import { IconOptions, TileLayerOptions } from 'leaflet';
 
-export const URL_MARKER_DEFAULT = './img/pin.svg';
-export const URL_MARKER_CURRENT = './img/pin-active.svg';
+const URL_MARKER_DEFAULT = './img/pin.svg';
+const URL_MARKER_CURRENT = './img/pin-active.svg';
 
 export const DefaultIconOptions: IconOptions = {
   iconUrl: URL_MARKER_DEFAULT,

@@ -6,7 +6,7 @@ import { PlaceCard } from '../components/place-card';
 import { Premium } from '../components/premium/premium';
 import { Navigate, useParams } from 'react-router-dom';
 import { BookmarkButton } from '../components/bookmark-button';
-import { Price } from '../components/price/price';
+import { Price } from '../components/price';
 import { Rating } from '../components/rating';
 import { OfferFeatures } from '../components/offer-features';
 import { OfferInside } from '../components/offer-inside';
@@ -26,11 +26,15 @@ export const OfferPage: FC = () => {
   const { nearOffers, isLoading: isNearOffersLoading } = useAppSelector(allNearOffers);
 
   useEffect(() => {
-    if (id) {
+    let isMounted = true;
+    if (isMounted && id) {
       dispatch(fetchOffer(id));
       dispatch(fetchNearOffers(id));
       dispatch(fetchComments(id));
     }
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, id]);
 
   if (isOfferLoading) {
@@ -38,7 +42,7 @@ export const OfferPage: FC = () => {
   }
 
   if (!offer || !id) {
-    return <Navigate to={AppRoute.NotFound} replace />;
+    return <Navigate to={AppRoute.Unknown} replace />;
   }
 
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Comment } from '../../types/comment';
 import { ReviewForm } from '../review-form';
 import { Review } from '../review/review';
@@ -10,7 +10,7 @@ type OfferReviewsProps = {
   reviews: Comment[];
 }
 
-export const OfferReviews: FC<OfferReviewsProps> = ({ reviews }) => {
+const OfferReviewsComponents: FC<OfferReviewsProps> = ({ reviews }) => {
   const isLogged = useAppSelector(isUserLogged);
   const limitedReviews = [...reviews].sort(sortComments).slice(0, REVIEWS_LIMIT);
 
@@ -24,3 +24,7 @@ export const OfferReviews: FC<OfferReviewsProps> = ({ reviews }) => {
     </section>
   );
 };
+
+export const OfferReviews = memo(OfferReviewsComponents,
+  (prevProps, nextProps) => prevProps.reviews === nextProps.reviews
+);

@@ -6,3 +6,4 @@ export const Footer: FC = () => (
     <Logo logoType='footer' />
   </footer>
 );
+

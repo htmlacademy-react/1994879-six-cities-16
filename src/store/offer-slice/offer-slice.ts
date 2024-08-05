@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Offer, OfferFull } from '../../types/offer';
 import { fetchOffers, fetchOffer, fetchNearOffers } from './thunk';
 import { StateLoading } from '../type';
+import { applyFavorite } from '../favorite-slice/thunk';
 
 export type InitialState = {
   offer: StateLoading<OfferFull | undefined>;
@@ -13,6 +14,16 @@ const initialState: InitialState = {
   offer: { entity: undefined, loading: false },
   offers: { entity: [], loading: false },
   nearOffers: { entity: [], loading: false },
+};
+
+const updateFavorites = (state: InitialState, newOffer: Offer) => {
+  const updateOffer = (state.offers.entity || []).find((offer) => offer.id === newOffer.id);
+  if (updateOffer) {
+    updateOffer.isFavorite = newOffer.isFavorite;
+  }
+  if (state.offer.entity && state.offer.entity.id === newOffer.id) {
+    state.offer.entity.isFavorite = newOffer.isFavorite;
+  }
 };
 
 export const offersSlice = createSlice({
@@ -52,6 +63,9 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchNearOffers.rejected, (state) => {
         state.nearOffers.loading = false;
+      })
+      .addCase(applyFavorite.fulfilled, (state, action) => {
+        updateFavorites(state, action.payload);
       });
   }
 });

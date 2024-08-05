@@ -2,11 +2,11 @@ import { AppRoute, cityNames } from './const';
 
 export const isEmpty = <T extends { length: number }>(data: T): boolean => data.length === 0;
 
-export const getPageClass = (location: string, favoritesCount: number): string => {
+export const getPageClass = (location: string, isFavoritesEmpty: boolean): string => {
   switch (location) {
     case AppRoute.Main: return 'page--gray page--main';
     case AppRoute.Login: return 'page--gray page--login';
-    case AppRoute.Favorites: return favoritesCount === 0 ? 'page--favorites-empty' : '';
+    case AppRoute.Favorites: return isFavoritesEmpty ? 'page--favorites-empty' : '';
     default: return '';
   }
 };

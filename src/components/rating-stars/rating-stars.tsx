@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 type RatingStarsProps = {
   value: number;
@@ -6,7 +6,7 @@ type RatingStarsProps = {
   onRatingChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const RatingStars: FC<RatingStarsProps> = ({ value, title, onRatingChange }) => {
+const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, onRatingChange }) => {
   const id = `${value}-stars`;
 
   return (
@@ -27,3 +27,5 @@ export const RatingStars: FC<RatingStarsProps> = ({ value, title, onRatingChange
     </>
   );
 };
+
+export const RatingStars = memo(RatingStarsComponent);

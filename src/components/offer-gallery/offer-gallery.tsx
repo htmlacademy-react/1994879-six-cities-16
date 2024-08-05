@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { IMAGES_LIMIT } from './const';
 
 type OfferGalleryProps = {
   images: string[];
 }
 
-export const OfferGallery: FC<OfferGalleryProps> = ({ images }) => {
+const OfferGalleryComponent: FC<OfferGalleryProps> = ({ images }) => {
   const limitedImages = images.slice(0, IMAGES_LIMIT);
 
   return (
@@ -18,3 +18,6 @@ export const OfferGallery: FC<OfferGalleryProps> = ({ images }) => {
     </div>
   );
 };
+
+export const OfferGallery = memo(OfferGalleryComponent,
+  (prevProps, nextProps) => prevProps.images === nextProps.images);

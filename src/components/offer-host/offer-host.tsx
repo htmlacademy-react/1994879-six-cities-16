@@ -1,5 +1,5 @@
 
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { User } from '../../types/user';
 import { UserAvatar } from '../user-avatar';
 
@@ -8,7 +8,7 @@ type HostProps = {
   description: string;
 }
 
-export const OfferHost: FC<HostProps> = ({ user, description }) => {
+const OfferHostComponent: FC<HostProps> = ({ user, description }) => {
   const sentences = description.split('. ').map((sentence, index) => (
     { id: index, text: sentence, }
   ));
@@ -22,3 +22,5 @@ export const OfferHost: FC<HostProps> = ({ user, description }) => {
     </div>
   );
 };
+
+export const OfferHost = memo(OfferHostComponent);

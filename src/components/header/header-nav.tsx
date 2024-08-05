@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, memo, useCallback, useMemo } from 'react';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -6,16 +6,16 @@ import { logout } from '../../store/user-slice/thunk';
 import { favoritesOffersCount, isUserLogged, userEmail } from '../../store/selectors';
 
 
-export const HeaderNav: FC = () => {
+const HeaderNavComponent: FC = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(userEmail);
   const isLogged = useAppSelector(isUserLogged);
   const favoritesCount = useAppSelector(favoritesOffersCount);
 
-  const handleSignOutClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleSignOutClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();
     dispatch(logout());
-  };
+  }, [dispatch]);
 
   const userInfo = useMemo(() => (
     <>
@@ -44,3 +44,5 @@ export const HeaderNav: FC = () => {
     </nav>
   );
 };
+
+export const HeaderNav = memo(HeaderNavComponent);

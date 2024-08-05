@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Offer } from '../../types/offer';
 import { PlaceCard } from '../place-card';
 import { PlacesSorting } from './places-sorting';
@@ -21,7 +21,9 @@ export const Places: FC<PlacesProps> = ({ city, offers }) => {
   const sortedOffers = offers.slice().sort(PlacesSortOptions[sortType].sort);
   const cityLocation = Cities[city];
 
-  const handleHover = (newOffer: Offer | undefined) => setSelectedOffer(newOffer);
+  const handleHover = useCallback((newOffer: Offer | undefined) => {
+    setSelectedOffer(newOffer);
+  }, [setSelectedOffer]);
 
   return (
     <div className="cities__places-container container">

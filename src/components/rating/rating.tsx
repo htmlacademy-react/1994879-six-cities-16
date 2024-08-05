@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { ratingToPercent } from './utils';
 import { RatingType } from './const';
 
@@ -7,7 +7,7 @@ type RatingProps = {
   rating: number;
 }
 
-export const Rating: FC<RatingProps> = ({ type, rating }) => {
+const RatingComponent: FC<RatingProps> = ({ type, rating }) => {
   const valueComponent = <span className="offer__rating-value rating__value">{rating}</span>;
 
   return (
@@ -20,3 +20,5 @@ export const Rating: FC<RatingProps> = ({ type, rating }) => {
     </div>
   );
 };
+
+export const Rating = memo(RatingComponent);

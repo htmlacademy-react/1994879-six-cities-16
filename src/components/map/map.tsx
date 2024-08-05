@@ -26,7 +26,7 @@ export const Map: FC<MapProps> = ({ city, offers, selectedOffer}) => {
     }
 
     const { latitude: lat, longitude: lng, zoom } = city.location;
-    map.flyTo([ lat, lng ], zoom);
+    map.flyTo([ lat, lng ], zoom, { animate: false });
 
     const markerLayer = L.layerGroup().addTo(map);
     markerLayer.clearLayers();
