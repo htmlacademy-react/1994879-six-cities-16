@@ -3,7 +3,7 @@ import { useRef, useEffect, FC } from 'react';
 import { Offer } from '../../types/offer';
 import { City } from '../../types/city';
 import { getCustomIcon, getTooltipText } from './utils';
-import { useMap } from './use-map';
+import { useMap } from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
