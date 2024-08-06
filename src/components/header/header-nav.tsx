@@ -1,21 +1,18 @@
-import { FC, memo, useCallback, useMemo } from 'react';
+import { FC, memo, useCallback, useEffect, useMemo } from 'react';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/user-slice/thunk';
-import { favoritesOffersCount, isUserLogged, userEmail } from '../../store/selectors';
+import { favoritesOffersCount, userEmail } from '../../store/selectors';
+import { fetchFavorites } from '../../store/favorite-slice/thunk';
+import { useAuth } from '../../hooks/use-auth';
 
 
 const HeaderNavComponent: FC = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(userEmail);
-  const isLogged = useAppSelector(isUserLogged);
+  const isAuthorized = useAuth();
   const favoritesCount = useAppSelector(favoritesOffersCount);
-
-  const handleSignOutClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    evt.preventDefault();
-    dispatch(logout());
-  }, [dispatch]);
 
   const userInfo = useMemo(() => (
     <>
@@ -24,6 +21,17 @@ const HeaderNavComponent: FC = () => {
     </>
   ), [email, favoritesCount]);
 
+  useEffect(() => {
+    if (isAuthorized) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, isAuthorized]);
+
+  const handleSignOutClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    evt.preventDefault();
+    dispatch(logout());
+  }, [dispatch]);
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -31,10 +39,10 @@ const HeaderNavComponent: FC = () => {
           <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
-            {isLogged ? userInfo : <span className="header__login">Sign in</span>}
+            {isAuthorized ? userInfo : <span className="header__login">Sign in</span>}
           </Link>
         </li>
-        {isLogged &&
+        {isAuthorized &&
           <li className="header__nav-item">
             <Link to="" className="header__nav-link" onClick={handleSignOutClick}>
               <span className="header__signout">Sign out</span>

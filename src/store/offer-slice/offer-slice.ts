@@ -1,29 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Offer, OfferFull } from '../../types/offer';
 import { fetchOffers, fetchOffer, fetchNearOffers } from './thunk';
-import { StateLoading } from '../type';
-import { applyFavorite } from '../favorite-slice/thunk';
+import { FetchState } from '../type';
+import { applyFavorite, fetchFavorites } from '../favorite-slice/thunk';
+import { logout } from '../user-slice/thunk';
+import { updateFavorites, updateOfferFavorites } from './utils';
 
 export type InitialState = {
-  offer: StateLoading<OfferFull | undefined>;
-  offers: StateLoading<Offer[]>;
-  nearOffers: StateLoading<Offer[]>;
+  offer: FetchState<OfferFull | undefined>;
+  offers: FetchState<Offer[]>;
+  nearOffers: FetchState<Offer[]>;
 }
 
 const initialState: InitialState = {
-  offer: { entity: undefined, loading: false },
-  offers: { entity: [], loading: false },
-  nearOffers: { entity: [], loading: false },
-};
-
-const updateFavorites = (state: InitialState, newOffer: Offer) => {
-  const updateOffer = (state.offers.entity || []).find((offer) => offer.id === newOffer.id);
-  if (updateOffer) {
-    updateOffer.isFavorite = newOffer.isFavorite;
-  }
-  if (state.offer.entity && state.offer.entity.id === newOffer.id) {
-    state.offer.entity.isFavorite = newOffer.isFavorite;
-  }
+  offer: { entity: undefined, status: 'none' },
+  offers: { entity: [], status: 'none' },
+  nearOffers: { entity: [], status: 'none' },
 };
 
 export const offersSlice = createSlice({
@@ -33,39 +25,45 @@ export const offersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffers.pending, (state) => {
-        state.offers.loading = true;
+        state.offers.status = 'loading';
       })
       .addCase(fetchOffers.fulfilled, (state, action) => {
         state.offers.entity = action.payload;
-        state.offers.loading = false;
+        state.offers.status = 'done';
       })
       .addCase(fetchOffers.rejected, (state) => {
-        state.offers.loading = false;
+        state.offers.status = 'error';
       })
       .addCase(fetchOffer.pending, (state) => {
         state.offer.entity = undefined;
-        state.offer.loading = true;
+        state.offer.status = 'loading';
       })
       .addCase(fetchOffer.fulfilled, (state, action) => {
         state.offer.entity = action.payload;
-        state.offer.loading = false;
+        state.offer.status = 'done';
       })
       .addCase(fetchOffer.rejected, (state) => {
         state.offer.entity = undefined;
-        state.offer.loading = false;
+        state.offer.status = 'error';
       })
       .addCase(fetchNearOffers.pending, (state) => {
-        state.nearOffers.loading = true;
+        state.nearOffers.status = 'loading';
       })
       .addCase(fetchNearOffers.fulfilled, (state, action) => {
         state.nearOffers.entity = action.payload;
-        state.nearOffers.loading = false;
+        state.nearOffers.status = 'done';
       })
       .addCase(fetchNearOffers.rejected, (state) => {
-        state.nearOffers.loading = false;
+        state.nearOffers.status = 'error';
       })
       .addCase(applyFavorite.fulfilled, (state, action) => {
         updateFavorites(state, action.payload);
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        updateOfferFavorites(state, action.payload);
+      })
+      .addCase(logout.fulfilled, (state) => {
+        updateOfferFavorites(state, []);
       });
   }
 });

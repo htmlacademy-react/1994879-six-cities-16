@@ -1,8 +1,10 @@
 import { AxiosInstance } from 'axios';
 
-export type StateLoading<T> = {
+export type FetchStatus = 'none' | 'loading' | 'done' | 'error';
+
+export type FetchState<T> = {
   entity: T | undefined;
-  loading: boolean;
+  status: FetchStatus;
 }
 
 export type ExtraAxios = {

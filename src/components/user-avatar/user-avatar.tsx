@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { UserAvatarSettings, UserAvatarType } from './const';
 import { User } from '../../types/user';
 
@@ -7,9 +7,8 @@ type UserAvatarProps = {
   user: User;
 }
 
-export const UserAvatar: FC<UserAvatarProps> = ({ type, user }) => {
+const UserAvatarComponent: FC<UserAvatarProps> = ({ type, user }) => {
   const { width, height, alt, baseClass } = UserAvatarSettings[type];
-  const proComponent = <span className={`${type}__user-status`}>Pro</span>;
 
   return (
     <div className={`${baseClass} user`}>
@@ -19,7 +18,9 @@ export const UserAvatar: FC<UserAvatarProps> = ({ type, user }) => {
       <span className={`${type}__user-name`}>
         {user.name}
       </span>
-      {type === 'offer' && user.isPro && proComponent}
+      {type === 'offer' && user.isPro && <span className={`${type}__user-status`}>Pro</span>}
     </div>
   );
 };
+
+export const UserAvatar = memo(UserAvatarComponent);

@@ -8,6 +8,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
 import { getOfferRoute } from '../../utils';
+import { ANIMATE_DURATION } from './const';
 
 type MapProps = {
   city: City;
@@ -21,12 +22,16 @@ export const Map: FC<MapProps> = ({ city, offers, selectedOffer}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (map) {
+      const { latitude: lat, longitude: lng, zoom } = city.location;
+      map.flyTo([ lat, lng ], zoom, { duration: ANIMATE_DURATION });
+    }
+  }, [city.location, map]);
+
+  useEffect(() => {
     if (!map) {
       return;
     }
-
-    const { latitude: lat, longitude: lng, zoom } = city.location;
-    map.flyTo([ lat, lng ], zoom, { animate: false });
 
     const markerLayer = L.layerGroup().addTo(map);
     markerLayer.clearLayers();

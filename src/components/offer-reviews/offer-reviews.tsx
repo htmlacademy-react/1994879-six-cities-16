@@ -3,15 +3,14 @@ import { Comment } from '../../types/comment';
 import { ReviewForm } from '../review-form';
 import { Review } from '../review/review';
 import { REVIEWS_LIMIT, sortComments } from './utils';
-import { useAppSelector } from '../../hooks';
-import { isUserLogged } from '../../store/selectors';
+import { useAuth } from '../../hooks/use-auth';
 
 type OfferReviewsProps = {
   reviews: Comment[];
 }
 
 const OfferReviewsComponents: FC<OfferReviewsProps> = ({ reviews }) => {
-  const isLogged = useAppSelector(isUserLogged);
+  const isAuthorized = useAuth();
   const limitedReviews = [...reviews].sort(sortComments).slice(0, REVIEWS_LIMIT);
 
   return (
@@ -20,7 +19,7 @@ const OfferReviewsComponents: FC<OfferReviewsProps> = ({ reviews }) => {
       <ul className="reviews__list">
         {limitedReviews.map((review) => <Review key={review.id} review={review} />)}
       </ul>
-      {isLogged && <ReviewForm />}
+      {isAuthorized && <ReviewForm />}
     </section>
   );
 };

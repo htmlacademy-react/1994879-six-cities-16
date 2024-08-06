@@ -1,16 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Offer, OfferFull } from '../../types/offer';
 import { fetchFavorites, applyFavorite } from './thunk';
-import { StateLoading } from '../type';
+import { FetchState } from '../type';
+import { logout } from '../user-slice/thunk';
 
 export type InitialState = {
-  offer: StateLoading<OfferFull>;
-  offers: StateLoading<Offer[]>;
+  offer: FetchState<OfferFull>;
+  offers: FetchState<Offer[]>;
 }
 
 const initialState: InitialState = {
-  offer: { entity: undefined, loading: false },
-  offers: { entity: [], loading: false },
+  offer: { entity: undefined, status: 'none' },
+  offers: { entity: [], status: 'none' },
 };
 
 const updateFavorites = (state: InitialState, newOffer: Offer) => {
@@ -29,24 +30,28 @@ export const favoriteSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchFavorites.pending, (state) => {
-        state.offers.loading = true;
+        state.offers.status = 'loading';
       })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.offers.entity = action.payload;
-        state.offers.loading = false;
+        state.offers.status = 'done';
       })
       .addCase(fetchFavorites.rejected, (state) => {
-        state.offers.loading = false;
+        state.offers.status = 'error';
       })
       .addCase(applyFavorite.pending, (state) => {
-        state.offer.loading = true;
+        state.offer.status = 'loading';
       })
       .addCase(applyFavorite.fulfilled, (state, action) => {
         updateFavorites(state, action.payload);
-        state.offer.loading = false;
+        state.offer.status = 'done';
       })
       .addCase(applyFavorite.rejected, (state) => {
-        state.offer.loading = false;
+        state.offer.status = 'error';
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.offer = initialState.offer;
+        state.offers = initialState.offers;
       });
   }
 });

@@ -4,18 +4,19 @@ import { Places } from '../components/places';
 import { isEmpty } from '../utils';
 import { allOffers, activeCity } from '../store/selectors';
 import { useAppSelector } from '../hooks';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Spinner } from '../components/spinner';
 
 export const MainPage: FC = () => {
   const { name: cityName } = useAppSelector(activeCity);
   const { offers, isLoading } = useAppSelector(allOffers);
 
+  const cityOffers = useMemo(() => offers.filter((offer) => offer.city.name === cityName), [cityName, offers]);
+
   if (isLoading) {
     return <Spinner message='Loading offers' />;
   }
 
-  const cityOffers = offers.filter((offer) => offer.city.name === cityName);
   const isEmptyOffers = isEmpty(cityOffers);
 
   return (

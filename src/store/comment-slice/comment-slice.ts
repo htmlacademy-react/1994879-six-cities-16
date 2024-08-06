@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchComments, postComment } from './thunk';
 import { Comment } from '../../types/comment';
-import { StateLoading } from '../type';
+import { FetchState } from '../type';
 
 type InitialState = {
-  comments: StateLoading<Comment[]>;
-  newComment: StateLoading<Comment>;
+  comments: FetchState<Comment[]>;
+  newComment: FetchState<Comment>;
 }
 
 const initialState: InitialState = {
-  comments: { entity: [], loading: false },
-  newComment: { entity: undefined, loading: false },
+  comments: { entity: [], status: 'none' },
+  newComment: { entity: undefined, status: 'none' },
 };
 
 export const commentSlice = createSlice({
@@ -20,25 +20,25 @@ export const commentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchComments.pending, (state) => {
-        state.comments.loading = true;
+        state.comments.status = 'loading';
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.comments.entity = action.payload;
-        state.comments.loading = false;
+        state.comments.status = 'done';
       })
       .addCase(fetchComments.rejected, (state) => {
-        state.comments.loading = false;
+        state.comments.status = 'error';
       })
       .addCase(postComment.pending, (state) => {
-        state.newComment.loading = true;
+        state.newComment.status = 'loading';
       })
       .addCase(postComment.fulfilled, (state, action) => {
         state.newComment.entity = action.payload;
-        state.comments.entity = [...state.comments.entity ?? [], state.newComment.entity];
-        state.newComment.loading = false;
+        state.comments.entity = [...(state.comments.entity ?? []), state.newComment.entity];
+        state.newComment.status = 'done';
       })
       .addCase(postComment.rejected, (state) => {
-        state.newComment.loading = false;
+        state.newComment.status = 'error';
       });
   }
 });

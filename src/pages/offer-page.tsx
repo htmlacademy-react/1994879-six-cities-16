@@ -4,22 +4,23 @@ import { OfferHost } from '../components/offer-host';
 import { OfferReviews } from '../components/offer-reviews/offer-reviews';
 import { PlaceCard } from '../components/place-card';
 import { Premium } from '../components/premium/premium';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { BookmarkButton } from '../components/bookmark-button';
 import { Price } from '../components/price';
 import { Rating } from '../components/rating';
 import { OfferFeatures } from '../components/offer-features';
 import { OfferInside } from '../components/offer-inside';
 import { Map } from '../components/map';
-import { AppRoute, NEARBY_LIMIT } from '../const';
+import { NEARBY_LIMIT } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { fetchNearOffers, fetchOffer } from '../store/offer-slice/thunk';
 import { Spinner } from '../components/spinner';
 import { fetchComments } from '../store/comment-slice/thunk';
 import { allComments, allNearOffers, fullOffer } from '../store/selectors';
+import { NotFoundPage } from './not-found/not-found-page';
 
 export const OfferPage: FC = () => {
-  const { id } = useParams();
+  const { id = '' } = useParams();
   const dispatch = useAppDispatch();
   const { offer, isLoading: isOfferLoading } = useAppSelector(fullOffer);
   const { comments, isLoading: isCommentsLoading } = useAppSelector(allComments);
@@ -41,8 +42,8 @@ export const OfferPage: FC = () => {
     return <Spinner message='Offer loading' />;
   }
 
-  if (!offer || !id) {
-    return <Navigate to={AppRoute.Unknown} replace />;
+  if (!offer) {
+    return <NotFoundPage />;
   }
 
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
@@ -73,9 +74,7 @@ export const OfferPage: FC = () => {
           </div>
         </div>
         <section className="offer__map map">
-          {isNearOffersLoading ?
-            <Spinner /> :
-            <Map city={offer.city} offers={mapOffers} selectedOffer={offer} />}
+          <Map city={offer.city} offers={mapOffers} selectedOffer={offer} />
         </section>
       </section>
 

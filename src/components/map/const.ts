@@ -1,5 +1,7 @@
 import { IconOptions, TileLayerOptions } from 'leaflet';
 
+export const ANIMATE_DURATION = 0.6;
+
 const URL_MARKER_DEFAULT = './img/pin.svg';
 const URL_MARKER_CURRENT = './img/pin-active.svg';
 

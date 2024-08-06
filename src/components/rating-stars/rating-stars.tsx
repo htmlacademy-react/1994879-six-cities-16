@@ -3,10 +3,11 @@ import { FC, memo } from 'react';
 type RatingStarsProps = {
   value: number;
   title: string;
+  isChecked: boolean;
   onRatingChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, onRatingChange }) => {
+const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, onRatingChange }) => {
   const id = `${value}-stars`;
 
   return (
@@ -17,6 +18,7 @@ const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, onRatingChan
         value={value}
         id={id}
         type="radio"
+        checked={isChecked}
         onChange={onRatingChange}
       />
       <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
