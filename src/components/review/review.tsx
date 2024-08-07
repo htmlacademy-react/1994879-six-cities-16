@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { DateOptions } from '../../const';
 import { Comment } from '../../types/comment';
 import { Rating } from '../rating';
@@ -8,7 +8,7 @@ type ReviewProps = {
   review: Comment;
 }
 
-export const Review: FC<ReviewProps> = ({ review }) => {
+const ReviewComponent: FC<ReviewProps> = ({ review }) => {
   const { comment, date, rating, user } = review;
   const formattedDate = new Intl.DateTimeFormat('en-US', DateOptions).format(new Date(date));
   const dateTime = date.split('T')[0];
@@ -24,3 +24,5 @@ export const Review: FC<ReviewProps> = ({ review }) => {
     </li>
   );
 };
+
+export const Review = memo(ReviewComponent);
