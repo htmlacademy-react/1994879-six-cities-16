@@ -2,18 +2,20 @@ import { IconOptions, TileLayerOptions } from 'leaflet';
 
 export const ANIMATE_DURATION = 0.6;
 
-const URL_MARKER_DEFAULT = './img/pin.svg';
-const URL_MARKER_CURRENT = './img/pin-active.svg';
+enum UrlMarker {
+  Default = './img/pin.svg',
+  Current = './img/pin-active.svg',
+}
 
 export const DefaultIconOptions: IconOptions = {
-  iconUrl: URL_MARKER_DEFAULT,
+  iconUrl: UrlMarker.Default,
   iconSize: [27, 39],
   iconAnchor: [13, 39],
 };
 
 export const CurrentCustomIcon: IconOptions = {
   ...DefaultIconOptions,
-  iconUrl: URL_MARKER_CURRENT,
+  iconUrl: UrlMarker.Current,
 };
 
 type TileLayerConfigType = {
