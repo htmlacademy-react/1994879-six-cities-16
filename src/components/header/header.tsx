@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Logo } from '../logo';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { HeaderNav } from './header-nav';
 
-export const Header: FC = (): JSX.Element => {
+const HeaderComponent: FC = () => {
   const { pathname } = useLocation();
   const isActive = pathname === AppRoute.Main as string;
 
@@ -21,3 +21,5 @@ export const Header: FC = (): JSX.Element => {
     </header>
   );
 };
+
+export const Header = memo(HeaderComponent);

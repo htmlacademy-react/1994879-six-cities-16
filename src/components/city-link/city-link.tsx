@@ -1,16 +1,19 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { CityName } from '../../types/city';
+import { useAppDispatch } from '../../hooks';
+import { selectCity } from '../../store/selectors';
+
 
 interface CityLinkProps {
   city: CityName;
   isActive?: boolean;
-  onCityChange?: (city: CityName) => void;
 }
 
-export const CityLink: FC<CityLinkProps> = ({ city, isActive = false, onCityChange }) => {
-  const handleClick = () => onCityChange?.(city);
+const CityLinkComponent: FC<CityLinkProps> = ({ city, isActive = false }) => {
+  const dispatch = useAppDispatch();
+  const handleClick = () => dispatch(selectCity(city));
 
   return (
     <Link
@@ -22,3 +25,5 @@ export const CityLink: FC<CityLinkProps> = ({ city, isActive = false, onCityChan
     </Link>
   );
 };
+
+export const CityLink = memo(CityLinkComponent);

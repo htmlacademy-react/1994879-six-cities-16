@@ -1,16 +1,16 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Comment } from '../../types/comment';
 import { ReviewForm } from '../review-form';
 import { Review } from '../review/review';
-import { MockedHeaderSettings } from '../../const';
 import { REVIEWS_LIMIT, sortComments } from './utils';
+import { useAuth } from '../../hooks/use-auth';
 
 type OfferReviewsProps = {
   reviews: Comment[];
 }
 
-export const OfferReviews: FC<OfferReviewsProps> = ({ reviews }) => {
-  const { isLogged } = MockedHeaderSettings;
+const OfferReviewsComponents: FC<OfferReviewsProps> = ({ reviews }) => {
+  const isAuthorized = useAuth();
   const limitedReviews = [...reviews].sort(sortComments).slice(0, REVIEWS_LIMIT);
 
   return (
@@ -19,7 +19,11 @@ export const OfferReviews: FC<OfferReviewsProps> = ({ reviews }) => {
       <ul className="reviews__list">
         {limitedReviews.map((review) => <Review key={review.id} review={review} />)}
       </ul>
-      {isLogged && <ReviewForm />}
+      {isAuthorized && <ReviewForm />}
     </section>
   );
 };
+
+export const OfferReviews = memo(OfferReviewsComponents,
+  (prevProps, nextProps) => prevProps.reviews === nextProps.reviews
+);

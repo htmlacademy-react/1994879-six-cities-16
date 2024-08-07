@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Premium } from '../premium';
 import { Offer } from '../../types/offer';
 import { PlaceCardSettings, PlaceCardType } from './const';
 import { BookmarkButton } from '../bookmark-button';
 import { Rating } from '../rating';
-import { Price } from '../price/price';
+import { Price } from '../price';
 import { getCapitalizedText, getOfferRoute } from '../../utils';
 
 type PlaceCardProps = {
@@ -14,7 +14,7 @@ type PlaceCardProps = {
   onCardHover?: (offer: Offer | undefined) => void;
 }
 
-export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }) => {
+const PlaceCardComponent: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }) => {
   const { id, price, title, type, rating, previewImage, isPremium, isFavorite } = offer;
   const offerLink = getOfferRoute(id);
   const { baseClass, infoClass, width, height } = PlaceCardSettings[typeCard];
@@ -40,7 +40,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }) 
       <div className={`${infoClass} place-card__info`}>
         <div className="place-card__price-wrapper">
           <Price type='place-card' price={price}/>
-          <BookmarkButton type='place-card' isActive={isFavorite}/>
+          <BookmarkButton type='place-card' offerId={id} isActive={isFavorite}/>
         </div>
         <Rating type='place-card' rating={rating}/>
         <h2 className="place-card__name">
@@ -51,3 +51,5 @@ export const PlaceCard: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }) 
     </article>
   );
 };
+
+export const PlaceCard = memo(PlaceCardComponent);

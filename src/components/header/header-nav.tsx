@@ -1,20 +1,36 @@
-import { FC } from 'react';
-import { AppRoute, MockedHeaderSettings } from '../../const';
+import { FC, memo, useCallback, useEffect, useMemo } from 'react';
+import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-import { MockFavorites } from '../../mock/favorites';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logout } from '../../store/user-slice/thunk';
+import { favoritesOffersCount, userEmail } from '../../store/selectors';
+import { fetchFavorites } from '../../store/favorite-slice/thunk';
+import { useAuth } from '../../hooks/use-auth';
 
-export const HeaderNav: FC = () => {
-  const { email, isLogged } = MockedHeaderSettings;
-  const favorites = MockFavorites;
 
-  const signIn = <span className="header__login">Sign in</span>;
-  const signOut = <span className="header__signout">Sign out</span>;
-  const userInfo = (
+const HeaderNavComponent: FC = () => {
+  const dispatch = useAppDispatch();
+  const email = useAppSelector(userEmail);
+  const isAuthorized = useAuth();
+  const favoritesCount = useAppSelector(favoritesOffersCount);
+
+  const userInfo = useMemo(() => (
     <>
       <span className="header__user-name user__name">{email}</span>
-      <span className="header__favorite-count">{favorites.length}</span>
+      <span className="header__favorite-count">{favoritesCount}</span>
     </>
-  );
+  ), [email, favoritesCount]);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, isAuthorized]);
+
+  const handleSignOutClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    evt.preventDefault();
+    dispatch(logout());
+  }, [dispatch]);
 
   return (
     <nav className="header__nav">
@@ -23,17 +39,18 @@ export const HeaderNav: FC = () => {
           <Link to={AppRoute.Favorites} className="header__nav-link header__nav-link--profile">
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
-            {isLogged ? userInfo : signIn}
+            {isAuthorized ? userInfo : <span className="header__login">Sign in</span>}
           </Link>
         </li>
-        {isLogged &&
+        {isAuthorized &&
           <li className="header__nav-item">
-            <a className="header__nav-link" href="#">
-              {signOut}
-            </a>
+            <Link to="" className="header__nav-link" onClick={handleSignOutClick}>
+              <span className="header__signout">Sign out</span>
+            </Link>
           </li>}
       </ul>
     </nav>
   );
 };
 
+export const HeaderNav = memo(HeaderNavComponent);

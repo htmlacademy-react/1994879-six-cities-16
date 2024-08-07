@@ -23,9 +23,12 @@ export const appSlice = createSlice({
     selectCity: (state, action: PayloadAction<City | CityName>) => {
       state.city = getCityFromPayload(action.payload);
     },
-    setSortType: (state, action: PayloadAction<PlacesSortType>) => {
+    selectSortType: (state, action: PayloadAction<PlacesSortType>) => {
       state.sortType = action.payload;
-    }
+    },
+    clearSortType: (state) => {
+      state.sortType = 'popular';
+    },
   },
 });
 

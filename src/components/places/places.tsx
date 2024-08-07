@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Offer } from '../../types/offer';
 import { PlaceCard } from '../place-card';
 import { PlacesSorting } from './places-sorting';
@@ -7,7 +7,7 @@ import { Cities } from '../../const';
 import { CityName } from '../../types/city';
 import { PlacesSortOptions } from './const';
 import { useAppSelector } from '../../hooks';
-import { getSortType } from '../../store/app-slice';
+import { activeSortType } from '../../store/selectors';
 
 interface PlacesProps {
   city: CityName;
@@ -17,11 +17,13 @@ interface PlacesProps {
 export const Places: FC<PlacesProps> = ({ city, offers }) => {
   const [ selectedOffer, setSelectedOffer ] = useState<Offer>();
 
-  const sortType = useAppSelector(getSortType);
+  const sortType = useAppSelector(activeSortType);
   const sortedOffers = offers.slice().sort(PlacesSortOptions[sortType].sort);
   const cityLocation = Cities[city];
 
-  const handleHover = (newOffer: Offer | undefined) => setSelectedOffer(newOffer);
+  const handleHover = useCallback((newOffer: Offer | undefined) => {
+    setSelectedOffer(newOffer);
+  }, [setSelectedOffer]);
 
   return (
     <div className="cities__places-container container">

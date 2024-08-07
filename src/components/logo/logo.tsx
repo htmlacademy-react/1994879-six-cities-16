@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { LogoSettings, LogoType } from './const';
 import { AppRoute } from '../../const';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 type LogoProps = {
   logoType: LogoType;
   isActive?: boolean;
 }
 
-export const Logo: FC<LogoProps> = ({ logoType , isActive = false }) => {
+const LogoComponent: FC<LogoProps> = ({ logoType , isActive = false }) => {
   const { width, height } = LogoSettings[logoType];
   const type = logoType;
   const className = `${type}__logo-link ${isActive ? `${type}__logo-link--active` : ''}`;
@@ -25,3 +25,5 @@ export const Logo: FC<LogoProps> = ({ logoType , isActive = false }) => {
     </Link>
   );
 };
+
+export const Logo = memo(LogoComponent);

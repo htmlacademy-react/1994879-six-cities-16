@@ -1,15 +1,15 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import { PlacesSortType, PlacesSortOptions } from './const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getSortType, setSortType } from '../../store/app-slice';
+import { activeSortType, selectSortType } from '../../store/selectors';
 
-export const PlacesSorting: FC = () => {
+const PlacesSortingComponent: FC = () => {
   const dispatch = useAppDispatch();
   const [ isOpened, setIsOpened ] = useState(false);
-  const activeSort = useAppSelector(getSortType);
+  const activeSort = useAppSelector(activeSortType);
 
   const handleOptionClick = (sortType: PlacesSortType) => {
-    dispatch(setSortType(sortType));
+    dispatch(selectSortType(sortType));
     setIsOpened(!isOpened);
   };
 
@@ -37,3 +37,5 @@ export const PlacesSorting: FC = () => {
     </form>
   );
 };
+
+export const PlacesSorting = memo(PlacesSortingComponent);

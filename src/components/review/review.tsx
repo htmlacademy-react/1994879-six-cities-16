@@ -11,7 +11,7 @@ type ReviewProps = {
 export const Review: FC<ReviewProps> = ({ review }) => {
   const { comment, date, rating, user } = review;
   const formattedDate = new Intl.DateTimeFormat('en-US', DateOptions).format(new Date(date));
-  const dateTime = date.toISOString().split('T')[0];
+  const dateTime = date.split('T')[0];
 
   return (
     <li className="reviews__item">

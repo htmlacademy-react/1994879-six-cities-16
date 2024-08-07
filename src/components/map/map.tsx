@@ -3,11 +3,12 @@ import { useRef, useEffect, FC } from 'react';
 import { Offer } from '../../types/offer';
 import { City } from '../../types/city';
 import { getCustomIcon, getTooltipText } from './utils';
-import { useMap } from './use-map';
+import { useMap } from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
 import { getOfferRoute } from '../../utils';
+import { ANIMATE_DURATION } from './const';
 
 type MapProps = {
   city: City;
@@ -21,12 +22,16 @@ export const Map: FC<MapProps> = ({ city, offers, selectedOffer}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (map) {
+      const { latitude: lat, longitude: lng, zoom } = city.location;
+      map.flyTo([ lat, lng ], zoom, { duration: ANIMATE_DURATION });
+    }
+  }, [city.location, map]);
+
+  useEffect(() => {
     if (!map) {
       return;
     }
-
-    const { latitude: lat, longitude: lng, zoom } = city.location;
-    map.flyTo([ lat, lng ], zoom);
 
     const markerLayer = L.layerGroup().addTo(map);
     markerLayer.clearLayers();

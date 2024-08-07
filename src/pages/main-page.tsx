@@ -2,27 +2,28 @@ import { CityLinkList } from '../components/city-link';
 import { NoPlaces } from '../components/no-places';
 import { Places } from '../components/places';
 import { isEmpty } from '../utils';
-import { getActiveCity, selectCity } from '../store/app-slice';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { CityName } from '../types/city';
-import { getOffers } from '../store/offer-slice';
+import { allOffers, activeCity } from '../store/selectors';
+import { useAppSelector } from '../hooks';
+import { FC, useMemo } from 'react';
+import { Spinner } from '../components/spinner';
 
+export const MainPage: FC = () => {
+  const { name: cityName } = useAppSelector(activeCity);
+  const { offers, isLoading } = useAppSelector(allOffers);
 
-const MainPage = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const { name: cityName } = useAppSelector(getActiveCity);
-  const offers = useAppSelector(getOffers);
+  const cityOffers = useMemo(() => offers.filter((offer) => offer.city.name === cityName), [cityName, offers]);
 
-  const cityOffers = offers.filter((offer) => offer.city.name === cityName);
+  if (isLoading) {
+    return <Spinner message='Loading offers' />;
+  }
+
   const isEmptyOffers = isEmpty(cityOffers);
-
-  const handleCityChange = (city: CityName) => dispatch(selectCity(city));
 
   return (
     <main className={`page__main page__main--index ${isEmptyOffers && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <CityLinkList activeCity={cityName} onCityChange={handleCityChange} />
+        <CityLinkList activeCity={cityName} />
       </div>
       <div className="cities">
         {isEmptyOffers ?
@@ -32,5 +33,3 @@ const MainPage = (): JSX.Element => {
     </main>
   );
 };
-
-export default MainPage;

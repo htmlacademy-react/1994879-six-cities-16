@@ -1,12 +1,13 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 type RatingStarsProps = {
   value: number;
   title: string;
+  isChecked: boolean;
   onRatingChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const RatingStars: FC<RatingStarsProps> = ({ value, title, onRatingChange }) => {
+const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, onRatingChange }) => {
   const id = `${value}-stars`;
 
   return (
@@ -17,6 +18,7 @@ export const RatingStars: FC<RatingStarsProps> = ({ value, title, onRatingChange
         value={value}
         id={id}
         type="radio"
+        checked={isChecked}
         onChange={onRatingChange}
       />
       <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
@@ -27,3 +29,5 @@ export const RatingStars: FC<RatingStarsProps> = ({ value, title, onRatingChange
     </>
   );
 };
+
+export const RatingStars = memo(RatingStarsComponent);
