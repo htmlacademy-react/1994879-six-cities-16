@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import ReactLoading, { LoadingType } from 'react-loading';
 import './spinner.css';
+
+const DEFAULT_MESSAGE = 'Loading...';
 
 type SpinnerConfigType = {
   type: LoadingType;
@@ -16,9 +18,11 @@ type SpinnerProps = {
   message?: string;
 }
 
-export const Spinner: FC<SpinnerProps> = ({ message = 'Loading...' }) => (
+const SpinnerComponent: FC<SpinnerProps> = ({ message = DEFAULT_MESSAGE }) => (
   <div className="spinner-container">
     <ReactLoading {...spinnerConfig} className="spinner-loading" />
     <p>{message}</p>
   </div>
 );
+
+export const Spinner = memo(SpinnerComponent);
