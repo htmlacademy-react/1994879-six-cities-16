@@ -16,6 +16,7 @@ export const activeSortType = createSelector(getAppState, (app) => app.sortType)
 
 export const userEmail = createSelector(getUserState, (user) => user.user?.email || '');
 export const isAuthorized = createSelector(getUserState, (user) => user.authorizationStatus === AuthorizationStatus.Auth);
+export const authorization = createSelector(getUserState, (user) => user.authorizationStatus);
 
 export const favoritesOffers = createSelector(getFavoriteState, (favorite) => ({
   favorites: favorite.offers.entity || [],
