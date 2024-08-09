@@ -4,10 +4,11 @@ type RatingStarsProps = {
   value: number;
   title: string;
   isChecked: boolean;
+  isDisabled: boolean;
   onRatingChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, onRatingChange }) => {
+const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, isDisabled, onRatingChange }) => {
   const id = `${value}-stars`;
 
   return (
@@ -19,6 +20,7 @@ const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, o
         id={id}
         type="radio"
         checked={isChecked}
+        disabled={isDisabled}
         onChange={onRatingChange}
       />
       <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>

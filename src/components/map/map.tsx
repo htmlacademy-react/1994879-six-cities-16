@@ -8,7 +8,6 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
 import { getOfferRoute } from '../../utils';
-import { ANIMATE_DURATION } from './const';
 
 type MapProps = {
   city: City;
@@ -24,7 +23,7 @@ export const Map: FC<MapProps> = ({ city, offers, selectedOffer}) => {
   useEffect(() => {
     if (map) {
       const { latitude: lat, longitude: lng, zoom } = city.location;
-      map.flyTo([ lat, lng ], zoom, { duration: ANIMATE_DURATION });
+      map.setView([ lat, lng ], zoom);
     }
   }, [city.location, map]);
 

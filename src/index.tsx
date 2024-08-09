@@ -8,8 +8,11 @@ import { checkLogin } from './store/user-slice/thunk';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-store.dispatch(checkLogin());
-store.dispatch(fetchOffers());
+const initializeApp = async () => {
+  await store.dispatch(checkLogin());
+  store.dispatch(fetchOffers());
+};
+await initializeApp();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

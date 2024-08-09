@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import { State } from '../hooks';
-import { AuthorizationStatus } from '../const';
 import { appSlice } from './app-slice/app-slice';
 
 export const { selectCity, selectSortType } = appSlice.actions;
@@ -15,8 +14,7 @@ export const activeCity = createSelector(getAppState, (app) => app.city);
 export const activeSortType = createSelector(getAppState, (app) => app.sortType);
 
 export const userEmail = createSelector(getUserState, (user) => user.user?.email || '');
-export const isAuthorized = createSelector(getUserState, (user) => user.authorizationStatus === AuthorizationStatus.Auth);
-export const authorization = createSelector(getUserState, (user) => user.authorizationStatus);
+export const authorizationStatus = createSelector(getUserState, (user) => user.authorizationStatus);
 
 export const favoritesOffers = createSelector(getFavoriteState, (favorite) => ({
   favorites: favorite.offers.entity || [],
@@ -50,4 +48,5 @@ export const allComments = createSelector(getCommentState, (comment) => ({
 export const newComment = createSelector(getCommentState, (comment) => ({
   comment: comment.newComment.entity,
   isPosting: comment.newComment.status === 'loading',
+  isSuccess: comment.newComment.status === 'done',
 }));

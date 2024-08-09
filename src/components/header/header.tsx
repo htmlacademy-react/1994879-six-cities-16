@@ -7,6 +7,7 @@ import { HeaderNav } from './header-nav';
 const HeaderComponent: FC = () => {
   const { pathname } = useLocation();
   const isActive = pathname === AppRoute.Main as string;
+  const isLogin = pathname === AppRoute.Login as string;
 
   return (
     <header className="header">
@@ -15,7 +16,7 @@ const HeaderComponent: FC = () => {
           <div className="header__left">
             <Logo logoType='header' isActive={isActive}/>
           </div>
-          <HeaderNav />
+          {!isLogin && <HeaderNav />}
         </div>
       </div>
     </header>

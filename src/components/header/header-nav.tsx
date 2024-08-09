@@ -1,17 +1,16 @@
-import { FC, memo, useCallback, useEffect, useMemo } from 'react';
+import { FC, memo, useCallback, useMemo } from 'react';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/user-slice/thunk';
 import { favoritesOffersCount, userEmail } from '../../store/selectors';
-import { fetchFavorites } from '../../store/favorite-slice/thunk';
 import { useAuth } from '../../hooks/use-auth';
 
 
 const HeaderNavComponent: FC = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(userEmail);
-  const isAuthorized = useAuth();
+  const { isAuthorized } = useAuth();
   const favoritesCount = useAppSelector(favoritesOffersCount);
 
   const userInfo = useMemo(() => (
@@ -20,12 +19,6 @@ const HeaderNavComponent: FC = () => {
       <span className="header__favorite-count">{favoritesCount}</span>
     </>
   ), [email, favoritesCount]);
-
-  useEffect(() => {
-    if (isAuthorized) {
-      dispatch(fetchFavorites());
-    }
-  }, [dispatch, isAuthorized]);
 
   const handleSignOutClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();

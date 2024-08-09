@@ -1,4 +1,11 @@
 import { useAppSelector } from '.';
-import { isAuthorized } from '../store/selectors';
+import { AuthorizationStatus } from '../const';
+import { authorizationStatus } from '../store/selectors';
 
-export const useAuth = () => useAppSelector(isAuthorized);
+export const useAuth = () => {
+  const status = useAppSelector(authorizationStatus);
+  return {
+    isAuthorized: status === AuthorizationStatus.Auth,
+    isAuthorizing: status === AuthorizationStatus.Unknown
+  };
+};

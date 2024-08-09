@@ -1,7 +1,5 @@
 import { IconOptions, TileLayerOptions } from 'leaflet';
 
-export const ANIMATE_DURATION = 0.6;
-
 enum UrlMarker {
   Default = './img/pin.svg',
   Current = './img/pin-active.svg',
