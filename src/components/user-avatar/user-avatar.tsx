@@ -12,7 +12,7 @@ const UserAvatarComponent: FC<UserAvatarProps> = ({ type, user }) => {
 
   return (
     <div className={`${baseClass} user`}>
-      <div className={`${type}__avatar-wrapper ${type}__avatar-wrapper--pro user__avatar-wrapper`}>
+      <div className={`${type}__avatar-wrapper ${type}__avatar-wrapper${user.isPro && '--pro'} user__avatar-wrapper`}>
         <img className={`${type}__avatar user__avatar`} src={user.avatarUrl} width={width} height={height} alt={alt} />
       </div>
       <span className={`${type}__user-name`}>

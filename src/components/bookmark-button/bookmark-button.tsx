@@ -16,7 +16,7 @@ type BookmarkButtonProps = {
 export const BookmarkButton: FC<BookmarkButtonProps> = ({ type, offerId, isActive }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuthorized = useAuth();
+  const { isAuthorized } = useAuth();
   const isLoading = useAppSelector(isNewFavoriteLoading);
 
   const { width, height } = BookmarkButtonSettings[type];

@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { CommentLimit, DEFAULT_RATING, RatingLimit, Ratings } from './const';
 import { RatingStars } from '../rating-stars';
 import { inRange } from './utils';
@@ -10,7 +10,7 @@ import { newComment } from '../../store/selectors';
 export const ReviewForm: FC = () => {
   const { id = '' } = useParams();
   const dispatch = useAppDispatch();
-  const { isPosting } = useAppSelector(newComment);
+  const { isPosting, isSuccess } = useAppSelector(newComment);
   const [ rating, setRating ] = useState(DEFAULT_RATING);
   const [ text, setText ] = useState('');
   const isValidData = inRange(rating, RatingLimit) && inRange(text.length, CommentLimit);
@@ -35,13 +35,20 @@ export const ReviewForm: FC = () => {
         comment: text,
       }
     };
-    dispatch(postComment(data))
-      .unwrap()
-      .then(() => {
-        setRating(DEFAULT_RATING);
-        setText('');
-      });
+
+    dispatch(postComment(data));
   };
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted && isSuccess) {
+      setRating(DEFAULT_RATING);
+      setText('');
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [isSuccess]);
 
   return (
     <form
@@ -58,6 +65,7 @@ export const ReviewForm: FC = () => {
               key={value}
               value={value}
               isChecked={value === rating}
+              isDisabled={isPosting}
               title={title}
               onRatingChange={handleInputChange}
             />

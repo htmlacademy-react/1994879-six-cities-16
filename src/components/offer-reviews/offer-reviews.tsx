@@ -10,7 +10,7 @@ type OfferReviewsProps = {
 }
 
 const OfferReviewsComponents: FC<OfferReviewsProps> = ({ reviews }) => {
-  const isAuthorized = useAuth();
+  const { isAuthorized } = useAuth();
   const limitedReviews = [...reviews].sort(sortComments).slice(0, REVIEWS_LIMIT);
 
   return (

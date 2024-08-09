@@ -13,4 +13,5 @@ export const errorStatusCodes = [
   StatusCodes.UNAUTHORIZED,
   StatusCodes.NOT_FOUND,
   StatusCodes.CONFLICT,
+  StatusCodes.INTERNAL_SERVER_ERROR,
 ];
