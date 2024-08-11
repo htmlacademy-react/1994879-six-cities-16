@@ -1,11 +1,21 @@
 import { Offer } from '../../types/offer';
 import { type InitialState } from './offer-slice';
 
-export const updateFavorites = (state: InitialState, newOffer: Offer) => {
-  const updateOffer = (state.offers.entity || []).find((offer) => offer.id === newOffer.id);
+const toggleFavorite = (offers: Offer[] | undefined, newOffer: Offer) => {
+  const updateOffer = (offers || []).find((offer) => offer.id === newOffer.id);
   if (updateOffer) {
     updateOffer.isFavorite = newOffer.isFavorite;
   }
+  return offers;
+};
+
+const toggleFavorites = (offers: Offer[] | undefined, favoritesId: string[]) =>
+  (offers ?? []).map((offer) => ({ ...offer, isFavorite: favoritesId.includes(offer.id) }));
+
+
+export const updateFavorites = (state: InitialState, newOffer: Offer) => {
+  state.offers.entity = toggleFavorite(state.offers.entity, newOffer);
+  state.nearOffers.entity = toggleFavorite(state.nearOffers.entity, newOffer);
   if (state.offer.entity && state.offer.entity.id === newOffer.id) {
     state.offer.entity.isFavorite = newOffer.isFavorite;
   }
@@ -13,8 +23,8 @@ export const updateFavorites = (state: InitialState, newOffer: Offer) => {
 
 export const updateOfferFavorites = (state: InitialState, favorites: Offer[]) => {
   const favoritesId = favorites.map(({ id }) => id);
-  state.offers.entity = (state.offers.entity ?? [])
-    .map((offer) => ({ ...offer, isFavorite: favoritesId.includes(offer.id) }));
+  state.offers.entity = toggleFavorites(state.offers.entity, favoritesId);
+  state.nearOffers.entity = toggleFavorites(state.nearOffers.entity, favoritesId);
   if (state.offer.entity) {
     state.offer.entity.isFavorite = favoritesId.includes(state.offer.entity.id);
   }
