@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { BookmarkButtonSettings, BookmarkButtonType } from './const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { applyFavorite } from '../../store/favorite-slice/thunk';
@@ -26,13 +26,15 @@ export const BookmarkButton: FC<BookmarkButtonProps> = ({ type, offerId, isActiv
     return isActive ? `${buttonClassName} ${buttonClassName}--active` : buttonClassName;
   }, [isActive, type]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+
     if (!isAuthorized) {
       navigate(AppRoute.Login);
       return ;
     }
     dispatch(applyFavorite({ offerId, status: !isActive }));
-  };
+  }, [dispatch, isActive, isAuthorized, navigate, offerId]);
 
   return (
     <button

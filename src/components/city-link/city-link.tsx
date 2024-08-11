@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { CityName } from '../../types/city';
@@ -13,7 +13,10 @@ interface CityLinkProps {
 
 const CityLinkComponent: FC<CityLinkProps> = ({ city, isActive = false }) => {
   const dispatch = useAppDispatch();
-  const handleClick = () => dispatch(selectCity(city));
+  const handleClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    dispatch(selectCity(city));
+  }, [city, dispatch]);
 
   return (
     <Link

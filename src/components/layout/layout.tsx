@@ -1,13 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from '../header';
 import { getHelmetTitle, getPageClass } from '../../utils';
-import { FC, useMemo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import { favoritesOffersCount } from '../../store/selectors';
 import { shallowEqual } from 'react-redux';
 
-export const Layout: FC = () => {
+const LayoutComponent: FC = () => {
   const { pathname } = useLocation();
   const favoritesCount = useAppSelector(favoritesOffersCount, shallowEqual);
 
@@ -27,3 +27,4 @@ export const Layout: FC = () => {
   );
 };
 
+export const Layout = memo(LayoutComponent);
