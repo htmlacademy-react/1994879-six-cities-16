@@ -13,16 +13,31 @@ import { useEffect } from 'react';
 import { fetchFavorites } from '../../store/favorite-slice/thunk';
 import { useAppDispatch } from '../../hooks';
 import { useAuth } from '../../hooks/use-auth';
+import { checkLogin } from '../../store/user-slice/thunk';
+import { fetchOffers } from '../../store/offer-slice/thunk';
+import { getToken } from '../../services/token';
+import { Spinner } from '../spinner';
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { isAuthorized } = useAuth();
+  const token = getToken();
+
+  useEffect(() => {
+    dispatch(checkLogin());
+    dispatch(fetchOffers());
+  }, [dispatch]);
+
+  const { isAuthorized, isAuthorizing } = useAuth();
 
   useEffect(() => {
     if (isAuthorized) {
       dispatch(fetchFavorites());
     }
   }, [dispatch, isAuthorized]);
+
+  if (isAuthorizing && token) {
+    return <Spinner />;
+  }
 
   return (
     <HelmetProvider>

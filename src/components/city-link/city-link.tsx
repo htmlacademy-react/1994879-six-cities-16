@@ -1,5 +1,5 @@
 import { FC, memo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { CityName } from '../../types/city';
 import { useAppDispatch } from '../../hooks';
@@ -13,10 +13,14 @@ interface CityLinkProps {
 
 const CityLinkComponent: FC<CityLinkProps> = ({ city, isActive = false }) => {
   const dispatch = useAppDispatch();
+  const { pathname } = useLocation();
+
   const handleClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement>) => {
-    evt.preventDefault();
+    if (pathname === String(AppRoute.Main)) {
+      evt.preventDefault();
+    }
     dispatch(selectCity(city));
-  }, [city, dispatch]);
+  }, [city, dispatch, pathname]);
 
   return (
     <Link
