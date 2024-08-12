@@ -4,22 +4,16 @@ import { getRandomCity } from '../utils';
 import { useAppDispatch } from '../hooks';
 import { login } from '../store/user-slice/thunk';
 import { LoginEntity } from '../types/user';
-import { useAuth } from '../hooks/use-auth';
 import { CityName } from '../types/city';
 
 const emptyLoginEntity: LoginEntity = { email: '', password: '' };
 
 export const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
-  const { isAuthorized } = useAuth();
   const [ loginEntity, setLoginEntity ] = useState<LoginEntity>(emptyLoginEntity);
   const [ randomCity ] = useState<CityName>(getRandomCity());
 
-  useEffect(() => {
-    if (isAuthorized) {
-      setLoginEntity(emptyLoginEntity);
-    }
-  }, [isAuthorized]);
+  useEffect(() => () => setLoginEntity(emptyLoginEntity), []);
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {value, name} = evt.target;

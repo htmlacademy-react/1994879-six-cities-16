@@ -6,6 +6,6 @@ export const useAuth = () => {
   const status = useAppSelector(authorizationStatus);
   return {
     isAuthorized: status === AuthorizationStatus.Auth,
-    isAuthorizing: status === AuthorizationStatus.Unknown
+    isAuthorizationChecked : status !== AuthorizationStatus.Unknown
   };
 };

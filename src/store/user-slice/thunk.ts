@@ -3,28 +3,40 @@ import { Endpoint } from '../../const';
 import { ExtraAxios } from '../type';
 import { LoggedUser, LoginEntity } from '../../types/user';
 import { HttpStatusCode } from 'axios';
-
+import { fetchFavorites } from '../favorite-slice/thunk';
+import { dropToken, saveToken } from '../../services/token';
 
 export const checkLogin = createAsyncThunk<LoggedUser, undefined, ExtraAxios>(
   'user/checkLogin',
-  async (_arg, { extra: api }) => {
-    const response = await api.get<LoggedUser>(Endpoint.Login);
-    return response.data;
+  async (_arg, { dispatch, extra: api }) => {
+    const { data } = await api.get<LoggedUser>(Endpoint.Login);
+    saveToken(data.token);
+    dispatch(fetchFavorites());
+    return data;
   }
 );
 
 export const login = createAsyncThunk<LoggedUser, LoginEntity, ExtraAxios>(
   'user/login',
-  async (data, { extra: api }) => {
-    const response = await api.post<LoggedUser>(Endpoint.Login, data);
-    return response.data;
+  async (loginEntity, { dispatch, extra: api }) => {
+    dropToken();
+    const { data, status } = await api.post<LoggedUser>(Endpoint.Login, loginEntity);
+    if (status === Number(HttpStatusCode.Created)) {
+      saveToken(data.token);
+      dispatch(fetchFavorites());
+    }
+    return data;
   }
 );
 
 export const logout = createAsyncThunk<boolean, undefined, ExtraAxios>(
   'user/logout',
   async (_arg, { extra: api }) => {
-    const response = await api.delete(Endpoint.Logout);
-    return response.status === HttpStatusCode.NoContent as number;
+    const { status } = await api.delete(Endpoint.Logout);
+    const result = (status === Number(HttpStatusCode.NoContent));
+    if (result) {
+      dropToken();
+    }
+    return result;
   }
 );
