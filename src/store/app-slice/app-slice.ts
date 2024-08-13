@@ -26,9 +26,6 @@ export const appSlice = createSlice({
     selectSortType: (state, action: PayloadAction<PlacesSortType>) => {
       state.sortType = action.payload;
     },
-    clearSortType: (state) => {
-      state.sortType = 'popular';
-    },
   },
 });
 

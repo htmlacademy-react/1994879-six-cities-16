@@ -14,15 +14,6 @@ const initialState: InitialState = {
   offers: { entity: [], status: 'none' },
 };
 
-const updateFavorites = (state: InitialState, newOffer: Offer) => {
-  const favorites = state.offers.entity || [];
-  if (newOffer.isFavorite) {
-    state.offers.entity = [...favorites, newOffer];
-  } else {
-    state.offers.entity = favorites.filter((favoriteOffer) => favoriteOffer.id !== newOffer.id);
-  }
-};
-
 export const favoriteSlice = createSlice({
   name: 'favorite',
   initialState,
@@ -43,7 +34,13 @@ export const favoriteSlice = createSlice({
         state.offer.status = 'loading';
       })
       .addCase(applyFavorite.fulfilled, (state, action) => {
-        updateFavorites(state, action.payload);
+        const newOffer = action.payload;
+        const favorites = state.offers.entity || [];
+        if (newOffer.isFavorite) {
+          state.offers.entity = [...favorites, newOffer];
+        } else {
+          state.offers.entity = favorites.filter((favoriteOffer) => favoriteOffer.id !== newOffer.id);
+        }
         state.offer.status = 'done';
       })
       .addCase(applyFavorite.rejected, (state) => {

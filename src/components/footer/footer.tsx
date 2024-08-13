@@ -3,7 +3,6 @@ import { Logo } from '../logo';
 
 export const Footer: FC = () => (
   <footer className="footer">
-    <Logo logoType='footer' />
+    <Logo type='footer' />
   </footer>
 );
-

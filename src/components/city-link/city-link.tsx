@@ -15,7 +15,7 @@ const CityLinkComponent: FC<CityLinkProps> = ({ city, isActive = false }) => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
 
-  const handleClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === String(AppRoute.Main)) {
       evt.preventDefault();
     }
@@ -26,7 +26,7 @@ const CityLinkComponent: FC<CityLinkProps> = ({ city, isActive = false }) => {
     <Link
       to={AppRoute.Main}
       className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`}
-      onClick={handleClick}
+      onClick={handleLinkClick}
     >
       <span>{city}</span>
     </Link>

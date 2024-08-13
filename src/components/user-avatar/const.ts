@@ -1,4 +1,4 @@
-import { ComponentSize } from '../../types/common';
+import { ComponentSize } from '../../types/component-size';
 
 export type UserAvatarType = 'offer' | 'reviews';
 type UserAvatarOption = ComponentSize & {

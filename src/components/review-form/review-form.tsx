@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CommentPost, postComment } from '../../store/comment-slice/thunk';
 import { useParams } from 'react-router-dom';
 import { newComment } from '../../store/selectors';
+import { toast } from 'react-toastify';
 
 export const ReviewForm: FC = () => {
   const { id = '' } = useParams();
@@ -15,15 +16,11 @@ export const ReviewForm: FC = () => {
   const [ text, setText ] = useState('');
   const isValidData = inRange(rating, RatingLimit) && inRange(text.length, CommentLimit);
 
-  const handleInputChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target;
-    setRating(Number(value));
-  }, [setRating]);
+  const handleInputChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) =>
+    setRating(Number(evt.target.value)), [setRating]);
 
-  const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const {value} = evt.target;
-    setText(value);
-  };
+  const handleTextareaChange = useCallback((evt: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setText(evt.target.value), [setText]);
 
   const handleSubmitForm = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -36,7 +33,9 @@ export const ReviewForm: FC = () => {
       }
     };
 
-    dispatch(postComment(data));
+    dispatch(postComment(data)).catch((error) => {
+      toast.error(`Post comment error: ${error}`);
+    });
   };
 
   useEffect(() => {
@@ -67,7 +66,7 @@ export const ReviewForm: FC = () => {
               isChecked={value === rating}
               isDisabled={isPosting}
               title={title}
-              onRatingChange={handleInputChange}
+              onChange={handleInputChange}
             />
           ))}
       </div>

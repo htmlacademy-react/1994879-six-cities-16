@@ -4,13 +4,12 @@ import { AppRoute } from '../../const';
 import { FC, memo } from 'react';
 
 type LogoProps = {
-  logoType: LogoType;
+  type: LogoType;
   isActive?: boolean;
 }
 
-const LogoComponent: FC<LogoProps> = ({ logoType , isActive = false }) => {
-  const { width, height } = LogoSettings[logoType];
-  const type = logoType;
+const LogoComponent: FC<LogoProps> = ({ type , isActive = false }) => {
+  const { width, height } = LogoSettings[type];
   const className = `${type}__logo-link ${isActive ? `${type}__logo-link--active` : ''}`;
 
   return (

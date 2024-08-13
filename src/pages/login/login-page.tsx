@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-import { CityLink } from '../components/city-link';
-import { getRandomCity } from '../utils';
-import { useAppDispatch } from '../hooks';
-import { login } from '../store/user-slice/thunk';
-import { LoginEntity } from '../types/user';
-import { CityName } from '../types/city';
+import { CityLink } from '../../components/city-link';
+import { getRandomCity } from '../../utils';
+import { useAppDispatch } from '../../hooks';
+import { login } from '../../store/user-slice/thunk';
+import { LoginEntity } from '../../types/user';
+import { CityName } from '../../types/city';
 
 const emptyLoginEntity: LoginEntity = { email: '', password: '' };
 

@@ -16,11 +16,11 @@ export const activeSortType = createSelector(getAppState, (app) => app.sortType)
 export const userEmail = createSelector(getUserState, (user) => user.user?.email || '');
 export const authorizationStatus = createSelector(getUserState, (user) => user.authorizationStatus);
 
-export const favoritesOffers = createSelector(getFavoriteState, (favorite) => ({
+export const allFavorites = createSelector(getFavoriteState, (favorite) => ({
   favorites: favorite.offers.entity || [],
   isLoading: favorite.offers.status === 'loading',
 }));
-export const favoritesOffersCount = createSelector(
+export const favoritesCount = createSelector(
   getFavoriteState,
   (favorite) => favorite.offers.status === 'done' ? favorite.offers.entity?.length ?? 0 : '...');
 export const isNewFavoriteLoading = createSelector(getFavoriteState, (favorite) => favorite.offer.status === 'loading');

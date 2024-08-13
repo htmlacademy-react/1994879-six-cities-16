@@ -8,7 +8,7 @@ const PlacesSortingComponent: FC = () => {
   const [ isOpened, setIsOpened ] = useState(false);
   const activeSort = useAppSelector(activeSortType);
 
-  const handleOptionClick = (sortType: PlacesSortType) => {
+  const handleSortOptionClick = (sortType: PlacesSortType) => {
     dispatch(selectSortType(sortType));
     setIsOpened(!isOpened);
   };
@@ -28,7 +28,7 @@ const PlacesSortingComponent: FC = () => {
             className={`places__option ${activeSort === key && 'places__option--active'}`}
             tabIndex={0}
             key={key}
-            onClick={() => handleOptionClick(key as PlacesSortType)}
+            onClick={() => handleSortOptionClick(key as PlacesSortType)}
           >
             {PlacesSortOptions[key as PlacesSortType].text}
           </li>

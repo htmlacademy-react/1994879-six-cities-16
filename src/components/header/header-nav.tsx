@@ -3,7 +3,7 @@ import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/user-slice/thunk';
-import { favoritesOffersCount, userEmail } from '../../store/selectors';
+import { favoritesCount, userEmail } from '../../store/selectors';
 import { useAuth } from '../../hooks/use-auth';
 
 
@@ -11,14 +11,14 @@ const HeaderNavComponent: FC = () => {
   const dispatch = useAppDispatch();
   const email = useAppSelector(userEmail);
   const { isAuthorized } = useAuth();
-  const favoritesCount = useAppSelector(favoritesOffersCount);
+  const count = useAppSelector(favoritesCount);
 
   const userInfo = useMemo(() => (
     <>
       <span className="header__user-name user__name">{email}</span>
-      <span className="header__favorite-count">{favoritesCount}</span>
+      <span className="header__favorite-count">{count}</span>
     </>
-  ), [email, favoritesCount]);
+  ), [email, count]);
 
   const handleSignOutClick = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();

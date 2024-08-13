@@ -39,4 +39,10 @@ export const Cities: Record<CityName, City > = {
   Dusseldorf: { name: 'Dusseldorf', location: { latitude: 51.225402, longitude: 6.776314, zoom: 13 } },
 };
 
-export const cityNames = Object.keys(Cities) as CityName[];
+export const cityNames = Object.keys(Cities) as readonly CityName[];
+
+export enum LoadingMessage {
+  Offers = 'Loading offers',
+  Offer = 'Offer loading',
+  Favorites = 'Loading favorites offers',
+}

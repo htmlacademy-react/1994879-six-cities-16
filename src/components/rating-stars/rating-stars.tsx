@@ -1,15 +1,17 @@
-import { FC, memo } from 'react';
+import { FC, memo, useCallback } from 'react';
 
 type RatingStarsProps = {
   value: number;
   title: string;
   isChecked: boolean;
   isDisabled: boolean;
-  onRatingChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, isDisabled, onRatingChange }) => {
+const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, isDisabled, onChange }) => {
   const id = `${value}-stars`;
+
+  const handleInputChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => onChange(evt), [onChange]);
 
   return (
     <>
@@ -21,7 +23,7 @@ const RatingStarsComponent: FC<RatingStarsProps> = ({ value, title, isChecked, i
         type="radio"
         checked={isChecked}
         disabled={isDisabled}
-        onChange={onRatingChange}
+        onChange={handleInputChange}
       />
       <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
         <svg className="form__star-image" width="37" height="33">
