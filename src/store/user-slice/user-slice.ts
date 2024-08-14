@@ -8,7 +8,7 @@ export type UserState = {
   authorizationStatus: AuthorizationStatus;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   user: undefined,
   authorizationStatus: AuthorizationStatus.Unknown,
 };

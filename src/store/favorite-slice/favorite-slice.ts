@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Offer, OfferFull } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { fetchFavorites, applyFavorite } from './thunk';
 import { FetchState } from '../type';
 import { logout } from '../user-slice/thunk';
 
 export type InitialState = {
-  offer: FetchState<OfferFull>;
+  offer: FetchState<Offer>;
   offers: FetchState<Offer[]>;
 }
 
@@ -41,6 +41,7 @@ export const favoriteSlice = createSlice({
         } else {
           state.offers.entity = favorites.filter((favoriteOffer) => favoriteOffer.id !== newOffer.id);
         }
+        state.offer.entity = newOffer;
         state.offer.status = 'done';
       })
       .addCase(applyFavorite.rejected, (state) => {
