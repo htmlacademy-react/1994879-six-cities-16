@@ -2,11 +2,11 @@ import { useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Logo } from '../logo';
 import { FC, memo } from 'react';
-import { HeaderNav } from './header-nav';
+import { HeaderNav } from './header-nav/header-nav';
 
 const HeaderComponent: FC = () => {
   const { pathname } = useLocation();
-  const isActive = pathname.startsWith(AppRoute.Main);
+  const isActive = pathname === String(AppRoute.Main);
   const isLogin = pathname.startsWith(AppRoute.Login);
 
   return (

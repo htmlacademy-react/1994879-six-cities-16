@@ -54,7 +54,7 @@ export const OfferPage: FC = () => {
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
-            {isPremium && <Premium className='offer__mark' />}
+            {isPremium && <Premium type='offer' />}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{title}</h1>
               <BookmarkButton type='offer' offerId={id} isActive={isFavorite}/>

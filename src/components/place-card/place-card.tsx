@@ -32,7 +32,7 @@ const PlaceCardComponent: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }
       onMouseEnter={() => handleCardMouseHover(offer)}
       onMouseLeave={() => handleCardMouseHover(undefined)}
     >
-      {isPremium && <Premium className='place-card__mark'/>}
+      {isPremium && <Premium type='place-card'/>}
       <div className={`${typeCard}__image-wrapper place-card__image-wrapper`}>
         <Link to={offerLink} >
           <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image" />

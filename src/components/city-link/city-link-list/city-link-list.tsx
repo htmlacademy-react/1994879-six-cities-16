@@ -1,7 +1,7 @@
-import { cityNames } from '../../const';
+import { cityNames } from '../../../const';
 import { FC, memo } from 'react';
-import { CityLink } from './city-link';
-import { CityName } from '../../types/city';
+import { CityLink } from '../city-link';
+import { CityName } from '../../../types/city';
 
 type CityLinkListProps = {
   activeCity: CityName;

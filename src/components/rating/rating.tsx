@@ -14,7 +14,7 @@ const RatingComponent: FC<RatingProps> = ({ type, rating }) => {
   return (
     <div className={`${type}__rating rating`}>
       <div className={`${type}__stars rating__stars`}>
-        <span style={{ width: ratingPercent() }}></span>
+        <span style={{ width: ratingPercent() }} data-testId='test-style-with'></span>
         <span className="visually-hidden">Rating</span>
       </div>
       {ratingValue}

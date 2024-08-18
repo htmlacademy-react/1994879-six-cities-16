@@ -3,7 +3,8 @@ import faker from 'faker';
 import { LoggedUser, User } from '../types/user';
 import { Offer, OfferFull } from '../types/offer';
 import { City, Location } from '../types/city';
-import { cityNames } from '../const';
+import { AuthorizationStatus, cityNames, DEFAULT_CITY, Cities } from '../const';
+import { State } from '../hooks';
 
 const makeFakeUser = (): User => ({
   name: faker.name.firstName(),
@@ -67,3 +68,20 @@ export const makeFakeOfferFull = (offer?: Offer) : OfferFull => {
     maxAdults: faker.datatype.number({ min: 1, max: 5 }),
   });
 };
+
+export const makeFakeInitState = (): Partial<State> => ({
+  user: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    user: makeFakeUserWithEmail(),
+  },
+  offers: {
+    offers: {entity: [], status: 'none'},
+    offer: {entity: undefined, status: 'none'},
+    nearOffers: {entity: [], status: 'none'}
+  },
+  favorite: {
+    offer: {entity: undefined, status: 'none'},
+    offers: {entity: [], status: 'none'}
+  },
+  app: { city: Cities[DEFAULT_CITY], sortType: 'popular' },
+});

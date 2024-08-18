@@ -13,7 +13,7 @@ const getCommentState = (state: State) => state.comment;
 export const activeCity = createSelector(getAppState, (app) => app.city);
 export const activeSortType = createSelector(getAppState, (app) => app.sortType);
 
-export const userEmail = createSelector(getUserState, (user) => user.user?.email || '');
+export const userInfo = createSelector(getUserState, (user) => user.user);
 export const authorizationStatus = createSelector(getUserState, (user) => user.authorizationStatus);
 
 export const allFavorites = createSelector(getFavoriteState, (favorite) => ({
