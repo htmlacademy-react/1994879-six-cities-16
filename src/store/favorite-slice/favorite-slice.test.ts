@@ -1,4 +1,4 @@
-import { favoriteSlice, InitialState } from './favorite-slice';
+import { favoriteSlice, FavoriteState } from './favorite-slice';
 import { fetchFavorites, applyFavorite, FavoritePost } from './thunk';
 import { logout } from '../user-slice/thunk';
 import { makeFakeOffer, makeFakeOffers } from '../../mock/mock';
@@ -42,7 +42,7 @@ describe('favoriteSlice reducer', () => {
   it('applyFavorite fulfilled, add to favorites', () => {
     const resultIsFavorite = true;
     const offer: Offer = {...makeFakeOffer(), isFavorite: resultIsFavorite};
-    const sliceState: InitialState = {
+    const sliceState: FavoriteState = {
       offer: {entity: undefined, status: 'none'},
       offers: {entity: [], status: 'none'}
     };
@@ -62,7 +62,7 @@ describe('favoriteSlice reducer', () => {
   it('applyFavorite fulfilled, remove from favorites', () => {
     const resultIsFavorite = false;
     const offer: Offer = {...makeFakeOffer(), isFavorite: resultIsFavorite};
-    const sliceState: InitialState = {
+    const sliceState: FavoriteState = {
       offer: {entity: undefined, status: 'none'},
       offers: {entity: [{...offer, isFavorite: !offer.isFavorite}], status: 'none'}
     };

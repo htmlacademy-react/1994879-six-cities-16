@@ -6,13 +6,13 @@ import { applyFavorite, fetchFavorites } from '../favorite-slice/thunk';
 import { logout } from '../user-slice/thunk';
 import { updateFavorites, updateOfferFavorites } from './utils';
 
-export type InitialState = {
+export type OfferState = {
   offer: FetchState<OfferFull | undefined>;
   offers: FetchState<Offer[]>;
   nearOffers: FetchState<Offer[]>;
 }
 
-const initialState: InitialState = {
+const initialState: OfferState = {
   offer: { entity: undefined, status: 'none' },
   offers: { entity: [], status: 'none' },
   nearOffers: { entity: [], status: 'none' },

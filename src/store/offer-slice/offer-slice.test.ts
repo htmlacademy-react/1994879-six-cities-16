@@ -1,4 +1,4 @@
-import { InitialState, offersSlice } from './offer-slice';
+import { OfferState, offersSlice } from './offer-slice';
 import { FetchStatus } from '../type';
 import { fetchNearOffers, fetchOffer, fetchOffers } from './thunk';
 import { makeFakeOffer, makeFakeOfferFull, makeFakeOffers } from '../../mock/mock';
@@ -8,7 +8,7 @@ import { applyFavorite, FavoritePost, fetchFavorites } from '../favorite-slice/t
 import { logout } from '../user-slice/thunk';
 
 describe('offersSlice reducer', () => {
-  let initialState: InitialState;
+  let initialState: OfferState;
   const pending: FetchStatus = 'loading';
   const rejected: FetchStatus = 'error';
   const fulfilled: FetchStatus = 'done';
@@ -81,7 +81,7 @@ describe('offersSlice reducer', () => {
     const offerFull = {...makeFakeOfferFull(offer), isFavorite: false};
     const favorite = {...offerFull, isFavorite: true };
     const fakePost: FavoritePost = { offerId: favorite.id, status: favorite.isFavorite};
-    const stateWithOffer: InitialState = {...initialState, offer: {entity: {...offerFull, isFavorite: false} , status: 'none'} };
+    const stateWithOffer: OfferState = {...initialState, offer: {entity: {...offerFull, isFavorite: false} , status: 'none'} };
 
     const state = offersSlice.reducer(stateWithOffer, applyFavorite.fulfilled(favorite, '', fakePost));
     expect(updateFavorites).toBeCalledTimes(1);
@@ -91,7 +91,7 @@ describe('offersSlice reducer', () => {
   it('fetchFavorites.fulfilled', () => {
     const offers = makeFakeOffers();
     const favorites = offers.map((offer) => ({...offer, isFavorite: true}));
-    const stateWithOffers: InitialState = {...initialState, offers: {entity: offers , status: 'none'} };
+    const stateWithOffers: OfferState = {...initialState, offers: {entity: offers , status: 'none'} };
 
     const state = offersSlice.reducer(stateWithOffers, fetchFavorites.fulfilled(favorites, '', undefined));
     expect(updateOfferFavorites).toBeCalledTimes(1);
@@ -100,7 +100,7 @@ describe('offersSlice reducer', () => {
 
   it('logout.fulfilled', () => {
     const offers = makeFakeOffers().map((offer) => ({...offer, isFavorite: true}));
-    const stateWithOffers: InitialState = {...initialState, offers: {entity: offers , status: 'none'} };
+    const stateWithOffers: OfferState = {...initialState, offers: {entity: offers , status: 'none'} };
 
     const state = offersSlice.reducer(stateWithOffers, logout.fulfilled(true, '', undefined));
 

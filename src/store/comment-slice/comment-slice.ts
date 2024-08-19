@@ -3,12 +3,12 @@ import { fetchComments, postComment } from './thunk';
 import { Comment } from '../../types/comment';
 import { FetchState } from '../type';
 
-type InitialState = {
+export type CommentState = {
   comments: FetchState<Comment[]>;
   newComment: FetchState<Comment>;
 }
 
-const initialState: InitialState = {
+const initialState: CommentState = {
   comments: { entity: [], status: 'none' },
   newComment: { entity: undefined, status: 'none' },
 };
