@@ -83,5 +83,23 @@ export const makeFakeInitState = (): Partial<State> => ({
     offer: {entity: undefined, status: 'none'},
     offers: {entity: [], status: 'none'}
   },
-  app: { city: Cities[DEFAULT_CITY], sortType: 'popular' },
+  app: {
+    city: Cities[DEFAULT_CITY],
+    sortType: 'popular'
+  },
+  comment: {
+    newComment: {entity: undefined, status: 'none'},
+    comments: {entity: [], status: 'none'}
+  }
 });
+
+export const makeFakeNotAuthState = (): Partial<State> => {
+  const initState = makeFakeInitState();
+  return {
+    ...initState,
+    user: {
+      authorizationStatus: AuthorizationStatus.NoAuth,
+      user: undefined,
+    }
+  };
+};

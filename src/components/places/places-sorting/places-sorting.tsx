@@ -1,7 +1,7 @@
 import { FC, memo, useState } from 'react';
-import { PlacesSortType, PlacesSortOptions } from './const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { activeSortType, selectSortType } from '../../store/selectors';
+import { PlacesSortType, PlacesSortOptions } from '../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { activeSortType, selectSortType } from '../../../store/selectors';
 
 const PlacesSortingComponent: FC = () => {
   const dispatch = useAppDispatch();

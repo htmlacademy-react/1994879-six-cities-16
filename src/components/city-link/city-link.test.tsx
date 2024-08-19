@@ -1,5 +1,5 @@
 // CityLink.test.tsx
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { CityLink } from './city-link';
 import { makeFakeInitState } from '../../mock/mock';
 import { CityName } from '../../types/city';

@@ -5,14 +5,15 @@ import { withRoutes, withStore } from '../../mock/mock-component';
 import { makeFakeInitState, makeFakeOffer, makeFakeUserWithEmail } from '../../mock/mock';
 import { State } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useNavigate } from 'react-router-dom';
 
-const navigateMock = vi.fn();
-vi.mock('react-router-dom', async (importOriginal) => {
-  const actual = await importOriginal();
+const mockedUseNavigate = vi.fn();
+vi.mock('react-router-dom', async () => {
+  const mod = await vi.importActual<typeof import('react-router-dom')>(
+    'react-router-dom'
+  );
   return {
-    ...actual,
-    useNavigate: () => navigateMock,
+    ...mod,
+    useNavigate: () => mockedUseNavigate,
   };
 });
 
@@ -66,12 +67,12 @@ describe('BookmarkButton', () => {
         authorizationStatus: AuthorizationStatus.NoAuth
       }};
     const { withStoreComponent } = withStore(withRoutes(<BookmarkButton type='place-card' offerId={offer.id} isActive={offer.isFavorite} />), notAuthState);
-    (useNavigate as vi.Mock).mockReturnValue(navigateMock);
 
     const { getByRole } = render(withStoreComponent);
     const button = getByRole('button');
     fireEvent.click(button);
 
-    expect(navigateMock).toHaveBeenCalledWith({ route: AppRoute.Login });
+    expect(mockedUseNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedUseNavigate).toHaveBeenCalledWith(AppRoute.Login);
   });
 });

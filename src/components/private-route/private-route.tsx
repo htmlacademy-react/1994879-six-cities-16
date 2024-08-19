@@ -1,7 +1,7 @@
 
+import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { FC } from 'react';
 import { useAuth } from '../../hooks/use-auth';
 
 type Props = {

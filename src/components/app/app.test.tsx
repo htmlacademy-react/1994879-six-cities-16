@@ -1,8 +1,14 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { withStore } from '../../mock/mock-component';
 import App from './app';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { makeFakeInitState, makeFakeNotAuthState } from '../../mock/mock';
+import { State } from '../../hooks';
 
 describe('App component', () => {
+  const initialState = makeFakeInitState();
+  const notAuthState = makeFakeNotAuthState();
+
   it('renders correctly', () => {
     const { withStoreComponent } = withStore(<App />);
     const { getByText } = render(withStoreComponent);
@@ -11,62 +17,27 @@ describe('App component', () => {
   });
 
   it('navigates to login page', () => {
-    const { withStoreComponent } = withStore(<App />);
-    const { getByText, queryByRole } = render(withStoreComponent);
-    fireEvent.click(getByText('Login'));
-    expect(waitFor(() => queryByRole('button'))).toHaveTextContent(/Sign In/i);
+    const { withStoreComponent } = withStore(<App />, notAuthState);
+    const { getByText, getByRole } = render(withStoreComponent);
+
+    const signOutLink = getByText('Sign in');
+    fireEvent.click(signOutLink);
+
+    expect(getByRole('button')).toHaveTextContent('Sign in');
   });
 
-  // it('should render "AuthScreen" when user navigate to "/login"', () => {
-  //   const withHistoryComponent = withHistory(<App />, mockHistory);
-  //   const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-  //   mockHistory.push(AppRoute.Login);
+  it('navigates to favorite page', () => {
+    const email = 'test-email@mail.com';
+    const stubState: Partial<State> = {...initialState, user: {
+      authorizationStatus: AuthorizationStatus.Auth,
+      user: { avatarUrl: '', email: email, isPro: false, name: '', token: '123'},
+    }};
+    const { withStoreComponent } = withStore(<App />, stubState);
+    const { getByText } = render(withStoreComponent);
 
-  //   render(withStoreComponent);
+    const signOutLink = getByText(email);
+    fireEvent.click(signOutLink);
 
-  //   expect(screen.getByText(/Сыграть ещё раз/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/Хотите узнать свой результат\? Представьтесь!/i)).toBeInTheDocument();
-  //   expect(screen.getByLabelText(/Логин/i)).toBeInTheDocument();
-  //   expect(screen.getByLabelText(/Пароль/i)).toBeInTheDocument();
-  // });
-
-  // it('should render "WinScreen" when user navigate to "/result"', () => {
-  //   const withHistoryComponent = withHistory(<App />, mockHistory);
-  //   const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
-  //     USER: { authorizationStatus: AuthorizationStatus.Auth }
-  //   }));
-  //   mockHistory.push(AppRoute.Result);
-
-  //   render(withStoreComponent);
-
-  //   expect(screen.getByText(/Вы настоящий меломан!/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/Вы ответили правильно на 8 вопросов/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/Сыграть ещё раз/i)).toBeInTheDocument();
-  // });
-
-  // it('should render "GameOverScreen" when user navigate to "/lose"', () => {
-  //   const withHistoryComponent = withHistory(<App />, mockHistory);
-  //   const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
-  //     USER: { authorizationStatus: AuthorizationStatus.Auth }
-  //   }));
-  //   mockHistory.push(AppRoute.Lose);
-
-  //   render(withStoreComponent);
-
-  //   expect(screen.getByText(/Какая жалость!/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/Попробовать ещё раз/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/У вас закончились все попытки. Ничего, повезёт в следующий раз!/i)).toBeInTheDocument();
-  // });
-
-  // it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
-  //   const withHistoryComponent = withHistory(<App />, mockHistory);
-  //   const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-  //   const unknownRoute = '/unknown-route';
-  //   mockHistory.push(unknownRoute);
-
-  //   render(withStoreComponent);
-
-  //   expect(screen.getByText('404. Page not found')).toBeInTheDocument();
-  //   expect(screen.getByText('Вернуться на главную')).toBeInTheDocument();
-  // });
+    expect(window.location.pathname).toEqual(AppRoute.Favorites);
+  });
 });

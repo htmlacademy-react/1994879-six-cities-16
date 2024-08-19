@@ -1,62 +1,27 @@
 import { render } from '@testing-library/react';
 import { Layout } from './layout';
-import { withRoutes, withStore } from '../../mock/mock-component';
-import { AppRoute } from '../../const';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { withStore } from '../../mock/mock-component';
+import { HelmetProvider } from 'react-helmet-async';
 
 describe('Layout component', () => {
-  // it('renders correctly', () => {
-  //   const layout = withRoutes(<Layout />, AppRoute.Login);
-  //   const { withStoreComponent } = withStore(layout);
-  //   const { getByText } = render(withStoreComponent);
+  it('renders correctly', () => {
+    const expectedText = 'test outlet';
 
-  //   expect(getByText('Paris')).toBeInTheDocument();
-  //   expect(getByText('Hamburg')).toBeInTheDocument();
-  // });
+    const component = (
+      <HelmetProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<div>{expectedText}</div>} />
+            </Route>
+          </Routes>
+        </MemoryRouter>
+      </HelmetProvider>
+    );
+    const { withStoreComponent } = withStore(component);
 
-  // it('renders correct page class', () => {
-  //   const { container } = render(
-  //     <MemoryRouter initialEntries={[{ pathname: '/favorites' }]}>
-  //       <Layout />
-  //     </MemoryRouter>,
-  //     { initialState }
-  //   );
-
-  //   expect(screen.getByClass('page')).toHaveClass('page--favorites');
-  // });
-
-  // it('renders correct helmet title', () => {
-  //   const { container } = render(
-  //     <MemoryRouter initialEntries={[{ pathname: '/favorites' }]}>
-  //       <Layout />
-  //     </MemoryRouter>,
-  //     { initialState }
-  //   );
-
-  //   expect(screen.getByText('Favorites')).toBeInTheDocument();
-  // });
-
-  // it('renders Header component', () => {
-  //   const { getByText } = render(
-  //     <MemoryRouter initialEntries={[{ pathname: '/' }]}>
-  //       <Layout />
-  //     </MemoryRouter>,
-  //     { initialState }
-  //   );
-
-  //   expect(screen.getByText('Sign out')).toBeInTheDocument();
-  // });
-
-  // it('renders Outlet component', () => {
-  //   const OutletComponent = () => <div>Outlet content</div>;
-  //   const { getByText } = render(
-  //     <MemoryRouter initialEntries={[{ pathname: '/' }]}>
-  //       <Layout>
-  //         <OutletComponent />
-  //       </Layout>
-  //     </MemoryRouter>,
-  //     { initialState }
-  //   );
-
-  //   expect(screen.getByText('Outlet content')).toBeInTheDocument();
-  // });
+    const { getByText } = render(withStoreComponent);
+    expect(getByText(expectedText)).toBeInTheDocument();
+  });
 });

@@ -21,7 +21,7 @@ export const FavoriteCity: FC<FavoriteCityProps> = ({ city, offers }) => {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link to={AppRoute.Main} className="locations__item-link" onClick={handleLinkClick} data-testId='test-location'>
+          <Link to={AppRoute.Main} className="locations__item-link" onClick={handleLinkClick} data-testid='test-location'>
             <span>{city}</span>
           </Link>
         </div>

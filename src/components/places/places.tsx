@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 import { Offer } from '../../types/offer';
 import { PlaceCard } from '../place-card';
-import { PlacesSorting } from './places-sorting';
+import { PlacesSorting } from './places-sorting/places-sorting';
 import { Map } from '../map';
 import { Cities } from '../../const';
 import { CityName } from '../../types/city';

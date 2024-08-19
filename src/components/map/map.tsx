@@ -48,5 +48,5 @@ export const Map: FC<MapProps> = ({ city, offers, selectedOffer}) => {
     };
   }, [city.location, map, offers, selectedOffer, navigate]);
 
-  return <div style={{ height: '100%' }} ref={mapRef}></div>;
+  return <div style={{ height: '100%' }} ref={mapRef} data-testid='test-map'></div>;
 };

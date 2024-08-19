@@ -78,6 +78,7 @@ export const ReviewForm: FC = () => {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleTextareaChange}
         disabled={isPosting}
+        data-testid='test-textarea'
       >
       </textarea>
       <div className="reviews__button-wrapper">
