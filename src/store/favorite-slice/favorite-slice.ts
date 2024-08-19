@@ -4,12 +4,12 @@ import { fetchFavorites, applyFavorite } from './thunk';
 import { FetchState } from '../type';
 import { logout } from '../user-slice/thunk';
 
-export type InitialState = {
+export type FavoriteState = {
   offer: FetchState<Offer>;
   offers: FetchState<Offer[]>;
 }
 
-const initialState: InitialState = {
+const initialState: FavoriteState = {
   offer: { entity: undefined, status: 'none' },
   offers: { entity: [], status: 'none' },
 };

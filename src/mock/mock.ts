@@ -69,7 +69,7 @@ export const makeFakeOfferFull = (offer?: Offer) : OfferFull => {
   });
 };
 
-export const makeFakeInitState = (): Partial<State> => ({
+export const makeFakeInitState = (): State => ({
   user: {
     authorizationStatus: AuthorizationStatus.Auth,
     user: makeFakeUserWithEmail(),
