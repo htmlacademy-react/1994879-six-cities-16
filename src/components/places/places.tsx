@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 import { Offer } from '../../types/offer';
 import { PlaceCard } from '../place-card';
-import { PlacesSorting } from './places-sorting';
+import { PlacesSorting } from './places-sorting/places-sorting';
 import { Map } from '../map';
 import { Cities } from '../../const';
 import { CityName } from '../../types/city';
@@ -21,7 +21,7 @@ export const Places: FC<PlacesProps> = ({ city, offers }) => {
   const sortedOffers = offers.slice().sort(PlacesSortOptions[sortType].sort);
   const cityLocation = Cities[city];
 
-  const handleHover = useCallback((newOffer: Offer | undefined) => {
+  const handleCardHover = useCallback((newOffer: Offer | undefined) => {
     setSelectedOffer(newOffer);
   }, [setSelectedOffer]);
 
@@ -35,7 +35,7 @@ export const Places: FC<PlacesProps> = ({ city, offers }) => {
         <PlacesSorting />
         <div className="cities__places-list places__list tabs__content">
           {sortedOffers.map((offer) =>
-            <PlaceCard key={offer.id} typeCard='cities' offer={offer} onCardHover={handleHover} />
+            <PlaceCard key={offer.id} typeCard='cities' offer={offer} onCardHover={handleCardHover} />
           )}
         </div>
       </section>

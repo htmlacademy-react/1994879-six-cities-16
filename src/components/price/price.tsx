@@ -1,8 +1,9 @@
 import { FC, memo } from 'react';
+import { OfferClassType } from '../../types/offer';
 
 type PriceProps = {
   price: number;
-  type: 'place-card' | 'offer';
+  type: OfferClassType;
 }
 
 const PriceComponent: FC<PriceProps> = ({ price, type }) => (

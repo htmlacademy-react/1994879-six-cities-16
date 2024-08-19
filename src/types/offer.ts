@@ -1,6 +1,8 @@
 import { City, Location } from './city';
 import { User } from './user';
 
+export type OfferClassType = 'place-card' | 'offer';
+
 export type Offer = {
   id: string;
   title: string;

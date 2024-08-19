@@ -1,14 +1,14 @@
 import { FC, memo, useState } from 'react';
-import { PlacesSortType, PlacesSortOptions } from './const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { activeSortType, selectSortType } from '../../store/selectors';
+import { PlacesSortType, PlacesSortOptions } from '../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { activeSortType, selectSortType } from '../../../store/selectors';
 
 const PlacesSortingComponent: FC = () => {
   const dispatch = useAppDispatch();
   const [ isOpened, setIsOpened ] = useState(false);
   const activeSort = useAppSelector(activeSortType);
 
-  const handleOptionClick = (sortType: PlacesSortType) => {
+  const handleSortOptionClick = (sortType: PlacesSortType) => {
     dispatch(selectSortType(sortType));
     setIsOpened(!isOpened);
   };
@@ -28,7 +28,7 @@ const PlacesSortingComponent: FC = () => {
             className={`places__option ${activeSort === key && 'places__option--active'}`}
             tabIndex={0}
             key={key}
-            onClick={() => handleOptionClick(key as PlacesSortType)}
+            onClick={() => handleSortOptionClick(key as PlacesSortType)}
           >
             {PlacesSortOptions[key as PlacesSortType].text}
           </li>

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { FavoriteCity, FavoriteCityProps } from './favorite-city';
+import { FavoriteCity, FavoriteCityProps } from './favorite-city/favorite-city';
 
 type FavoriteListProps = {
   list: FavoriteCityProps[];

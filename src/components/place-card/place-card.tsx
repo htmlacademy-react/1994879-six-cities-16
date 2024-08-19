@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Premium } from '../premium';
 import { Offer } from '../../types/offer';
@@ -16,10 +16,11 @@ type PlaceCardProps = {
 
 const PlaceCardComponent: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }) => {
   const { id, price, title, type, rating, previewImage, isPremium, isFavorite } = offer;
-  const offerLink = getOfferRoute(id);
   const { baseClass, infoClass, width, height } = PlaceCardSettings[typeCard];
 
-  const handleMouseHover = (newOffer: Offer | undefined) => {
+  const offerLink = useMemo(() => getOfferRoute(id), [id]);
+
+  const handleCardMouseHover = (newOffer: Offer | undefined) => {
     if (onCardHover) {
       onCardHover(newOffer);
     }
@@ -28,10 +29,10 @@ const PlaceCardComponent: FC<PlaceCardProps> = ({ offer, typeCard, onCardHover }
   return (
     <article
       className={`${baseClass} place-card`}
-      onMouseEnter={() => handleMouseHover(offer)}
-      onMouseLeave={() => handleMouseHover(undefined)}
+      onMouseEnter={() => handleCardMouseHover(offer)}
+      onMouseLeave={() => handleCardMouseHover(undefined)}
     >
-      {isPremium && <Premium className='place-card__mark'/>}
+      {isPremium && <Premium type='place-card'/>}
       <div className={`${typeCard}__image-wrapper place-card__image-wrapper`}>
         <Link to={offerLink} >
           <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image" />

@@ -1,23 +1,23 @@
-import { FC, useEffect } from 'react';
-import { OfferGallery } from '../components/offer-gallery';
-import { OfferHost } from '../components/offer-host';
-import { OfferReviews } from '../components/offer-reviews/offer-reviews';
-import { PlaceCard } from '../components/place-card';
-import { Premium } from '../components/premium/premium';
+import { FC, useEffect, useMemo } from 'react';
+import { OfferGallery } from '../../components/offer-gallery';
+import { OfferHost } from '../../components/offer-host';
+import { OfferReviews } from '../../components/offer-reviews/offer-reviews';
+import { PlaceCard } from '../../components/place-card';
+import { Premium } from '../../components/premium/premium';
 import { useParams } from 'react-router-dom';
-import { BookmarkButton } from '../components/bookmark-button';
-import { Price } from '../components/price';
-import { Rating } from '../components/rating';
-import { OfferFeatures } from '../components/offer-features';
-import { OfferInside } from '../components/offer-inside';
-import { Map } from '../components/map';
-import { NEARBY_LIMIT } from '../const';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchNearOffers, fetchOffer } from '../store/offer-slice/thunk';
-import { Spinner } from '../components/spinner';
-import { fetchComments } from '../store/comment-slice/thunk';
-import { allComments, allNearOffers, fullOffer } from '../store/selectors';
-import { NotFoundPage } from './not-found/not-found-page';
+import { BookmarkButton } from '../../components/bookmark-button';
+import { Price } from '../../components/price';
+import { Rating } from '../../components/rating';
+import { OfferFeatures } from '../../components/offer-features';
+import { OfferInside } from '../../components/offer-inside';
+import { Map } from '../../components/map';
+import { LoadingMessage, NEARBY_LIMIT } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchNearOffers, fetchOffer } from '../../store/offer-slice/thunk';
+import { Spinner } from '../../components/spinner';
+import { fetchComments } from '../../store/comment-slice/thunk';
+import { allComments, allNearOffers, fullOffer } from '../../store/selectors';
+import { NotFoundPage } from '../not-found/not-found-page';
 
 export const OfferPage: FC = () => {
   const { id = '' } = useParams();
@@ -27,19 +27,17 @@ export const OfferPage: FC = () => {
   const { nearOffers, isLoading: isNearOffersLoading } = useAppSelector(allNearOffers);
 
   useEffect(() => {
-    let isMounted = true;
-    if (isMounted && id) {
+    if (id) {
       dispatch(fetchOffer(id));
       dispatch(fetchNearOffers(id));
       dispatch(fetchComments(id));
     }
-    return () => {
-      isMounted = false;
-    };
   }, [dispatch, id]);
 
+  const limitedNearOffers = useMemo(() => nearOffers.slice(0, NEARBY_LIMIT), [nearOffers]);
+
   if (isOfferLoading) {
-    return <Spinner message='Offer loading' />;
+    return <Spinner message={LoadingMessage.Offer} />;
   }
 
   if (!offer) {
@@ -47,8 +45,6 @@ export const OfferPage: FC = () => {
   }
 
   const { type, bedrooms, maxAdults, images, title, rating, isFavorite, isPremium, price, goods, description, host } = offer;
-  const limitedNearOffers = nearOffers.slice(0, NEARBY_LIMIT);
-  const mapOffers = [...limitedNearOffers, offer];
 
   return (
     <main className="page__main page__main--offer">
@@ -58,7 +54,7 @@ export const OfferPage: FC = () => {
         </div>
         <div className="offer__container container">
           <div className="offer__wrapper">
-            {isPremium && <Premium className='offer__mark' />}
+            {isPremium && <Premium type='offer' />}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{title}</h1>
               <BookmarkButton type='offer' offerId={id} isActive={isFavorite}/>
@@ -74,7 +70,7 @@ export const OfferPage: FC = () => {
           </div>
         </div>
         <section className="offer__map map">
-          <Map city={offer.city} offers={mapOffers} selectedOffer={offer} />
+          <Map city={offer.city} offers={[...limitedNearOffers, offer]} selectedOffer={offer} />
         </section>
       </section>
 

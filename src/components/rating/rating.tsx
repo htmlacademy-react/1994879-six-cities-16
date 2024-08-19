@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useCallback } from 'react';
 import { ratingToPercent } from './utils';
 import { RatingType } from './const';
 
@@ -8,15 +8,16 @@ type RatingProps = {
 }
 
 const RatingComponent: FC<RatingProps> = ({ type, rating }) => {
-  const valueComponent = <span className="offer__rating-value rating__value">{rating}</span>;
+  const ratingValue = type === 'offer' ? <span className="offer__rating-value rating__value">{rating}</span> : null;
+  const ratingPercent = useCallback(() => ratingToPercent(rating), [rating]);
 
   return (
     <div className={`${type}__rating rating`}>
       <div className={`${type}__stars rating__stars`}>
-        <span style={{ width: ratingToPercent(rating) }}></span>
+        <span style={{ width: ratingPercent() }} data-testid='test-style-with'></span>
         <span className="visually-hidden">Rating</span>
       </div>
-      {type === 'offer' && valueComponent}
+      {ratingValue}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoint } from '../../const';
-import { Offer, OfferFull } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { ExtraAxios } from '../type';
 
-type FavoritePost = {
+export type FavoritePost = {
   offerId: string;
   status: boolean;
 }
@@ -16,10 +16,10 @@ export const fetchFavorites = createAsyncThunk<Offer[], undefined, ExtraAxios>(
   }
 );
 
-export const applyFavorite = createAsyncThunk<OfferFull, FavoritePost, ExtraAxios>(
+export const applyFavorite = createAsyncThunk<Offer, FavoritePost, ExtraAxios>(
   'favorite/applyFavorite',
   async ({ offerId, status }, { extra: api }) => {
-    const response = await api.post<OfferFull>(`${Endpoint.Favorite}/${offerId}/${Number(status)}`);
+    const response = await api.post<Offer>(`${Endpoint.Favorite}/${offerId}/${Number(status)}`);
     return response.data;
   }
 );

@@ -1,11 +1,12 @@
 import { FC, memo } from 'react';
+import { OfferClassType } from '../../types/offer';
 
 type PremiumProps = {
-  className: string;
+  type: OfferClassType;
 }
 
-const PremiumComponent: FC<PremiumProps> = ({ className }) => (
-  <div className={className}>
+const PremiumComponent: FC<PremiumProps> = ({ type }) => (
+  <div className={`${type}__mark`} data-testid="test-premium">
     <span>Premium</span>
   </div>
 );

@@ -1,26 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Offer, OfferFull } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { fetchFavorites, applyFavorite } from './thunk';
 import { FetchState } from '../type';
 import { logout } from '../user-slice/thunk';
 
 export type InitialState = {
-  offer: FetchState<OfferFull>;
+  offer: FetchState<Offer>;
   offers: FetchState<Offer[]>;
 }
 
 const initialState: InitialState = {
   offer: { entity: undefined, status: 'none' },
   offers: { entity: [], status: 'none' },
-};
-
-const updateFavorites = (state: InitialState, newOffer: Offer) => {
-  const favorites = state.offers.entity || [];
-  if (newOffer.isFavorite) {
-    state.offers.entity = [...favorites, newOffer];
-  } else {
-    state.offers.entity = favorites.filter((favoriteOffer) => favoriteOffer.id !== newOffer.id);
-  }
 };
 
 export const favoriteSlice = createSlice({
@@ -43,7 +34,14 @@ export const favoriteSlice = createSlice({
         state.offer.status = 'loading';
       })
       .addCase(applyFavorite.fulfilled, (state, action) => {
-        updateFavorites(state, action.payload);
+        const newOffer = action.payload;
+        const favorites = state.offers.entity || [];
+        if (newOffer.isFavorite) {
+          state.offers.entity = [...favorites, newOffer];
+        } else {
+          state.offers.entity = favorites.filter((favoriteOffer) => favoriteOffer.id !== newOffer.id);
+        }
+        state.offer.entity = newOffer;
         state.offer.status = 'done';
       })
       .addCase(applyFavorite.rejected, (state) => {

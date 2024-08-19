@@ -1,8 +1,8 @@
 
-import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
 import { FC } from 'react';
-import { useAppSelector } from '../../hooks';
+import { Navigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useAuth } from '../../hooks/use-auth';
 
 type Props = {
   isLoginLocation?: boolean;
@@ -10,10 +10,15 @@ type Props = {
 }
 
 export const PrivateRoute: FC<Props> = ({ isLoginLocation = false, children }) => {
-  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
-  const redirectRoute = isLoginLocation ? AppRoute.Main : AppRoute.Login;
+  const { isAuthorized } = useAuth();
 
-  return authorizationStatus === (isLoginLocation ? AuthorizationStatus.NoAuth : AuthorizationStatus.Auth)
+  if (isLoginLocation) {
+    return isAuthorized
+      ? <Navigate to={AppRoute.Main} />
+      : children;
+  }
+
+  return isAuthorized
     ? children
-    : <Navigate to={redirectRoute} />;
+    : <Navigate to={AppRoute.Login} />;
 };

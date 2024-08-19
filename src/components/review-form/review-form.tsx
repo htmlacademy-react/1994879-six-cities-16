@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { CommentLimit, DEFAULT_RATING, RatingLimit, Ratings } from './const';
 import { RatingStars } from '../rating-stars';
 import { inRange } from './utils';
@@ -6,24 +6,21 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CommentPost, postComment } from '../../store/comment-slice/thunk';
 import { useParams } from 'react-router-dom';
 import { newComment } from '../../store/selectors';
+import { toast } from 'react-toastify';
 
 export const ReviewForm: FC = () => {
   const { id = '' } = useParams();
   const dispatch = useAppDispatch();
-  const { isPosting } = useAppSelector(newComment);
+  const { isPosting, isSuccess } = useAppSelector(newComment);
   const [ rating, setRating ] = useState(DEFAULT_RATING);
   const [ text, setText ] = useState('');
   const isValidData = inRange(rating, RatingLimit) && inRange(text.length, CommentLimit);
 
-  const handleInputChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target;
-    setRating(Number(value));
-  }, [setRating]);
+  const handleInputChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) =>
+    setRating(Number(evt.target.value)), [setRating]);
 
-  const handleTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const {value} = evt.target;
-    setText(value);
-  };
+  const handleTextareaChange = useCallback((evt: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setText(evt.target.value), [setText]);
 
   const handleSubmitForm = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -35,13 +32,22 @@ export const ReviewForm: FC = () => {
         comment: text,
       }
     };
-    dispatch(postComment(data))
-      .unwrap()
-      .then(() => {
-        setRating(DEFAULT_RATING);
-        setText('');
-      });
+
+    dispatch(postComment(data)).catch((error) => {
+      toast.error(`Post comment error: ${error}`);
+    });
   };
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted && isSuccess) {
+      setRating(DEFAULT_RATING);
+      setText('');
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [isSuccess]);
 
   return (
     <form
@@ -58,8 +64,9 @@ export const ReviewForm: FC = () => {
               key={value}
               value={value}
               isChecked={value === rating}
+              isDisabled={isPosting}
               title={title}
-              onRatingChange={handleInputChange}
+              onChange={handleInputChange}
             />
           ))}
       </div>
@@ -71,6 +78,7 @@ export const ReviewForm: FC = () => {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleTextareaChange}
         disabled={isPosting}
+        data-testid='test-textarea'
       >
       </textarea>
       <div className="reviews__button-wrapper">
