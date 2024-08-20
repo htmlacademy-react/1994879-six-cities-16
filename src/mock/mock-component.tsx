@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { makeFakeInitState } from './mock';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
 type ComponentWithMockStore = {
   withStoreComponent: JSX.Element;
